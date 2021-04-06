@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="soul hystrix插件是网关用来对流量进行熔断的核心实现，使用的是信号量的方式来处理请求。 什么是Hystrix？在分布式环境中，不可避免地会有许多服务依赖项中的某些失败。Hystrix是一个库，可通过添加延迟公差和容错逻辑来帮助控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，停止服务之间的级联故障并提供后备选项来实现此目的，所有这些都可以提高系统的整体弹性。 Hyst">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/04/06/soul-hystrix-plugin-01/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="soul hystrix插件是网关用来对流量进行熔断的核心实现，使用的是信号量的方式来处理请求。 什么是Hystrix？在分布式环境中，不可避免地会有许多服务依赖项中的某些失败。Hystrix是一个库，可通过添加延迟公差和容错逻辑来帮助控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，停止服务之间的级联故障并提供后备选项来实现此目的，所有这些都可以提高系统的整体弹性。 Hyst">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2021/04/06/soul-hystrix-plugin-01/assets/20210129221251-ro5b9qf-soa-1-640.png">
+<meta property="og:image" content="http://example.com/2021/04/06/soul-hystrix-plugin-01/assets/20210129221417-5oler0x-soa-2-640.png">
+<meta property="og:image" content="http://example.com/2021/04/06/soul-hystrix-plugin-01/assets/20210129221629-i1bcn6h-soa-3-640.png">
+<meta property="og:image" content="http://example.com/2021/04/06/soul-hystrix-plugin-01/assets/20210129222225-9vtj0c7-soa-4-isolation-640.png">
+<meta property="og:image" content="http://example.com/2021/04/06/soul-hystrix-plugin-01/assets/20210129231901-dcf7ysi-image.png">
+<meta property="og:image" content="http://example.com/2021/04/06/soul-hystrix-plugin-01/assets/20210129232041-oyhupoy-image.png">
+<meta property="article:published_time" content="2021-04-06T01:53:38.486Z">
+<meta property="article:modified_time" content="2021-02-01T09:07:33.014Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/04/06/soul-hystrix-plugin-01/assets/20210129221251-ro5b9qf-soa-1-640.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-soul-hystrix-plugin-01" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/04/06/soul-hystrix-plugin-01/" class="article-date">
+  <time class="dt-published" datetime="2021-04-06T01:53:38.486Z" itemprop="datePublished">2021-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>soul hystrix插件是网关用来对流量进行熔断的核心实现，使用的是信号量的方式来处理请求。</p>
+<h2 id="什么是Hystrix？"><a href="#什么是Hystrix？" class="headerlink" title="什么是Hystrix？"></a>什么是Hystrix？</h2><p>在分布式环境中，不可避免地会有许多服务依赖项中的某些失败。Hystrix是一个库，可通过添加延迟公差和容错逻辑来帮助控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，停止服务之间的级联故障并提供后备选项来实现此目的，所有这些都可以提高系统的整体弹性。</p>
+<h2 id="Hystrix的作用是什么？"><a href="#Hystrix的作用是什么？" class="headerlink" title="Hystrix的作用是什么？"></a>Hystrix的作用是什么？</h2><ul>
+<li>提供保护并控制延迟和失败，以及通过第三方客户端库（通常是通过网络）访问的依赖项的失败。</li>
+<li>停止复杂的分布式系统中的级联故障。</li>
+<li>快速失败并快速恢复。</li>
+<li>回退并在可能的情况下正常降级。</li>
+<li>启用近乎实时的监视，警报和操作控制。</li>
+</ul>
+<h2 id="Hystrix解决什么问题？"><a href="#Hystrix解决什么问题？" class="headerlink" title="Hystrix解决什么问题？"></a>Hystrix解决什么问题？</h2><p>复杂分布式体系结构中的应用程序具有数十种依赖关系，每种依赖关系不可避免地会在某个时刻失败。如果主机应用程序未与这些外部故障隔离开来，则会收到影响甚至拖垮。</p>
+<p>当一切正常时，请求流如下所示：</p>
+<p><img src="assets/20210129221251-ro5b9qf-soa-1-640.png" alt="soa1640.png"></p>
+<p>当许多后端系统之一变得潜在时，它可以阻止整个用户请求：</p>
+<p><img src="assets/20210129221417-5oler0x-soa-2-640.png" alt="soa2640.png"></p>
+<p>随着高流量，单个后端依赖关系变得潜在，这可能导致所有服务器上的所有资源在几秒钟内变得饱和。</p>
+<p>应用程序中可能会导致网络请求的，通过网络或客户端库延伸的每个点都是潜在故障的根源。比故障更糟糕的是，这些应用程序还会导致服务之间的等待时间增加，从而备份队列，线程和其他系统资源，从而导致整个系统出现更多级联故障。</p>
+<p><img src="assets/20210129221629-i1bcn6h-soa-3-640.png" alt="soa3640.png"></p>
+<p>当通过第三方客户端执行网络访问时，这些问题会更加严重。“第三方”是一个隐藏了实施细节的“黑匣子”，可以随时更改，并且每个客户端库的网络或资源配置都不相同，并且通常难以监视和监控。更改。</p>
+<p>更糟糕的是，传递依赖项会执行潜在的昂贵或易出错的网络调用，而不会被应用程序明确调用。</p>
+<p>网络连接失败或降级。服务和服务器出现故障或变慢。新的库或服务部署会更改行为或性能特征。客户端库有错误。</p>
+<p>所有这些都代表需要隔离和管理的故障和延迟，以使单个故障依赖项无法关闭整个应用程序或系统。</p>
+<h2 id="Hystrix的设计原则是什么？"><a href="#Hystrix的设计原则是什么？" class="headerlink" title="Hystrix的设计原则是什么？"></a>Hystrix的设计原则是什么？</h2><ul>
+<li>防止任何单个依赖项耗尽所有容器（例如Tomcat）用户线程。</li>
+<li>减少负载并快速失败，而不是排队。</li>
+<li>在可行的情况下提供备用，以保护用户免受故障的影响。</li>
+<li>使用隔离技术（例如隔板，泳道和断路器模式）来限制任何一种依赖关系的影响。</li>
+<li>通过近实时指标，监视和警报优化发现时间</li>
+<li>通过在Hystrix的大多数方面中以低延迟传播配置更改来优化恢复时间，并支持动态属性更改，这可以通过低延迟反馈回路进行实时操作修改。</li>
+<li>防止整个依赖项客户端执行失败，而不仅仅是网络流量失败。</li>
+</ul>
+<h2 id="Hystrix如何实现其目标？"><a href="#Hystrix如何实现其目标？" class="headerlink" title="Hystrix如何实现其目标？"></a>Hystrix如何实现其目标？</h2><ul>
+<li>将对外部系统（或“依赖项”）的所有调用包装在通常在单独线程中执行的<code>HystrixCommand</code>或<code>HystrixObservableCommand</code>对象中（这是<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Command_pattern">命令模式</a>的示例）。</li>
+<li>超时呼叫花费的时间超过您定义的阈值。有一个默认值，但是对于大多数依赖项，您可以通过“属性”自定义设置这些超时，以使它们略高于针对每个依赖项测得的99.5个百分点的性能。</li>
+<li>为每个依赖项维护一个小的线程池（或信号灯）；如果已满，发往该依赖项的请求将立即被拒绝，而不是排队。</li>
+<li>测量成功，失败（客户端抛出的异常），超时和线程拒绝。</li>
+<li>如果某个服务的错误百分比超过阈值，则使断路器跳闸，以在一段时间内手动或自动停止所有对特定服务的请求。</li>
+<li>当请求失败，被拒绝，超时或短路时执行回退逻辑。</li>
+<li>几乎实时监控指标和配置更改。</li>
+</ul>
+<h2 id="使用Hystrix后的系统"><a href="#使用Hystrix后的系统" class="headerlink" title="使用Hystrix后的系统"></a>使用Hystrix后的系统</h2><p><img src="assets/20210129222225-9vtj0c7-soa-4-isolation-640.png" alt="soa4isolation640.png"></p>
+<p>当使用Hystrix封装每个基础依赖项时，每个依赖项都是相互隔离的，受到延迟时发生饱和的资源的限制，并包含回退逻辑，该逻辑决定了在依赖项中发生任何类型的故障时做出什么响应。</p>
+<h2 id="soul-中如何使用Hystrix插件"><a href="#soul-中如何使用Hystrix插件" class="headerlink" title="soul 中如何使用Hystrix插件"></a>soul 中如何使用Hystrix插件</h2><ul>
+<li>网关中引入依赖</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dromara<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>soul-spring-boot-starter-plugin-hystrix<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;last.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>开启插件，配置选择器、规则</li>
+</ul>
+<p><img src="assets/20210129231901-dcf7ysi-image.png" alt="image.png"></p>
+<ul>
+<li>模拟一个超时请求</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/findByUserId&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> UserDTO <span class="title">findByUserId</span><span class="params">(<span class="meta">@RequestParam(&quot;userId&quot;)</span> <span class="keyword">final</span> String userId)</span> </span>&#123;</span><br><span class="line">    UserDTO userDTO = <span class="keyword">new</span> UserDTO();</span><br><span class="line">    userDTO.setUserId(userId);</span><br><span class="line">    userDTO.setUserName(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> userDTO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>请求接口获得响应，发现已经执行了降级处理</li>
+</ul>
+<p><img src="assets/20210129232041-oyhupoy-image.png" alt="image.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/04/06/soul-hystrix-plugin-01/" data-id="ckn5dfeo20005qkvndwdb7tvk" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/04/06/soul-hystrix-plugin-02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/04/06/soul-http-sync-data/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/06/soul-http-client-register/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-global-plugin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-dubbo-run/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-dubbo-plugin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-divide-plugin/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="上一篇我们已经了解了RateLimiter插件的大致原理和使用方法。今天我们再从微观层面再来探个究竟。 请求来了以后由SoulWebHandler进行进行处理，把封装请求信息的对象ServerWebExchange放入 DefaultSoulPluginChain职责链中按照插件排序逐一进行处理。 123456public Mono&lt;Void&gt; handle(@NonNull fina">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/04/06/soul-rate_limiter-plugin-02/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="上一篇我们已经了解了RateLimiter插件的大致原理和使用方法。今天我们再从微观层面再来探个究竟。 请求来了以后由SoulWebHandler进行进行处理，把封装请求信息的对象ServerWebExchange放入 DefaultSoulPluginChain职责链中按照插件排序逐一进行处理。 123456public Mono&lt;Void&gt; handle(@NonNull fina">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-06T01:53:38.529Z">
+<meta property="article:modified_time" content="2021-02-01T09:07:33.015Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-soul-rate_limiter-plugin-02" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/04/06/soul-rate_limiter-plugin-02/" class="article-date">
+  <time class="dt-published" datetime="2021-04-06T01:53:38.529Z" itemprop="datePublished">2021-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>上一篇我们已经了解了<code>RateLimiter</code>插件的大致原理和使用方法。今天我们再从微观层面再来探个究竟。</p>
+<p>请求来了以后由<code>SoulWebHandler</code>进行进行处理，把封装请求信息的对象ServerWebExchange放入</p>
+<p><code>DefaultSoulPluginChain</code>职责链中按照插件排序逐一进行处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">handle</span><span class="params">(<span class="meta">@NonNull</span> <span class="keyword">final</span> ServerWebExchange exchange)</span> </span>&#123;</span><br><span class="line">    MetricsTrackerFacade.getInstance().counterInc(MetricsLabelEnum.REQUEST_TOTAL.getName());</span><br><span class="line">    Optional&lt;HistogramMetricsTrackerDelegate&gt; startTimer = MetricsTrackerFacade.getInstance().histogramStartTimer(MetricsLabelEnum.REQUEST_LATENCY.getName());</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> DefaultSoulPluginChain(plugins).execute(exchange).subscribeOn(scheduler)</span><br><span class="line">            .doOnSuccess(t -&gt; startTimer.ifPresent(time -&gt; MetricsTrackerFacade.getInstance().histogramObserveDuration(time)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先是执行插件抽象基类<code>AbstractSoulPlugin</code>的execute方法做统一的一些处理。校验插件是否配置、插件是否开启、选择器是否配置、选择器是否开启、选取匹配的选择器、规则是否配置、选取匹配的规则。不过指定一提的是，这里设计得很棒，选择器、规则都是通过SPI的方式进行加载，可直接扩展。一切准备就绪，最核心的地方来了。选取好的选择器数据、规则数据传给子类<code>RateLimiterPlugin</code>，执行核心方法doExecute。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Mono&lt;Void&gt; <span class="title">doExecute</span><span class="params">(<span class="keyword">final</span> ServerWebExchange exchange, <span class="keyword">final</span> SoulPluginChain chain, <span class="keyword">final</span> SelectorData selector, <span class="keyword">final</span> RuleData rule)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> String handle = rule.getHandle();</span><br><span class="line">    <span class="keyword">final</span> RateLimiterHandle limiterHandle = GsonUtils.getInstance().fromJson(handle, RateLimiterHandle.class);</span><br><span class="line">    <span class="keyword">return</span> redisRateLimiter.isAllowed(rule.getId(), limiterHandle.getReplenishRate(), limiterHandle.getBurstCapacity())</span><br><span class="line">            .flatMap(response -&gt; &#123;</span><br><span class="line">                <span class="keyword">if</span> (!response.isAllowed()) &#123;</span><br><span class="line">                    exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);</span><br><span class="line">                    Object error = SoulResultWrap.error(SoulResultEnum.TOO_MANY_REQUESTS.getCode(), SoulResultEnum.TOO_MANY_REQUESTS.getMsg(), <span class="keyword">null</span>);</span><br><span class="line">                    <span class="keyword">return</span> WebFluxResultUtils.result(exchange, error);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> chain.execute(exchange);</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还记得上一篇文章说到<code>rateLimiter</code>插件的两个信息配置参数：</p>
+<p><strong>rate：是你允许用户每秒执行多少请求，而丢弃任何请求。这是令牌桶的填充速率。</strong></p>
+<p>capacity：是允许用户在一秒钟内执行的最大请求数。这是令牌桶可以保存的令牌数。</p>
+<p>这里从json反序列化出来放到了RateLimiterHandle对象中进行使用。我看到，这两个参数直接传给了<code>RedisRateLimiter</code>的isAllowed方法。如果调用后返回信息<code>RateLimiterResponse</code>的allowed为true，那么就表示获取到了令牌，请求可以通过，继续执行下一个插件，否则中断处理直接响应结果。</p>
+<p>那么isAllowed方法做了什么呢？继续往下探究。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Mono&lt;RateLimiterResponse&gt; <span class="title">isAllowed</span><span class="params">(<span class="keyword">final</span> String id, <span class="keyword">final</span> <span class="keyword">double</span> replenishRate, <span class="keyword">final</span> <span class="keyword">double</span> burstCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.initialized.get()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;RedisRateLimiter is not initialized&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;String&gt; keys = getKeys(id);</span><br><span class="line">    List&lt;String&gt; scriptArgs = Arrays.asList(replenishRate + <span class="string">&quot;&quot;</span>, burstCapacity + <span class="string">&quot;&quot;</span>, Instant.now().getEpochSecond() + <span class="string">&quot;&quot;</span>, <span class="string">&quot;1&quot;</span>);</span><br><span class="line">    Flux&lt;List&lt;Long&gt;&gt; resultFlux = Singleton.INST.get(ReactiveRedisTemplate.class).execute(<span class="keyword">this</span>.script, keys, scriptArgs);</span><br><span class="line">    <span class="keyword">return</span> resultFlux.onErrorResume(throwable -&gt; Flux.just(Arrays.asList(<span class="number">1L</span>, -<span class="number">1L</span>)))</span><br><span class="line">            .reduce(<span class="keyword">new</span> ArrayList&lt;Long&gt;(), (longs, l) -&gt; &#123;</span><br><span class="line">                longs.addAll(l);</span><br><span class="line">                <span class="keyword">return</span> longs;</span><br><span class="line">            &#125;).map(results -&gt; &#123;</span><br><span class="line">                <span class="keyword">boolean</span> allowed = results.get(<span class="number">0</span>) == <span class="number">1L</span>;</span><br><span class="line">                Long tokensLeft = results.get(<span class="number">1</span>);</span><br><span class="line">                RateLimiterResponse rateLimiterResponse = <span class="keyword">new</span> RateLimiterResponse(allowed, tokensLeft);</span><br><span class="line">                log.info(<span class="string">&quot;RateLimiter response:&#123;&#125;&quot;</span>, rateLimiterResponse.toString());</span><br><span class="line">                <span class="keyword">return</span> rateLimiterResponse;</span><br><span class="line">            &#125;).doOnError(throwable -&gt; log.error(<span class="string">&quot;Error determining if user allowed from redis:&#123;&#125;&quot;</span>, throwable.getMessage()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>构造一个redis keys数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;String&gt; <span class="title">getKeys</span><span class="params">(<span class="keyword">final</span> String id)</span> </span>&#123;</span><br><span class="line">    String prefix = <span class="string">&quot;request_rate_limiter.&#123;&quot;</span> + id;</span><br><span class="line">    String tokenKey = prefix + <span class="string">&quot;&#125;.tokens&quot;</span>;</span><br><span class="line">    String timestampKey = prefix + <span class="string">&quot;&#125;.timestamp&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> Arrays.asList(tokenKey, timestampKey);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>redis脚本参数数组:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; scriptArgs = Arrays.asList(replenishRate + <span class="string">&quot;&quot;</span>, burstCapacity + <span class="string">&quot;&quot;</span>, Instant.now().getEpochSecond() + <span class="string">&quot;&quot;</span>, <span class="string">&quot;1&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>调用初始化的时候加载好的lua脚本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> RedisScript&lt;List&lt;Long&gt;&gt; redisScript() &#123;</span><br><span class="line">    DefaultRedisScript redisScript = <span class="keyword">new</span> DefaultRedisScript&lt;&gt;();</span><br><span class="line">    redisScript.setScriptSource(<span class="keyword">new</span> ResourceScriptSource(<span class="keyword">new</span> ClassPathResource(<span class="string">&quot;/META-INF/scripts/request_rate_limiter.lua&quot;</span>)));</span><br><span class="line">    redisScript.setResultType(List.class);</span><br><span class="line">    <span class="keyword">return</span> redisScript;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后把脚本的执行结果放入<code>RateLimiterResponse</code>返回。</p>
+<p>由此看到，<code>RateLimiter</code>插件使用Redis实现了令牌桶算法，这就天然支持了分布式。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tokens_key = KEYS[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">local</span> timestamp_key = KEYS[<span class="number">2</span>]</span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;tokens_key &quot; .. tokens_key)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> rate = <span class="built_in">tonumber</span>(ARGV[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">local</span> capacity = <span class="built_in">tonumber</span>(ARGV[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">local</span> now = <span class="built_in">tonumber</span>(ARGV[<span class="number">3</span>])</span><br><span class="line"><span class="keyword">local</span> requested = <span class="built_in">tonumber</span>(ARGV[<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> fill_time = capacity/rate</span><br><span class="line"><span class="keyword">local</span> ttl = <span class="built_in">math</span>.<span class="built_in">floor</span>(fill_time*<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;rate &quot; .. ARGV[1])</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;capacity &quot; .. ARGV[2])</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;now &quot; .. ARGV[3])</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;requested &quot; .. ARGV[4])</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;filltime &quot; .. fill_time)</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;ttl &quot; .. ttl)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> last_tokens = <span class="built_in">tonumber</span>(redis.call(<span class="string">&quot;get&quot;</span>, tokens_key))</span><br><span class="line"><span class="keyword">if</span> last_tokens == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">  last_tokens = capacity</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;last_tokens &quot; .. last_tokens)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> last_refreshed = <span class="built_in">tonumber</span>(redis.call(<span class="string">&quot;get&quot;</span>, timestamp_key))</span><br><span class="line"><span class="keyword">if</span> last_refreshed == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">  last_refreshed = <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;last_refreshed &quot; .. last_refreshed)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> delta = <span class="built_in">math</span>.<span class="built_in">max</span>(<span class="number">0</span>, now-last_refreshed)</span><br><span class="line"><span class="keyword">local</span> filled_tokens = <span class="built_in">math</span>.<span class="built_in">min</span>(capacity, last_tokens+(delta*rate))</span><br><span class="line"><span class="keyword">local</span> allowed = filled_tokens &gt;= requested</span><br><span class="line"><span class="keyword">local</span> new_tokens = filled_tokens</span><br><span class="line"><span class="keyword">local</span> allowed_num = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> allowed <span class="keyword">then</span></span><br><span class="line">  new_tokens = filled_tokens - requested</span><br><span class="line">  allowed_num = <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;delta &quot; .. delta)</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;filled_tokens &quot; .. filled_tokens)</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;allowed_num &quot; .. allowed_num)</span></span><br><span class="line"><span class="comment">--redis.log(redis.LOG_WARNING, &quot;new_tokens &quot; .. new_tokens)</span></span><br><span class="line"></span><br><span class="line">redis.call(<span class="string">&quot;setex&quot;</span>, tokens_key, ttl, new_tokens)</span><br><span class="line">redis.call(<span class="string">&quot;setex&quot;</span>, timestamp_key, ttl, now)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> &#123; allowed_num, new_tokens &#125;</span><br></pre></td></tr></table></figure>
+
+<p>至于这个令牌桶的具体脚本实现逻辑，我们且看下回分解。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/04/06/soul-rate_limiter-plugin-02/" data-id="ckn5dfeo8000cqkvn2p4t17ho" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/04/06/soul-rate_limiter-plugin-03/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/04/06/soul-rate_limiter-plugin-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/06/soul-http-client-register/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-global-plugin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-dubbo-run/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-dubbo-plugin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-divide-plugin/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

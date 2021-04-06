@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="dubbo插件的作用是什么？dubbo插件是将http协议 转换成dubbo协议 的插件,也是网关实现dubbo泛化调用的关键。 什么是泛化调用？泛化接口调用方式主要用于客户端没有 API 接口及模型类元的情况，参数及返回值中的所有 POJO 均用 Map 表示，通常用于框架集成，比如：实现一个通用的服务测试框架，可通过 GenericService 调用所有服务实现。 为什么使用泛化调用？一般使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/04/06/soul-dubbo-plugin/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="dubbo插件的作用是什么？dubbo插件是将http协议 转换成dubbo协议 的插件,也是网关实现dubbo泛化调用的关键。 什么是泛化调用？泛化接口调用方式主要用于客户端没有 API 接口及模型类元的情况，参数及返回值中的所有 POJO 均用 Map 表示，通常用于框架集成，比如：实现一个通用的服务测试框架，可通过 GenericService 调用所有服务实现。 为什么使用泛化调用？一般使">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-06T01:53:38.733Z">
+<meta property="article:modified_time" content="2021-01-21T07:16:18.590Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-soul-dubbo-plugin" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/04/06/soul-dubbo-plugin/" class="article-date">
+  <time class="dt-published" datetime="2021-04-06T01:53:38.733Z" itemprop="datePublished">2021-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="dubbo插件的作用是什么？"><a href="#dubbo插件的作用是什么？" class="headerlink" title="dubbo插件的作用是什么？"></a>dubbo插件的作用是什么？</h4><p>dubbo插件是将<code>http协议</code> 转换成<code>dubbo协议</code> 的插件,也是网关实现dubbo泛化调用的关键。</p>
+<h4 id="什么是泛化调用？"><a href="#什么是泛化调用？" class="headerlink" title="什么是泛化调用？"></a>什么是泛化调用？</h4><p>泛化接口调用方式主要用于客户端没有 API 接口及模型类元的情况，参数及返回值中的所有 POJO 均用 Map 表示，通常用于框架集成，比如：实现一个通用的服务测试框架，可通过 GenericService 调用所有服务实现。</p>
+<h4 id="为什么使用泛化调用？"><a href="#为什么使用泛化调用？" class="headerlink" title="为什么使用泛化调用？"></a>为什么使用泛化调用？</h4><p>一般使用dubbo，provider端需要暴露出接口和方法，consumer端要十分明确服务使用的接口定义和方法定义（还有入参返参类型等等信息，常常还需要基于provider端提供的API），两端才能正常通信调用。然而存在一种使用场景，调用方并不关心要调用的接口的详细定义，它只关注我要调用哪个方法，需要传什么参数，我能接收到什么返回结果即可，这样可以大大降低consumer端和provider端的耦合性。所以为了应对以上的需求，dubbo提供了泛化调用，也就是在consumer只知道一个接口全限定名以及入参和返参的情况下，就可以调用provider端的调用，而不需要传统的接口定义这些繁杂的结构。</p>
+<h4 id="dubbo插件如何工作？"><a href="#dubbo插件如何工作？" class="headerlink" title="dubbo插件如何工作？"></a>dubbo插件如何工作？</h4><p>soul网关把http请求参数转换为泛化参数后根据元数据进行dubbo泛化调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    protected Mono&lt;Void&gt; doExecute(final ServerWebExchange exchange, final SoulPluginChain chain, final SelectorData selector, final RuleData rule) &#123;</span><br><span class="line">        &#x2F;&#x2F; 获取请求体数据</span><br><span class="line">        String body &#x3D; exchange.getAttribute(Constants.DUBBO_PARAMS);</span><br><span class="line">        SoulContext soulContext &#x3D; exchange.getAttribute(Constants.CONTEXT);</span><br><span class="line">        assert soulContext !&#x3D; null;</span><br><span class="line">        &#x2F;&#x2F; 获取dubbo元数据</span><br><span class="line">        MetaData metaData &#x3D; exchange.getAttribute(Constants.META_DATA);</span><br><span class="line">        if (!checkMetaData(metaData)) &#123;</span><br><span class="line">            assert metaData !&#x3D; null;</span><br><span class="line">            log.error(&quot; path is :&#123;&#125;, meta data have error.... &#123;&#125;&quot;, soulContext.getPath(), metaData.toString());</span><br><span class="line">            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);</span><br><span class="line">            Object error &#x3D; SoulResultWrap.error(SoulResultEnum.META_DATA_ERROR.getCode(), SoulResultEnum.META_DATA_ERROR.getMsg(), null);</span><br><span class="line">            return WebFluxResultUtils.result(exchange, error);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 如果又参数类型而无请求体参数则报错</span><br><span class="line">        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) &amp;&amp; StringUtils.isBlank(body)) &#123;</span><br><span class="line">            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);</span><br><span class="line">            Object error &#x3D; SoulResultWrap.error(SoulResultEnum.DUBBO_HAVE_BODY_PARAM.getCode(), SoulResultEnum.DUBBO_HAVE_BODY_PARAM.getMsg(), null);</span><br><span class="line">            return WebFluxResultUtils.result(exchange, error);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; dubbo泛化调用</span><br><span class="line">        final Mono&lt;Object&gt; result &#x3D; dubboProxyService.genericInvoker(body, metaData, exchange);</span><br><span class="line">        return result.then(chain.execute(exchange));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public Mono&lt;Object&gt; genericInvoker(final String body, final MetaData metaData, final ServerWebExchange exchange) throws SoulException &#123;</span><br><span class="line">        &#x2F;&#x2F; issue(https:&#x2F;&#x2F;github.com&#x2F;dromara&#x2F;soul&#x2F;issues&#x2F;471), add dubbo tag route</span><br><span class="line">        &#x2F;&#x2F; 如果存在tag标签则放入</span><br><span class="line">        String dubboTagRouteFromHttpHeaders &#x3D; exchange.getRequest().getHeaders().getFirst(Constants.DUBBO_TAG_ROUTE);</span><br><span class="line">        if (StringUtils.isNotBlank(dubboTagRouteFromHttpHeaders)) &#123;</span><br><span class="line">            RpcContext.getContext().setAttachment(CommonConstants.TAG_KEY, dubboTagRouteFromHttpHeaders);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 缓存中获取服务引用</span><br><span class="line">        ReferenceConfig&lt;GenericService&gt; reference &#x3D; ApplicationConfigCache.getInstance().get(metaData.getPath());</span><br><span class="line">        if (Objects.isNull(reference) || StringUtils.isEmpty(reference.getInterface())) &#123;</span><br><span class="line">            ApplicationConfigCache.getInstance().invalidate(metaData.getPath());</span><br><span class="line">            reference &#x3D; ApplicationConfigCache.getInstance().initRef(metaData);</span><br><span class="line">        &#125;</span><br><span class="line">        GenericService genericService &#x3D; reference.get();</span><br><span class="line">        &#x2F;&#x2F; json参数转化为dubbo泛化参数</span><br><span class="line">        Pair&lt;String[], Object[]&gt; pair;</span><br><span class="line">        if (ParamCheckUtils.dubboBodyIsEmpty(body)) &#123;</span><br><span class="line">            pair &#x3D; new ImmutablePair&lt;&gt;(new String[]&#123;&#125;, new Object[]&#123;&#125;);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            pair &#x3D; dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 真正调用dubbo服务</span><br><span class="line">        CompletableFuture&lt;Object&gt; future &#x3D; genericService.$invokeAsync(metaData.getMethodName(), pair.getLeft(), pair.getRight());</span><br><span class="line">        return Mono.fromFuture(future.thenApply(ret -&gt; &#123;</span><br><span class="line">            if (Objects.isNull(ret)) &#123;</span><br><span class="line">                ret &#x3D; Constants.DUBBO_RPC_RESULT_EMPTY;</span><br><span class="line">            &#125;</span><br><span class="line">            exchange.getAttributes().put(Constants.DUBBO_RPC_RESULT, ret);</span><br><span class="line">            exchange.getAttributes().put(Constants.CLIENT_RESPONSE_RESULT_TYPE, ResultEnum.SUCCESS.getName());</span><br><span class="line">            return ret;</span><br><span class="line">        &#125;)).onErrorMap(exception -&gt; exception instanceof GenericException ? new SoulException(((GenericException) exception).getExceptionMessage()) : new SoulException(exception));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/04/06/soul-dubbo-plugin/" data-id="ckn5dfeo00002qkvn5cmb4an2" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/04/06/soul-dubbo-run/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/04/06/soul-divide-plugin/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/06/soul-http-client-register/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-global-plugin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-dubbo-run/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-dubbo-plugin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-divide-plugin/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

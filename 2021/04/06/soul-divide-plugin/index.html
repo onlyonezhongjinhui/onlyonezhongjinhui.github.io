@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="divide plugin是什么？ divide插件是网关处理 http协议请求的核心处理插件。 divide插件是进行http正向代理的插件，所有http类型的请求，都是由该插件进行负载均衡的调用。  divide plugin如何工作？soul plugin 通过职责链模式串联。初始化网关的web服务SoulWebHandler时候加载了所有配置的插件保存在DefaultSoulPluginC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/04/06/soul-divide-plugin/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="divide plugin是什么？ divide插件是网关处理 http协议请求的核心处理插件。 divide插件是进行http正向代理的插件，所有http类型的请求，都是由该插件进行负载均衡的调用。  divide plugin如何工作？soul plugin 通过职责链模式串联。初始化网关的web服务SoulWebHandler时候加载了所有配置的插件保存在DefaultSoulPluginC">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-06T01:53:38.723Z">
+<meta property="article:modified_time" content="2021-01-21T07:16:18.590Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-soul-divide-plugin" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/04/06/soul-divide-plugin/" class="article-date">
+  <time class="dt-published" datetime="2021-04-06T01:53:38.723Z" itemprop="datePublished">2021-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="divide-plugin是什么？"><a href="#divide-plugin是什么？" class="headerlink" title="divide plugin是什么？"></a>divide plugin是什么？</h4><ol>
+<li>divide插件是网关处理 <code>http协议</code>请求的核心处理插件。</li>
+<li>divide插件是进行http正向代理的插件，所有http类型的请求，都是由该插件进行负载均衡的调用。</li>
+</ol>
+<h4 id="divide-plugin如何工作？"><a href="#divide-plugin如何工作？" class="headerlink" title="divide plugin如何工作？"></a>divide plugin如何工作？</h4><p>soul plugin 通过职责链模式串联。初始化网关的web服务SoulWebHandler时候加载了所有配置的插件保存在<br>DefaultSoulPluginChain职责链对象中。当请求来了之后，按照插件顺序依次执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Init SoulWebHandler.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> plugins this plugins is All impl SoulPlugin.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="doctag">@linkplain</span> SoulWebHandler&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Bean(&quot;webHandler&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> SoulWebHandler <span class="title">soulWebHandler</span><span class="params">(<span class="keyword">final</span> ObjectProvider&lt;List&lt;SoulPlugin&gt;&gt; plugins)</span> </span>&#123;</span><br><span class="line">    List&lt;SoulPlugin&gt; pluginList = plugins.getIfAvailable(Collections::emptyList);</span><br><span class="line">    <span class="keyword">final</span> List&lt;SoulPlugin&gt; soulPlugins = pluginList.stream()</span><br><span class="line">            .sorted(Comparator.comparingInt(SoulPlugin::getOrder)).collect(Collectors.toList());</span><br><span class="line">    soulPlugins.forEach(soulPlugin -&gt; log.info(<span class="string">&quot;load plugin:[&#123;&#125;] [&#123;&#125;]&quot;</span>, soulPlugin.named(), soulPlugin.getClass().getName()));</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SoulWebHandler(soulPlugins);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public Mono&lt;Void&gt; handle(@NonNull final ServerWebExchange exchange) &#123;</span><br><span class="line">    MetricsTrackerFacade.getInstance().counterInc(MetricsLabelEnum.REQUEST_TOTAL.getName());</span><br><span class="line">    Optional&lt;HistogramMetricsTrackerDelegate&gt; startTimer &#x3D; MetricsTrackerFacade.getInstance().histogramStartTimer(MetricsLabelEnum.REQUEST_LATENCY.getName());</span><br><span class="line">    &#x2F;&#x2F; 依次执行插件处理</span><br><span class="line">    return new DefaultSoulPluginChain(plugins).execute(exchange).subscribeOn(scheduler)</span><br><span class="line">            .doOnSuccess(t -&gt; startTimer.ifPresent(time -&gt; MetricsTrackerFacade.getInstance().histogramObserveDuration(time)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DividePlugin</span> <span class="keyword">extends</span> <span class="title">AbstractSoulPlugin</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Mono&lt;Void&gt; <span class="title">doExecute</span><span class="params">(<span class="keyword">final</span> ServerWebExchange exchange, <span class="keyword">final</span> SoulPluginChain chain, <span class="keyword">final</span> SelectorData selector, <span class="keyword">final</span> RuleData rule)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 获取上下文信息（参数透传的一种方式）</span></span><br><span class="line">        <span class="keyword">final</span> SoulContext soulContext = exchange.getAttribute(Constants.CONTEXT);</span><br><span class="line">        <span class="keyword">assert</span> soulContext != <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 规则处理反序列化</span></span><br><span class="line">        <span class="keyword">final</span> DivideRuleHandle ruleHandle = GsonUtils.getInstance().fromJson(rule.getHandle(), DivideRuleHandle.class);</span><br><span class="line">        <span class="comment">// 根据selector id从本地缓存中获取被代理的服务</span></span><br><span class="line">        <span class="keyword">final</span> List&lt;DivideUpstream&gt; upstreamList = UpstreamCacheManager.getInstance().findUpstreamListBySelectorId(selector.getId());</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(upstreamList)) &#123;</span><br><span class="line">            <span class="comment">// 如果没有一个被代理的服务就返回错误</span></span><br><span class="line">            log.error(<span class="string">&quot;divide upstream configuration error： &#123;&#125;&quot;</span>, rule.toString());</span><br><span class="line">            Object error = SoulResultWrap.error(SoulResultEnum.CANNOT_FIND_URL.getCode(), SoulResultEnum.CANNOT_FIND_URL.getMsg(), <span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">return</span> WebFluxResultUtils.result(exchange, error);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取请求目标ip地址</span></span><br><span class="line">        <span class="keyword">final</span> String ip = Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getAddress().getHostAddress();</span><br><span class="line">        <span class="comment">// 使用选择器做第一次流量的筛选（这里通过spi加载扩展的负载均衡算法进行处理）</span></span><br><span class="line">        DivideUpstream divideUpstream = LoadBalanceUtils.selector(upstreamList, ruleHandle.getLoadBalance(), ip);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(divideUpstream)) &#123;</span><br><span class="line">            <span class="comment">// 筛选后找不到一个被代理的服务就返回错误</span></span><br><span class="line">            log.error(<span class="string">&quot;divide has no upstream&quot;</span>);</span><br><span class="line">            Object error = SoulResultWrap.error(SoulResultEnum.CANNOT_FIND_URL.getCode(), SoulResultEnum.CANNOT_FIND_URL.getMsg(), <span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">return</span> WebFluxResultUtils.result(exchange, error);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// set the http url</span></span><br><span class="line">        <span class="comment">// 拼接出最终目标url</span></span><br><span class="line">        String domain = buildDomain(divideUpstream);</span><br><span class="line">        String realURL = buildRealURL(domain, soulContext, exchange);</span><br><span class="line">        <span class="comment">// 把加工的信息写入请求ServerWebExchange中</span></span><br><span class="line">        exchange.getAttributes().put(Constants.HTTP_URL, realURL);</span><br><span class="line">        <span class="comment">// set the http timeout</span></span><br><span class="line">        exchange.getAttributes().put(Constants.HTTP_TIME_OUT, ruleHandle.getTimeout());</span><br><span class="line">        exchange.getAttributes().put(Constants.HTTP_RETRY, ruleHandle.getRetry());</span><br><span class="line">        <span class="comment">// 调用下一个插件处理</span></span><br><span class="line">        <span class="keyword">return</span> chain.execute(exchange);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/04/06/soul-divide-plugin/" data-id="ckn5dfenz0001qkvn3wda28bu" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/04/06/soul-dubbo-plugin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/04/06/soul-context-path-plugin/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/06/soul-http-client-register/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-global-plugin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-dubbo-run/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-dubbo-plugin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/04/06/soul-divide-plugin/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
