@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>永无止尽</title>
+  
+  <subtitle>活到老学到老</subtitle>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-04-06T07:17:14.997Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>maybe</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>soul context path plugin</title>
+    <link href="http://example.com/2021/04/06/soul-context-path-plugin/"/>
+    <id>http://example.com/2021/04/06/soul-context-path-plugin/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T07:17:14.997Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;网关context_path插件，根据文档说法，是用来对目标服务调用的时候，重写请求路径的contextPath。&lt;/p&gt;
+&lt;p&gt;我们就来试试吧。&lt;/p&gt;
+&lt;h2 id=&quot;context-path插件设置&quot;&gt;&lt;a href=&quot;#context-path插件设置&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="http://example.com/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="http://example.com/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul divide plugin</title>
+    <link href="http://example.com/2021/04/06/soul-divide-plugin/"/>
+    <id>http://example.com/2021/04/06/soul-divide-plugin/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T02:08:44.671Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;divide-plugin是什么？&quot;&gt;&lt;a href=&quot;#divide-plugin是什么？&quot; class=&quot;headerlink&quot; title=&quot;divide plugin是什么？&quot;&gt;&lt;/a&gt;divide</summary>
+        
+      
+    
+    
+    
+    
+    <category term="soul" scheme="http://example.com/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul run</title>
+    <link href="http://example.com/2021/04/06/test-new-a-post/"/>
+    <id>http://example.com/2021/04/06/test-new-a-post/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T02:04:04.770Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;fork soul仓库&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="soul" scheme="http://example.com/tags/soul/"/>
+    
+  </entry>
+  
+</feed>
