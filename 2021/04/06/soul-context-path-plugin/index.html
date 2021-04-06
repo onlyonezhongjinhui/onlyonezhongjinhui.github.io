@@ -250,7 +250,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/cover.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -338,11 +338,11 @@
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2.启动网关后在admin中开启context_path插件</p>
-<p><img src="assets/20210128004213-o7s9vqe-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210128004129.png" alt="微信截图20210128004129.png"></p>
+<p><img src="/medias/assets/20210128004213-o7s9vqe-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210128004129.png"></p>
 <p>3.配置插件选择器和规则</p>
-<p><img src="assets/20210128004721-o38rcag-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210128004646.png" alt="微信截图20210128004646.png"><img src="assets/20210128004721-kt8iuf9-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210128004656.png" alt="微信截图20210128004656.png"></p>
+<p><img src="/medias/assets/20210128004721-o38rcag-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210128004646.png"><img src="/medias/assets/20210128004721-kt8iuf9-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210128004656.png"></p>
 <p>4.尝试请求订单接口</p>
-<p><img src="assets/20210128004815-oypa6xh-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210128004754.png" alt="微信截图20210128004754.png"></p>
+<p><img src="/medias/assets/20210128004815-oypa6xh-%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210128004754.png"></p>
 <p>从图中可看到，已经请求成功，插件生效了。</p>
 <h2 id="context-path插件使用场景"><a href="#context-path插件使用场景" class="headerlink" title="context_path插件使用场景"></a>context_path插件使用场景</h2><p>当匹配到请求后，设置自定义的contextPath，那么就会根据请求的Url截取自定义的contextPath获取真正的Url。大白话就是真实请求的路径=请求路径删除前缀contextPath。例如请求路径为/soul/http/order， 配置的contextPath为/soul/http，那么真正请求的url为/order。可以对真实服务做一个隐藏、也可以用来替换老接口。</p>
 
@@ -371,7 +371,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/04/06/soul-context-path-plugin/">http://example.com/2021/04/06/soul-context-path-plugin/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-context-path-plugin/">https://onlyonezhongjinhui.github.io/2021/04/06/soul-context-path-plugin/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -588,7 +588,8 @@
                 <a href="/2021/04/06/soul-context-path-plugin/">
                     <div class="card-image">
                         
-                        <img src="/medias/cover.jpg" class="responsive-img" alt="soul context path plugin">
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="soul context path plugin">
                         
                         <span class="card-title">soul context path plugin</span>
                     </div>
@@ -655,8 +656,12 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            maybe
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/gateway/" class="post-category">
+                                    gateway
+                                </a>
+                            
                             
                         </span>
                     </div>

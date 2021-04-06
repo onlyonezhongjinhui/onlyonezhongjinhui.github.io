@@ -3,11 +3,11 @@
   <title>永无止尽</title>
   
   <subtitle>活到老学到老</subtitle>
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
-  <updated>2021-04-06T07:17:14.997Z</updated>
-  <id>http://example.com/</id>
+  <link href="https://onlyonezhongjinhui.github.io/"/>
+  <updated>2021-04-06T08:10:51.912Z</updated>
+  <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
     <name>maybe</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>soul context path plugin</title>
-    <link href="http://example.com/2021/04/06/soul-context-path-plugin/"/>
-    <id>http://example.com/2021/04/06/soul-context-path-plugin/</id>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-context-path-plugin/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-context-path-plugin/</id>
     <published>2021-04-06T02:00:06.000Z</published>
-    <updated>2021-04-06T07:17:14.997Z</updated>
+    <updated>2021-04-06T08:10:51.912Z</updated>
     
     
       
@@ -36,19 +36,19 @@
     
     
     
-    <category term="gateway" scheme="http://example.com/categories/gateway/"/>
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
     
     
-    <category term="soul" scheme="http://example.com/tags/soul/"/>
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
     
   </entry>
   
   <entry>
     <title>soul divide plugin</title>
-    <link href="http://example.com/2021/04/06/soul-divide-plugin/"/>
-    <id>http://example.com/2021/04/06/soul-divide-plugin/</id>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-divide-plugin/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-divide-plugin/</id>
     <published>2021-04-06T02:00:06.000Z</published>
-    <updated>2021-04-06T02:08:44.671Z</updated>
+    <updated>2021-04-06T08:10:45.368Z</updated>
     
     
       
@@ -61,17 +61,95 @@
     
     
     
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
     
-    <category term="soul" scheme="http://example.com/tags/soul/"/>
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
     
   </entry>
   
   <entry>
-    <title>soul run</title>
-    <link href="http://example.com/2021/04/06/test-new-a-post/"/>
-    <id>http://example.com/2021/04/06/test-new-a-post/</id>
+    <title>soul dubbo plugin</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-dubbo-plugin/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-dubbo-plugin/</id>
     <published>2021-04-06T02:00:06.000Z</published>
-    <updated>2021-04-06T02:04:04.770Z</updated>
+    <updated>2021-04-06T08:10:41.436Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;dubbo插件的作用是什么？&quot;&gt;&lt;a href=&quot;#dubbo插件的作用是什么？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul global plugin</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-global-plugin/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-global-plugin/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:10:31.566Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;soul global plugin是做什么的呢？这个官方文档里面没有提及，其实是因为这个插件是个面向开发的这么一个插件。那么它具体有什么作用呢？&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-java&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul http client register</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-http-client-register/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-http-client-register/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:10:17.241Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;soul-http-client-注册流程&quot;&gt;&lt;a href=&quot;#soul-http-client-注册流程&quot; class=&quot;headerlink&quot; title=&quot;soul http client 注册流程&quot;&gt;&lt;/a&gt;soul http client</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul http run</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-http-run/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-http-run/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:19:53.794Z</updated>
     
     
       
@@ -85,8 +163,347 @@
     
     
     
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
     
-    <category term="soul" scheme="http://example.com/tags/soul/"/>
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul 数据同步</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-http-sync-data/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-http-sync-data/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:19:58.381Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;soul数据同步&quot;&gt;&lt;a href=&quot;#soul数据同步&quot; class=&quot;headerlink&quot; title=&quot;soul数据同步&quot;&gt;&lt;/a&gt;soul数据同步&lt;/h2&gt;&lt;p&gt;数据同步是指将 &lt;code&gt;soul-admin&lt;/code&gt; 配置的数据，同步到</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul hystrix plugin 01</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-hystrix-plugin-01/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-hystrix-plugin-01/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:20:04.009Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;soul hystrix插件是网关用来对流量进行熔断的核心实现，使用的是信号量的方式来处理请求。&lt;/p&gt;
+&lt;h2 id=&quot;什么是Hystrix？&quot;&gt;&lt;a href=&quot;#什么是Hystrix？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul hystrix plugin 02</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-hystrix-plugin-02/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-hystrix-plugin-02/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:20:07.519Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一篇从宏观上认识了Hystrix，大体了解了Hystrix是什么，能解决什么问题。今天我们再从一个入门例子看起，看看具体怎么使用，过程怎么执行。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;继承HystrixCommand，进行简单的配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul hystrix plugin 03</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-hystrix-plugin-03/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-hystrix-plugin-03/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:13:23.215Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一篇我们看了一个Hystrix的入门例子，了解了Hystrix的工作流程。今天我们再来看看Hystrix的命令执行的方式、资源的隔离类型。&lt;/p&gt;
+&lt;h2 id=&quot;执行命令的几种方法&quot;&gt;&lt;a href=&quot;#执行命令的几种方法&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul nacos方式同步数据原理</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-nacos-sync-data/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-nacos-sync-data/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:13:44.924Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;soul-nacos方式同步数据原理&quot;&gt;&lt;a href=&quot;#soul-nacos方式同步数据原理&quot; class=&quot;headerlink&quot; title=&quot;soul nacos方式同步数据原理&quot;&gt;&lt;/a&gt;soul nacos方式同步数据原理&lt;/h2&gt;&lt;p&gt;soul</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul RateLimiter插件01</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-rate-limiter-plugin-01/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-rate-limiter-plugin-01/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:20:15.936Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;RateLimiter插件&quot;&gt;&lt;a href=&quot;#RateLimiter插件&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul RateLimiter插件02</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-rate-limiter-plugin-02/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-rate-limiter-plugin-02/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:14:14.262Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一篇我们已经了解了&lt;code&gt;RateLimiter&lt;/code&gt;插件的大致原理和使用方法。今天我们再从微观层面再来探个究竟。&lt;/p&gt;
+&lt;p&gt;请求来了以后由&lt;code&gt;SoulWebHandler&lt;/code&gt;进行进行处理，把封装请求信息的对象ServerWebExcha</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul RateLimiter插件03</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-rate-limiter-plugin-03/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-rate-limiter-plugin-03/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:14:25.412Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一篇了解了&lt;code&gt;RateLimiter&lt;/code&gt;插件的执行流程。讲到soul基于redis实现的令牌桶，是通过lua脚本实现。这篇我们就再细谈令牌桶算法。&lt;/p&gt;
+&lt;h2 id=&quot;令牌桶算法由来&quot;&gt;&lt;a href=&quot;#令牌桶算法由来&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul sofa-rpc</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-sofa-run/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-sofa-run/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:20:31.938Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;什么是sofa-rpc？&quot;&gt;&lt;a href=&quot;#什么是sofa-rpc？&quot; class=&quot;headerlink&quot; title=&quot;什么是sofa-rpc？&quot;&gt;&lt;/a&gt;什么是sofa-rpc？&lt;/h4&gt;&lt;p&gt;sofa-rpc 最早源于阿里内部的</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul数据同步</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-sync-data/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-sync-data/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:20:36.407Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;soul数据同步&quot;&gt;&lt;a href=&quot;#soul数据同步&quot; class=&quot;headerlink&quot; title=&quot;soul数据同步&quot;&gt;&lt;/a&gt;soul数据同步&lt;/h2&gt;&lt;p&gt;数据同步是指将 soul-admin 配置的数据，同步到</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul数据同步：websocket</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-websocket-sync-data/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-websocket-sync-data/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:20:40.079Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;soul网关推荐采用websocket方式同步数据，对比http长轮询方式有何优势？&quot;&gt;&lt;a href=&quot;#soul网关推荐采用websocket方式同步数据，对比http长轮询方式有何优势？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul数据同步：zookeeper</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-zookeeper-sync-data/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-zookeeper-sync-data/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:20:43.258Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;soul网关采用zookeeper方式同步数据，对比http长轮询方式有何优势？&quot;&gt;&lt;a href=&quot;#soul网关采用zookeeper方式同步数据，对比http长轮询方式有何优势？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>soul run</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/06/soul-dubbo-run/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/06/soul-dubbo-run/</id>
+    <published>2021-04-06T02:00:06.000Z</published>
+    <updated>2021-04-06T08:19:38.476Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;soul 作为流行的网关应用，对接的系统各种各样，当然少不了dubbo。那么soul是如何对接dubbo应用的呢？那么，我们就先跑个例子看看。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;首先我们先启动soul网关和admin管理端&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
     
   </entry>
   
