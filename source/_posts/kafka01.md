@@ -1,3 +1,17 @@
+---
+title: 为什么Kafka不像MySQL那样允许追随者副本对外提供读服务
+date: 2021-04-07 22:31:00
+author: maybe
+top: true
+cover: true
+toc: false
+mathjax: false
+summary:
+tags: Kafka
+categories:
+- [MQ]
+---
+
 ## 为什么 Kafka 不像 MySQL 那样允许追随者副本对外提供读服务
 
 回答这个问题之前，我们先来看看Kafka的架构图

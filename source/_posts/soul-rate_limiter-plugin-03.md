@@ -2,8 +2,8 @@
 title: Soul网关RateLimiter插件3
 date: 2021-01-26 10:00:06
 author: maybe
-top: true
-cover: true
+top: false
+cover: false
 toc: false
 mathjax: false
 summary:

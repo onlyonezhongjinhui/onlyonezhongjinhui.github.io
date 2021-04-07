@@ -2,8 +2,8 @@
 title: Soul网关Hystrix插件4
 date: 2021-02-02 10:00:06
 author: maybe
-top: true
-cover: true
+top: false
+cover: false
 toc: false
 mathjax: false
 summary:
