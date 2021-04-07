@@ -302,25 +302,27 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/06/soul-nacos-sync-data/">
+                    <a href="/2021/01/25/soul-rate-limiter-plugin-02/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="soul nacos方式同步数据原理">
+                            <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="Soul网关RateLimiter插件2">
                             
-                            <span class="card-title">soul nacos方式同步数据原理</span>
+                            <span class="card-title">Soul网关RateLimiter插件2</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                soul nacos方式同步数据原理soul nacos方式同步数据原理和zookeeper基本一致，都是利用中间件自身的监听机制。soul-admin 在启动的时候，会将数据全量写入 nacos，后续数据发生变更时，会增量更新 到naco
+                                上一篇我们已经了解了RateLimiter插件的大致原理和使用方法。今天我们再从微观层面再来探个究竟。
+请求来了以后由SoulWebHandler进行进行处理，把封装请求信息的对象ServerWebExchange放入
+DefaultSou
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
                             </span>
                             <span class="publish-author">
                                 
@@ -349,13 +351,13 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/06/soul-rate-limiter-plugin-01/">
+                    <a href="/2021/01/23/soul-rate-limiter-plugin-01/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="soul RateLimiter插件01">
+                            <img src="/medias/featureimages/26.jpg" class="responsive-img" alt="Soul网关RateLimiter插件1">
                             
-                            <span class="card-title">soul RateLimiter插件01</span>
+                            <span class="card-title">Soul网关RateLimiter插件1</span>
                         </div>
                     </a>
 
@@ -371,7 +373,7 @@
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-23
                             </span>
                             <span class="publish-author">
                                 
@@ -400,27 +402,27 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/06/soul-rate-limiter-plugin-02/">
+                    <a href="/2021/01/21/soul-zookeeper-sync-data/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="soul RateLimiter插件02">
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Soul网关采用Zookeeper方式数据同步">
                             
-                            <span class="card-title">soul RateLimiter插件02</span>
+                            <span class="card-title">Soul网关采用Zookeeper方式数据同步</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                上一篇我们已经了解了RateLimiter插件的大致原理和使用方法。今天我们再从微观层面再来探个究竟。
-请求来了以后由SoulWebHandler进行进行处理，把封装请求信息的对象ServerWebExchange放入
-DefaultSou
+                                soul网关采用zookeeper方式同步数据，对比http长轮询方式有何优势？
+websocket方式能实时通知，而http长轮询方式只能做到准实时。
+websocket同步采用增量处理，而http长轮询方式是全量数据，当数据量大的时候h
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-21
                             </span>
                             <span class="publish-author">
                                 
@@ -449,26 +451,27 @@ DefaultSou
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/06/soul-rate-limiter-plugin-03/">
+                    <a href="/2021/01/20/soul-websocket-sync-data/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="soul RateLimiter插件03">
+                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Soul网关WebSocket方式数据同步">
                             
-                            <span class="card-title">soul RateLimiter插件03</span>
+                            <span class="card-title">Soul网关WebSocket方式数据同步</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                上一篇了解了RateLimiter插件的执行流程。讲到soul基于redis实现的令牌桶，是通过lua脚本实现。这篇我们就再细谈令牌桶算法。
-令牌桶算法由来令牌桶算法最初来源于计算机网络。在网络传输数据时，为了防止网络拥塞，需限制流出网络的
+                                soul网关推荐采用websocket方式同步数据，对比http长轮询方式有何优势？
+websocket方式能实时通知，而http长轮询方式只能做到准实时。
+websocket同步采用增量处理，而http长轮询方式是全量数据，当数据量大的时
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-20
                             </span>
                             <span class="publish-author">
                                 
@@ -497,13 +500,60 @@ DefaultSou
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/06/soul-sync-data/">
+                    <a href="/2021/01/19/soul-http-sync-data/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="soul数据同步">
+                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Soul网关Http长轮询方式数据同步">
                             
-                            <span class="card-title">soul数据同步</span>
+                            <span class="card-title">Soul网关Http长轮询方式数据同步</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                soul数据同步数据同步是指将 soul-admin 配置的数据，同步到 soul 集群中的JVM内存里面，当请求到来后只需从本地获取配置信息即可，这是网关高性能的关键。为了这种高性能，就需要维护网关本地内存中的配置与admin的配置保持同
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-19
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/gateway/" class="post-category">
+                                    gateway
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/soul/">
+                            <span class="chip bg-color">soul</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2021/01/18/soul-sync-data/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Soul网关数据同步">
+                            
+                            <span class="card-title">Soul网关数据同步</span>
                         </div>
                     </a>
 
@@ -520,7 +570,7 @@ na
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-18
                             </span>
                             <span class="publish-author">
                                 
@@ -549,13 +599,13 @@ na
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/06/soul-sofa-run/">
+                    <a href="/2021/01/16/soul-sofa-run/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="soul sofa-rpc">
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Soul网关集成Sofa">
                             
-                            <span class="card-title">soul sofa-rpc</span>
+                            <span class="card-title">Soul网关集成Sofa</span>
                         </div>
                     </a>
 
@@ -567,7 +617,7 @@ na
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
                             </span>
                             <span class="publish-author">
                                 
@@ -596,27 +646,26 @@ na
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/06/soul-websocket-sync-data/">
+                    <a href="/2021/01/16/soul-dubbo-plugin/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="soul数据同步：websocket">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Soul网关Dubbo插件">
                             
-                            <span class="card-title">soul数据同步：websocket</span>
+                            <span class="card-title">Soul网关Dubbo插件</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                soul网关推荐采用websocket方式同步数据，对比http长轮询方式有何优势？
-websocket方式能实时通知，而http长轮询方式只能做到准实时。
-websocket同步采用增量处理，而http长轮询方式是全量数据，当数据量大的时
+                                dubbo插件的作用是什么？dubbo插件是将http协议 转换成dubbo协议 的插件,也是网关实现dubbo泛化调用的关键。
+什么是泛化调用？泛化接口调用方式主要用于客户端没有 API 接口及模型类元的情况，参数及返回值中的所有 POJ
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
                             </span>
                             <span class="publish-author">
                                 
@@ -645,62 +694,13 @@ websocket同步采用增量处理，而http长轮询方式是全量数据，当�
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/2021/04/06/soul-zookeeper-sync-data/">
+                    <a href="/2021/01/15/soul-dubbo-run/">
                         <div class="card-image">
                             
                             
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="soul数据同步：zookeeper">
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Soul网关集成Dubbo">
                             
-                            <span class="card-title">soul数据同步：zookeeper</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                soul网关采用zookeeper方式同步数据，对比http长轮询方式有何优势？
-websocket方式能实时通知，而http长轮询方式只能做到准实时。
-websocket同步采用增量处理，而http长轮询方式是全量数据，当数据量大的时候h
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/gateway/" class="post-category">
-                                    gateway
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/soul/">
-                            <span class="chip bg-color">soul</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2021/04/06/soul-dubbo-run/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="soul run">
-                            
-                            <span class="card-title">soul run</span>
+                            <span class="card-title">Soul网关集成Dubbo</span>
                         </div>
                     </a>
 
@@ -716,7 +716,58 @@ websocket同步采用增量处理，而http长轮询方式是全量数据，当�
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-15
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/gateway/" class="post-category">
+                                    gateway
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/soul/">
+                            <span class="chip bg-color">soul</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2021/01/14/soul-divide-plugin/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Soul网关Divide插件">
+                            
+                            <span class="card-title">Soul网关Divide插件</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                divide plugin是什么？
+divide插件是网关处理 http协议请求的核心处理插件。
+divide插件是进行http正向代理的插件，所有http类型的请求，都是由该插件进行负载均衡的调用。
+
+divide plugin如何工作？
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
                             </span>
                             <span class="publish-author">
                                 
@@ -760,11 +811,12 @@ websocket同步采用增量处理，而http长轮询方式是全量数据，当�
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">2 / 2</div>
+            <div class="center-align b-text-gray">2 / 3</div>
         </div>
         <div class="col s6 m4 l4">
             
-            <a class="right btn-floating btn-large disabled">
+            <a href="/page/3/"
+               class="right btn-floating btn-large waves-effect waves-light bg-color">
                 <i class="fas fa-angle-right"></i>
             </a>
             
