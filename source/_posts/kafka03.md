@@ -1,3 +1,17 @@
+---
+title: Kafka如何安装部署
+date: 2021-04-08 21:29:00
+author: maybe
+top: false
+cover: false
+toc: false
+mathjax: false
+summary:
+tags: Kafka
+categories:
+- [MQ]
+---
+
 ## Kafka如何安装部署
 
 生产中Kafka都是集群部署，且需要考虑各种因素，最终再根据业务需求制定。那么需要考虑哪些因素呢，我们分别从操作系统、磁盘、磁盘容量、带宽等方面来讨论。
