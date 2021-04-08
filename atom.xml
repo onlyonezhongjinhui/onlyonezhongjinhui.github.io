@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-04-07T03:16:28.693Z</updated>
+  <updated>2021-04-08T00:19:36.599Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>为什么Kafka不像MySQL那样允许追随者副本对外提供读服务</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/07/kafka01/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/07/kafka01/</id>
+    <published>2021-04-07T14:31:00.000Z</published>
+    <updated>2021-04-08T00:19:36.599Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;为什么-Kafka-不像-MySQL-那样允许追随者副本对外提供读服务&quot;&gt;&lt;a href=&quot;#为什么-Kafka-不像-MySQL-那样允许追随者副本对外提供读服务&quot; class=&quot;headerlink&quot; title=&quot;为什么 Kafka 不像 MySQL</summary>
+        
+      
+    
+    
+    
+    <category term="MQ" scheme="https://onlyonezhongjinhui.github.io/categories/MQ/"/>
+    
+    
+    <category term="Kafka" scheme="https://onlyonezhongjinhui.github.io/tags/Kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>Soul网关采用Nacos方式数据同步</title>
@@ -99,7 +124,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2021/02/02/soul-hystrix-plugin-04/"/>
     <id>https://onlyonezhongjinhui.github.io/2021/02/02/soul-hystrix-plugin-04/</id>
     <published>2021-02-02T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.692Z</updated>
+    <updated>2021-04-08T00:19:36.600Z</updated>
     
     
       
@@ -125,7 +150,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2021/02/01/soul-hystrix-plugin-03/"/>
     <id>https://onlyonezhongjinhui.github.io/2021/02/01/soul-hystrix-plugin-03/</id>
     <published>2021-02-01T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.692Z</updated>
+    <updated>2021-04-08T00:19:36.600Z</updated>
     
     
       
@@ -259,7 +284,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2021/01/26/soul-rate-limiter-plugin-03/"/>
     <id>https://onlyonezhongjinhui.github.io/2021/01/26/soul-rate-limiter-plugin-03/</id>
     <published>2021-01-26T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.695Z</updated>
+    <updated>2021-04-08T00:19:36.602Z</updated>
     
     
       
@@ -498,31 +523,6 @@
 &lt;li&gt;首先我们先启动soul网关和admin管理端&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关Divide插件</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/14/soul-divide-plugin/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/14/soul-divide-plugin/</id>
-    <published>2021-01-14T14:00:00.000Z</published>
-    <updated>2021-04-07T03:16:28.688Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h4 id=&quot;divide-plugin是什么？&quot;&gt;&lt;a href=&quot;#divide-plugin是什么？&quot; class=&quot;headerlink&quot; title=&quot;divide plugin是什么？&quot;&gt;&lt;/a&gt;divide</summary>
         
       
     
