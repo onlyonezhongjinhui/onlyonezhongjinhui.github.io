@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="为什么Kafka不像MySQL那样允许追随者副本对外提供读服务, 向阳而生">
+    <meta name="keywords" content="Kafka监控工具, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>为什么Kafka不像MySQL那样允许追随者副本对外提供读服务 | 向阳而生</title>
+    <title>Kafka监控工具 | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">为什么Kafka不像MySQL那样允许追随者副本对外提供读服务</h1>
+                    <h1 class="description center-align post-title">Kafka监控工具</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-07
+                    2021-04-08
                 </div>
                 
 
@@ -326,28 +326,19 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="为什么-Kafka-不像-MySQL-那样允许追随者副本对外提供读服务"><a href="#为什么-Kafka-不像-MySQL-那样允许追随者副本对外提供读服务" class="headerlink" title="为什么 Kafka 不像 MySQL 那样允许追随者副本对外提供读服务"></a>为什么 Kafka 不像 MySQL 那样允许追随者副本对外提供读服务</h2><p>回答这个问题之前，我们先来看看Kafka的架构图</p>
-<p><img src="/medias/assets/20210407214255-0vv4x00-kafka-apis.png"></p>
-<p><img src="/medias/assets/20210407213110-4mv5y5g-58c35d3ab0921bf0476e3ba14069d291.jpg"></p>
-<p>通常Kafka是以集群的方式运行，当然也可以单机，但是单机的Kafka一般只用来做实验、学习使用。从图中看到，Kafka包含了以下这些组成部分：</p>
-<ul>
-<li>Broker：Broker是Kafka的服务端，通常一个Kafka集群由多个Broker组成。Broker负责接收客户端的请求，消息持久化。多Broker保证了Kafka集群的高可用。</li>
-<li>Topic：主题是承载消息的逻辑容器。在实际中多用来区分具体的业务。</li>
-<li>Partition：一个有序不变的消息序列，一个主题可以有多个分区。</li>
-<li>Replica：副本提供消息冗余，是高可用的保障。一个分区可以有多个副本。副本分为领导者副本和追随者副本。领导者副本负责消息的读写，追随者副本只提供数据冗余。追随者副本会主动向领导者副本拉取消息进行同步。</li>
-<li>Producer：向主题发送消息的程序。生产者负责选择把记录分配到主题中的哪个分区。这可以使用轮询算法( round-robin)进行简单地平衡负载，也可以根据一些更复杂的语义分区算法（比如基于记录一些键值）来完成。</li>
-<li>Consumer：订阅主题消息的程序。</li>
-<li>Consumer Group：多个消费者实例共同组成一个组，同时消费多个分区的以实现高吞吐量。一个分区同时只能被一个消费者组中的一个消费者消费，而一个消费者可以消费多个分区。</li>
-<li>Record：消息，Kafka处理的主要对象。</li>
-<li>Offset：表示分区中每条消息的位置信息，一个单调递增且不变的值。</li>
-<li>Consumer Offset：消费者消费位移，表示消费进度，每个消费者都有自己的消费位移。</li>
+                <p>说监控工具之前，先看看Kafka都有哪些“发行版本”(和Linux发行版本一样的概念)。</p>
+<h2 id="“Kafka发行版本”"><a href="#“Kafka发行版本”" class="headerlink" title="“Kafka发行版本”"></a>“Kafka发行版本”</h2><h4 id="Apache-Kafka"><a href="#Apache-Kafka" class="headerlink" title="Apache Kafka"></a>Apache Kafka</h4><p>Apache Kafka 是Apache 基金会顶级开源项目。社区版 Kafka优势在于迭代速度快，社区响应度高，使用它可以让你有更高的把控度；缺陷在于仅提供基础核心组件，缺失一些高级的特性。</p>
+<h4 id="Confluent-Kafka"><a href="#Confluent-Kafka" class="headerlink" title="Confluent Kafka"></a>Confluent Kafka</h4><p>Confluent公司发布的Confluent Kafka。Confluent Kafka 提供了一些 Apache Kafka 没有的高级特性，比如跨数据中心备份、Schema 注册中心以及集群监控工具等。优势在于集成了很多高级特性且由 Kafka 原班人马打造，质量上有保证；缺陷在于相关文档资料不全，普及率较低，没有太多可供参考的范例。</p>
+<h4 id="Cloudera-Hortonworks-Kafka"><a href="#Cloudera-Hortonworks-Kafka" class="headerlink" title="Cloudera/Hortonworks Kafka"></a>Cloudera/Hortonworks Kafka</h4><p>Cloudera 提供的 CDH 和 Hortonworks 提供的 HDP 是非常著名的大数据平台，里面集成了目前主流的大数据框架，能够帮助用户实现从分布式存储、集群调度、流处理到机器学习、实时数据库等全方位的数据处理。优势在于操作简单，节省运维成本；缺陷在于把控度低，演进速度较慢。</p>
+<p>由于社区版本并未提供监控工具，所以监控就是一个比较麻烦的问题，大公司一般自己定制开发，创业公司或者小公司一般采用线程的监控工具，我就罗列几种监控工具，具体使用还得根据自己的实际情况进行选择。</p>
+<h2 id="Kafka监控工具"><a href="#Kafka监控工具" class="headerlink" title="Kafka监控工具"></a>Kafka监控工具</h2><ul>
+<li>Logi-KafkaManager</li>
+<li>JMXTrans + InfluxDB + Grafana</li>
+<li>kafka-eagle</li>
+<li>Kafka tool</li>
+<li>Kafka Manager</li>
+<li>Kafka Monitor</li>
 </ul>
-<p>了解了Kafka的这些概念，我们再来回答开篇的问题。Kafka 不像 MySQL 那样允许追随者副本对外提供读服务主要有以下几个原因：</p>
-<ol>
-<li>MySQL副本提供读操作主要目的是分摊主库的压力，而Kafka每个主题可以是多分区的，数据已经均匀分散在各个分区上，而分区的领导者副本是在不同的Broker上，本身就已经把压力分摊了实现了负载均衡。</li>
-<li>如果Kafka的追随者提供了读服务，因为领导者副本、追随者副本的同步时异步的，那么必然会造成数据的一致性问题。</li>
-<li>如果Kafka的追随者提供了读服务,那么Broker的IO压力会增加，可能会降低集群的性能。</li>
-</ol>
 
                 
             </div>
@@ -374,7 +365,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2021/04/07/kafka01/">https://onlyonezhongjinhui.github.io/2021/04/07/kafka01/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/04/08/kafka02/">https://onlyonezhongjinhui.github.io/2021/04/08/kafka02/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -583,9 +574,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/04/08/kafka02/">
                     <div class="card-image">
@@ -603,9 +595,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -618,6 +610,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -636,13 +629,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/06/soul-nacos-sync-data/">
+                <a href="/2021/04/07/kafka01/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Soul网关采用Nacos方式数据同步">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="为什么Kafka不像MySQL那样允许追随者副本对外提供读服务">
                         
-                        <span class="card-title">Soul网关采用Nacos方式数据同步</span>
+                        <span class="card-title">为什么Kafka不像MySQL那样允许追随者副本对外提供读服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -653,14 +646,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-07
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/gateway/" class="post-category">
-                                    gateway
+                            <a href="/categories/MQ/" class="post-category">
+                                    MQ
                                 </a>
                             
                             
@@ -670,8 +663,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/soul/">
-                        <span class="chip bg-color">soul</span>
+                    <a href="/tags/Kafka/">
+                        <span class="chip bg-color">Kafka</span>
                     </a>
                     
                 </div>

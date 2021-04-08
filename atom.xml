@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-04-08T00:19:36.599Z</updated>
+  <updated>2021-04-08T01:54:25.254Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kafka监控工具</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/08/kafka02/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/08/kafka02/</id>
+    <published>2021-04-08T01:29:00.000Z</published>
+    <updated>2021-04-08T01:54:25.254Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;说监控工具之前，先看看Kafka都有哪些“发行版本”(和Linux发行版本一样的概念)。&lt;/p&gt;
+&lt;h2 id=&quot;“Kafka发行版本”&quot;&gt;&lt;a href=&quot;#“Kafka发行版本”&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MQ" scheme="https://onlyonezhongjinhui.github.io/categories/MQ/"/>
+    
+    
+    <category term="Kafka" scheme="https://onlyonezhongjinhui.github.io/tags/Kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>为什么Kafka不像MySQL那样允许追随者副本对外提供读服务</title>
@@ -494,35 +520,6 @@
         
         
     <summary type="html">&lt;h4 id=&quot;dubbo插件的作用是什么？&quot;&gt;&lt;a href=&quot;#dubbo插件的作用是什么？&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关集成Dubbo</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/15/soul-dubbo-run/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/15/soul-dubbo-run/</id>
-    <published>2021-01-15T12:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.689Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;soul 作为流行的网关应用，对接的系统各种各样，当然少不了dubbo。那么soul是如何对接dubbo应用的呢？那么，我们就先跑个例子看看。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;首先我们先启动soul网关和admin管理端&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre</summary>
         
       
     
