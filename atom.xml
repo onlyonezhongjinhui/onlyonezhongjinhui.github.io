@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-04-08T01:54:25.254Z</updated>
+  <updated>2021-04-09T01:44:30.405Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Kafka集群安装演示</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/09/kafka04/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/09/kafka04/</id>
+    <published>2021-04-09T01:00:00.000Z</published>
+    <updated>2021-04-09T01:44:30.405Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;搞清楚了Kafka如何安装部署，那么我们就来个具体实操，做个演示环境，方便后续的使用。这里笔者平常使用Windows，为了方便，这里就直接在Windows上搭建演示集群了。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;官网上下载最新2.7版本的Kafka，解压缩后复制三份。&lt;/li&gt;
+&lt;li</summary>
+        
+      
+    
+    
+    
+    <category term="MQ" scheme="https://onlyonezhongjinhui.github.io/categories/MQ/"/>
+    
+    
+    <category term="Kafka" scheme="https://onlyonezhongjinhui.github.io/tags/Kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka如何安装部署</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/08/kafka03/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/08/kafka03/</id>
+    <published>2021-04-08T13:29:00.000Z</published>
+    <updated>2021-04-09T00:34:06.040Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Kafka如何安装部署&quot;&gt;&lt;a href=&quot;#Kafka如何安装部署&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MQ" scheme="https://onlyonezhongjinhui.github.io/categories/MQ/"/>
+    
+    
+    <category term="Kafka" scheme="https://onlyonezhongjinhui.github.io/tags/Kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>Kafka监控工具</title>
@@ -470,56 +523,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;soul数据同步&quot;&gt;&lt;a href=&quot;#soul数据同步&quot; class=&quot;headerlink&quot; title=&quot;soul数据同步&quot;&gt;&lt;/a&gt;soul数据同步&lt;/h2&gt;&lt;p&gt;数据同步是指将 soul-admin 配置的数据，同步到</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关集成Sofa</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/16/soul-sofa-run/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/16/soul-sofa-run/</id>
-    <published>2021-01-16T15:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.695Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h4 id=&quot;什么是sofa-rpc？&quot;&gt;&lt;a href=&quot;#什么是sofa-rpc？&quot; class=&quot;headerlink&quot; title=&quot;什么是sofa-rpc？&quot;&gt;&lt;/a&gt;什么是sofa-rpc？&lt;/h4&gt;&lt;p&gt;sofa-rpc 最早源于阿里内部的</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关Dubbo插件</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/16/soul-dubbo-plugin/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/16/soul-dubbo-plugin/</id>
-    <published>2021-01-16T13:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.689Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h4 id=&quot;dubbo插件的作用是什么？&quot;&gt;&lt;a href=&quot;#dubbo插件的作用是什么？&quot; class=&quot;headerlink&quot;</summary>
         
       
     

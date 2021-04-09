@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Kafka监控工具, 向阳而生">
+    <meta name="keywords" content="Kafka集群安装演示, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Kafka监控工具 | 向阳而生</title>
+    <title>Kafka集群安装演示 | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Kafka监控工具</h1>
+                    <h1 class="description center-align post-title">Kafka集群安装演示</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-08
+                    2021-04-09
                 </div>
                 
 
@@ -326,19 +326,55 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>说监控工具之前，先看看Kafka都有哪些“发行版本”(和Linux发行版本一样的概念)。</p>
-<h2 id="“Kafka发行版本”"><a href="#“Kafka发行版本”" class="headerlink" title="“Kafka发行版本”"></a>“Kafka发行版本”</h2><h4 id="Apache-Kafka"><a href="#Apache-Kafka" class="headerlink" title="Apache Kafka"></a>Apache Kafka</h4><p>Apache Kafka 是Apache 基金会顶级开源项目。社区版 Kafka优势在于迭代速度快，社区响应度高，使用它可以让你有更高的把控度；缺陷在于仅提供基础核心组件，缺失一些高级的特性。</p>
-<h4 id="Confluent-Kafka"><a href="#Confluent-Kafka" class="headerlink" title="Confluent Kafka"></a>Confluent Kafka</h4><p>Confluent公司发布的Confluent Kafka。Confluent Kafka 提供了一些 Apache Kafka 没有的高级特性，比如跨数据中心备份、Schema 注册中心以及集群监控工具等。优势在于集成了很多高级特性且由 Kafka 原班人马打造，质量上有保证；缺陷在于相关文档资料不全，普及率较低，没有太多可供参考的范例。</p>
-<h4 id="Cloudera-Hortonworks-Kafka"><a href="#Cloudera-Hortonworks-Kafka" class="headerlink" title="Cloudera/Hortonworks Kafka"></a>Cloudera/Hortonworks Kafka</h4><p>Cloudera 提供的 CDH 和 Hortonworks 提供的 HDP 是非常著名的大数据平台，里面集成了目前主流的大数据框架，能够帮助用户实现从分布式存储、集群调度、流处理到机器学习、实时数据库等全方位的数据处理。优势在于操作简单，节省运维成本；缺陷在于把控度低，演进速度较慢。</p>
-<p>由于社区版本并未提供监控工具，所以监控就是一个比较麻烦的问题，大公司一般自己定制开发，创业公司或者小公司一般采用线程的监控工具，我就罗列几种监控工具，具体使用还得根据自己的实际情况进行选择。</p>
-<h2 id="Kafka监控工具"><a href="#Kafka监控工具" class="headerlink" title="Kafka监控工具"></a>Kafka监控工具</h2><ul>
-<li>Logi-KafkaManager</li>
-<li>JMXTrans + InfluxDB + Grafana</li>
-<li>kafka-eagle</li>
-<li>Kafka tool</li>
-<li>Kafka Manager</li>
-<li>Kafka Monitor</li>
+                <p>搞清楚了Kafka如何安装部署，那么我们就来个具体实操，做个演示环境，方便后续的使用。这里笔者平常使用Windows，为了方便，这里就直接在Windows上搭建演示集群了。</p>
+<ol>
+<li>官网上下载最新2.7版本的Kafka，解压缩后复制三份。</li>
+<li>这里我选择偷懒，直接使用Kafka自带的Zookeeper。选择其中一个Kafka，修改zookeeper.properties配置文件，当然也可以不修改采用默认配置即可。这里我只修改一下zookeeper的数据路径dataDir=./../../zookeeper<pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token comment"># the directory where the snapshot is stored.</span>
+<span class="token attr-name">dataDir</span><span class="token punctuation">=</span><span class="token attr-value">./../../zookeeper</span>
+<span class="token comment"># the port at which the clients will connect</span>
+<span class="token attr-name">clientPort</span><span class="token punctuation">=</span><span class="token attr-value">2181</span>
+<span class="token comment"># disable the per-ip limit on the number of connections since this is a non-production config</span>
+<span class="token attr-name">maxClientCnxns</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
+<span class="token comment"># Disable the adminserver by default to avoid port conflicts.</span>
+<span class="token comment"># Set the port to something non-conflicting if choosing to enable this</span>
+<span class="token attr-name">admin.enableServer</span><span class="token punctuation">=</span><span class="token attr-value">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>分别修改三个Kafka的server.properties配置文件。只需修改broker.id、log.dirs、listeners这三个参数就能跑起来了。</li>
+</ol>
+<ul>
+<li>broker.id:broker的唯一标识，不能重复</li>
+<li>log.dirs：指定Broker需要使用的若干个文件目录路径。在线上生产环境中一定要为log.dirs配置多个路径，具体格式是一个 CSV 格式，也就是用逗号分隔的多个路径，比如/home/kafka1,/home/kafka2,/home/kafka3这样。如果有条件的话你最好保证这些目录挂载到不同的物理磁盘上。</li>
+<li>listeners：指定外部连接者要通过什么协议访问指定主机名和端口开放的 Kafka 服务<pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
+<span class="token attr-name">log.dirs</span><span class="token punctuation">=</span><span class="token attr-value">./../../kafka-logs</span>
+<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://:9092</span>
+
+<span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
+<span class="token attr-name">log.dirs</span><span class="token punctuation">=</span><span class="token attr-value">./../../kafka-logs</span>
+<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://:9092</span>
+
+<span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
+<span class="token attr-name">log.dirs</span><span class="token punctuation">=</span><span class="token attr-value">./../../kafka-logs</span>
+<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://:9092</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
+<ol start="4">
+<li>偷懒，写个脚本启动zookeeper、kafka。注意先启动zookeeper、再启动Kafka即可。</li>
+</ol>
+<pre class="line-numbers language-bat" data-language="bat"><code class="language-bat">@echo off
+cd %cd%\bin\windows
+@echo start zookeeper
+call zookeeper-server-start.bat ./../../config/zookeeper.properties
+@pause
+
+@echo off
+cd %cd%\bin\windows
+@echo start kafka
+call kafka-server-start.bat ./../../config/server.properties
+@pause<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="5">
+<li>使用Kafka tool连接上刚搭建起来的集群<br><img src="/medias/assets/20210409092648.png"></li>
+<li>尝试添加一个test主题，包含2个分区、2个副本<br><img src="/medias/assets/20210409092811.png"><br><img src="/medias/assets/20210409092936.png"><br><img src="/medias/assets/20210409093023.png"></li>
+<li>尝试发送2条消息，后查看分区信息、消息信息<br><img src="/medias/assets/20210409093512.png"><br><img src="/medias/assets/20210409093921.png"><br><img src="/medias/assets/20210409093942.png"><br><img src="/medias/assets/20210409094010.png"></li>
+</ol>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Kafka集群安装特别简单，虽然可配置的参数有几百个，但是只需要配置三个参数就能运行起来了，非常方便。Windows上的安装仅仅用来学习和试验，千万别用在生产环境中哦！</p>
 
                 
             </div>
@@ -365,7 +401,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2021/04/08/kafka02/">https://onlyonezhongjinhui.github.io/2021/04/08/kafka02/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/04/09/kafka04/">https://onlyonezhongjinhui.github.io/2021/04/09/kafka04/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -574,17 +610,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/04/08/kafka03/">
+                <a href="/2021/04/09/kafka04/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="Kafka如何安装部署">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Kafka集群安装演示">
                         
-                        <span class="card-title">Kafka如何安装部署</span>
+                        <span class="card-title">Kafka集群安装演示</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -594,9 +631,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -609,6 +646,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -627,13 +665,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/07/kafka01/">
+                <a href="/2021/04/08/kafka03/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="为什么Kafka不像MySQL那样允许追随者副本对外提供读服务">
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="Kafka如何安装部署">
                         
-                        <span class="card-title">为什么Kafka不像MySQL那样允许追随者副本对外提供读服务</span>
+                        <span class="card-title">Kafka如何安装部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -644,7 +682,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-08
                             </span>
                         <span class="publish-author">
                             
