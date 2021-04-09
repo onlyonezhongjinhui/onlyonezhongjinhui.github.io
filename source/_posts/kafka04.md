@@ -35,13 +35,13 @@ categories:
   log.dirs=./../../kafka-logs
   listeners=PLAINTEXT://:9092
 
-  broker.id=0
+  broker.id=1
   log.dirs=./../../kafka-logs
-  listeners=PLAINTEXT://:9092
+  listeners=PLAINTEXT://:9093
 
-  broker.id=0
+  broker.id=2
   log.dirs=./../../kafka-logs
-  listeners=PLAINTEXT://:9092
+  listeners=PLAINTEXT://:9094
 ```
 4. 偷懒，写个脚本启动zookeeper、kafka。注意先启动zookeeper、再启动Kafka即可。
 
