@@ -22,7 +22,7 @@ categories:
 
 那么MySQL是如何提供crash-safe这个能力的呢？具体来说，应该是InnoDB提供的这个能力，这就得益于InnoDB的redo log。
 
-redo log是固定大小的一组文件，可通过配置修改数量和文件大小。redo log是物理日志，记录的是数据页上修改了什么内容。这组redo log文件就像一个环形的磁盘，由两个名为write pos和checkpoint的磁头进行控制，write pos表示日志写入的地方，checkpoint表示刷盘的地方，write pos和checkpoint之间的距离就是redo log剩余的空间。如果write pos赶上了checkpoint，那么MySQL就得停下写入，先把日志上的修改刷入磁盘后往前挪动一下checkpoint。当然MySQL不会一直等到write pos追上checkpoint才刷盘，平常如果系统空闲，后台线程就会默默刷盘，如果系统实在繁忙，实在没有空间了，也只能刷盘，这就导致了吞吐量下降。有了
+redo log是固定大小的一组文件，可通过配置修改数量和文件大小。redo log是物理日志，记录的是数据页上修改了什么内容。这组redo log文件就像一个环形的磁盘，由两个名为write pos和checkpoint的磁头进行控制，write pos表示日志写入的地方，checkpoint表示刷盘的地方，write pos和checkpoint之间的距离就是redo log剩余的空间。如果write pos赶上了checkpoint，那么MySQL就得停下写入，先把日志上的修改刷入磁盘后往前挪动一下checkpoint。当然MySQL不会一直等到write pos追上checkpoint才刷盘，平常如果系统空闲，后台线程就会默默刷盘，如果系统实在繁忙，实在没有空间了，也只能刷盘，这就导致了吞吐量下降。
 
 ### redo log 来源
 
