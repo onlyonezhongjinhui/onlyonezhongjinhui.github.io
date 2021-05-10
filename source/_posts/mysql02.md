@@ -2,8 +2,8 @@
 title: MySQL有了redo log为何还要binlog
 date: 2021-05-07 22:30:00
 author: maybe
-top: true
-cover: true
+top: false
+cover: false
 toc: false
 mathjax: false
 summary:
