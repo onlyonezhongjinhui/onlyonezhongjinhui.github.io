@@ -347,13 +347,13 @@
 <span class="token attr-name">log.dirs</span><span class="token punctuation">=</span><span class="token attr-value">./../../kafka-logs</span>
 <span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://:9092</span>
 
-<span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
+<span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">1</span>
 <span class="token attr-name">log.dirs</span><span class="token punctuation">=</span><span class="token attr-value">./../../kafka-logs</span>
-<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://:9092</span>
+<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://:9093</span>
 
-<span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
+<span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">2</span>
 <span class="token attr-name">log.dirs</span><span class="token punctuation">=</span><span class="token attr-value">./../../kafka-logs</span>
-<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://:9092</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://:9094</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 <ol start="4">
 <li>偷懒，写个脚本启动zookeeper、kafka。注意先启动zookeeper、再启动Kafka即可。</li>
@@ -610,18 +610,17 @@ call kafka-server-start.bat ./../../config/server.properties
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/09/kafka04/">
+                <a href="/2021/04/09/kafka05/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Kafka集群安装演示">
+                        <img src="/medias/featureimages/34.jpg" class="responsive-img" alt="Kafka集群参数">
                         
-                        <span class="card-title">Kafka集群安装演示</span>
+                        <span class="card-title">Kafka集群参数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -631,9 +630,9 @@ call kafka-server-start.bat ./../../config/server.properties
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-09
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-09
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -646,7 +645,6 @@ call kafka-server-start.bat ./../../config/server.properties
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     

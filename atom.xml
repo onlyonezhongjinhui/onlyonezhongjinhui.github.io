@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-04-09T01:44:30.405Z</updated>
+  <updated>2021-05-19T08:08:57.489Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -17,11 +17,262 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Git如何剔除某些提交</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/05/19/git01/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/05/19/git01/</id>
+    <published>2021-05-19T03:20:00.000Z</published>
+    <updated>2021-05-19T08:08:57.489Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;假如小明同学在某次需求开发中在Git仓库的main分支中分别提交了5次，分别是A-&amp;gt;B-&amp;gt;C-&amp;gt;D-&amp;gt;E。几天后突然觉悟了，发现某些功能搞错了，需要把B这个提交的代码剔除。这时候小明就着急了，该如何是好呢？正在这时，小明想起来貌似听说过一个很厉害的命</summary>
+        
+      
+    
+    
+    
+    <category term="Git" scheme="https://onlyonezhongjinhui.github.io/categories/Git/"/>
+    
+    
+    <category term="Git" scheme="https://onlyonezhongjinhui.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL更新语句执行流程是怎样？</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/05/17/mysql05/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/05/17/mysql05/</id>
+    <published>2021-05-17T14:20:00.000Z</published>
+    <updated>2021-05-19T03:15:25.824Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;为了方便描述这个过程，先建个只包含一个主键id和age的表t,并插入一条数据：&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-sql&quot; data-language=&quot;sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>undo log有什么用？</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/05/17/mysql04/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/05/17/mysql04/</id>
+    <published>2021-05-17T13:30:00.000Z</published>
+    <updated>2021-05-19T03:15:25.824Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;undo-log&quot;&gt;&lt;a href=&quot;#undo-log&quot; class=&quot;headerlink&quot; title=&quot;undo log&quot;&gt;&lt;/a&gt;undo log&lt;/h2&gt;&lt;p&gt;undo</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如果binlog格式为mixed，语句insert into t values(1,1,now())会记录为row格式还是statement格式？</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/05/08/mysql03/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/05/08/mysql03/</id>
+    <published>2021-05-08T13:49:00.000Z</published>
+    <updated>2021-05-19T03:15:25.823Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;如果binlog格式为mixed，语句insert-into-t-values-1-1-now-会记录为row格式还是statement格式？&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL有了redo log为何还要binlog</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/05/07/mysql02/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/05/07/mysql02/</id>
+    <published>2021-05-07T14:30:00.000Z</published>
+    <updated>2021-05-19T03:15:25.823Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;MySQL有了redo-log为何还要binlog？&quot;&gt;&lt;a href=&quot;#MySQL有了redo-log为何还要binlog？&quot; class=&quot;headerlink&quot; title=&quot;MySQL有了redo</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL如何保证crash-safe</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/05/07/mysql01/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/05/07/mysql01/</id>
+    <published>2021-05-07T13:49:00.000Z</published>
+    <updated>2021-05-19T03:15:25.822Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;MySQL如何保证crash-safe？&quot;&gt;&lt;a href=&quot;#MySQL如何保证crash-safe？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>经营者养成笔记——柳井正</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/18/read01/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/18/read01/</id>
+    <published>2021-04-18T11:43:00.000Z</published>
+    <updated>2021-05-19T03:15:25.824Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;经营者养成笔记&quot;&gt;&lt;a href=&quot;#经营者养成笔记&quot; class=&quot;headerlink&quot; title=&quot;经营者养成笔记&quot;&gt;&lt;/a&gt;经营者养成笔记&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Reading" scheme="https://onlyonezhongjinhui.github.io/categories/Reading/"/>
+    
+    
+    <category term="Reading notes" scheme="https://onlyonezhongjinhui.github.io/tags/Reading-notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SPI和门面模式有什么区别</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/11/design-pattern-facade/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/11/design-pattern-facade/</id>
+    <published>2021-04-11T10:00:00.000Z</published>
+    <updated>2021-04-12T01:05:57.536Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;SPI和门面模式有什么区别&quot;&gt;&lt;a href=&quot;#SPI和门面模式有什么区别&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Design Pattern" scheme="https://onlyonezhongjinhui.github.io/categories/Design-Pattern/"/>
+    
+    
+    <category term="Design Pattern" scheme="https://onlyonezhongjinhui.github.io/tags/Design-Pattern/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为什么Kafka不允许减少主题的分区数</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/11/kafka06/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/11/kafka06/</id>
+    <published>2021-04-11T02:00:00.000Z</published>
+    <updated>2021-04-12T01:05:57.535Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;为什么Kafka不允许减少主题的分区数&quot;&gt;&lt;a href=&quot;#为什么Kafka不允许减少主题的分区数&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MQ" scheme="https://onlyonezhongjinhui.github.io/categories/MQ/"/>
+    
+    
+    <category term="Kafka" scheme="https://onlyonezhongjinhui.github.io/tags/Kafka/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka集群参数</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/04/09/kafka05/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/04/09/kafka05/</id>
+    <published>2021-04-09T15:00:00.000Z</published>
+    <updated>2021-04-10T00:25:09.521Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Kafka集群参数&quot;&gt;&lt;a href=&quot;#Kafka集群参数&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MQ" scheme="https://onlyonezhongjinhui.github.io/categories/MQ/"/>
+    
+    
+    <category term="Kafka" scheme="https://onlyonezhongjinhui.github.io/tags/Kafka/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Kafka集群安装演示</title>
     <link href="https://onlyonezhongjinhui.github.io/2021/04/09/kafka04/"/>
     <id>https://onlyonezhongjinhui.github.io/2021/04/09/kafka04/</id>
     <published>2021-04-09T01:00:00.000Z</published>
-    <updated>2021-04-09T01:44:30.405Z</updated>
+    <updated>2021-04-09T06:37:16.387Z</updated>
     
     
       
@@ -267,262 +518,6 @@
 &lt;li&gt;继承HystrixCommand，进行简单的配置&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关Hystrix插件1</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/29/soul-hystrix-plugin-01/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/29/soul-hystrix-plugin-01/</id>
-    <published>2021-01-29T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.691Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;soul hystrix插件是网关用来对流量进行熔断的核心实现，使用的是信号量的方式来处理请求。&lt;/p&gt;
-&lt;h2 id=&quot;什么是Hystrix？&quot;&gt;&lt;a href=&quot;#什么是Hystrix？&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关Global插件</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/28/soul-global-plugin/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/28/soul-global-plugin/</id>
-    <published>2021-01-28T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.690Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;soul global plugin是做什么的呢？这个官方文档里面没有提及，其实是因为这个插件是个面向开发的这么一个插件。那么它具体有什么作用呢？&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-java&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关ContextPath插件</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/27/soul-context-path-plugin/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/27/soul-context-path-plugin/</id>
-    <published>2021-01-27T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.688Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;网关context_path插件，根据文档说法，是用来对目标服务调用的时候，重写请求路径的contextPath。&lt;/p&gt;
-&lt;p&gt;我们就来试试吧。&lt;/p&gt;
-&lt;h2 id=&quot;context-path插件设置&quot;&gt;&lt;a href=&quot;#context-path插件设置&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关RateLimiter插件3</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/26/soul-rate-limiter-plugin-03/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/26/soul-rate-limiter-plugin-03/</id>
-    <published>2021-01-26T02:00:06.000Z</published>
-    <updated>2021-04-08T00:19:36.602Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上一篇了解了&lt;code&gt;RateLimiter&lt;/code&gt;插件的执行流程。讲到soul基于redis实现的令牌桶，是通过lua脚本实现。这篇我们就再细谈令牌桶算法。&lt;/p&gt;
-&lt;h2 id=&quot;令牌桶算法由来&quot;&gt;&lt;a href=&quot;#令牌桶算法由来&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关RateLimiter插件2</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/25/soul-rate-limiter-plugin-02/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/25/soul-rate-limiter-plugin-02/</id>
-    <published>2021-01-25T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.694Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上一篇我们已经了解了&lt;code&gt;RateLimiter&lt;/code&gt;插件的大致原理和使用方法。今天我们再从微观层面再来探个究竟。&lt;/p&gt;
-&lt;p&gt;请求来了以后由&lt;code&gt;SoulWebHandler&lt;/code&gt;进行进行处理，把封装请求信息的对象ServerWebExcha</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关RateLimiter插件1</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/23/soul-rate-limiter-plugin-01/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/23/soul-rate-limiter-plugin-01/</id>
-    <published>2021-01-23T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.694Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;RateLimiter插件&quot;&gt;&lt;a href=&quot;#RateLimiter插件&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关采用Zookeeper方式数据同步</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/21/soul-zookeeper-sync-data/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/21/soul-zookeeper-sync-data/</id>
-    <published>2021-01-21T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.697Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;soul网关采用zookeeper方式同步数据，对比http长轮询方式有何优势？&quot;&gt;&lt;a href=&quot;#soul网关采用zookeeper方式同步数据，对比http长轮询方式有何优势？&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关WebSocket方式数据同步</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/20/soul-websocket-sync-data/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/20/soul-websocket-sync-data/</id>
-    <published>2021-01-20T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.696Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;soul网关推荐采用websocket方式同步数据，对比http长轮询方式有何优势？&quot;&gt;&lt;a href=&quot;#soul网关推荐采用websocket方式同步数据，对比http长轮询方式有何优势？&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关Http长轮询方式数据同步</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/19/soul-http-sync-data/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/19/soul-http-sync-data/</id>
-    <published>2021-01-19T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.691Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;soul数据同步&quot;&gt;&lt;a href=&quot;#soul数据同步&quot; class=&quot;headerlink&quot; title=&quot;soul数据同步&quot;&gt;&lt;/a&gt;soul数据同步&lt;/h2&gt;&lt;p&gt;数据同步是指将 &lt;code&gt;soul-admin&lt;/code&gt; 配置的数据，同步到</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关数据同步</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/18/soul-sync-data/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/18/soul-sync-data/</id>
-    <published>2021-01-18T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.696Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;soul数据同步&quot;&gt;&lt;a href=&quot;#soul数据同步&quot; class=&quot;headerlink&quot; title=&quot;soul数据同步&quot;&gt;&lt;/a&gt;soul数据同步&lt;/h2&gt;&lt;p&gt;数据同步是指将 soul-admin 配置的数据，同步到</summary>
         
       
     
