@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Git如何剔除某些提交, 向阳而生">
+    <meta name="keywords" content="MySQL默认隔离级别是什么, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Git如何剔除某些提交 | 向阳而生</title>
+    <title>MySQL默认隔离级别是什么 | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/24.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/34.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Git如何剔除某些提交</h1>
+                    <h1 class="description center-align post-title">MySQL默认隔离级别是什么</h1>
                 </div>
             </div>
         </div>
@@ -277,8 +277,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Git/">
-                                <span class="chip bg-color">Git</span>
+                            <a href="/tags/MySQL/">
+                                <span class="chip bg-color">MySQL</span>
                             </a>
                         
                     </div>
@@ -289,8 +289,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Git/" class="post-category">
-                                Git
+                            <a href="/categories/MySQL/" class="post-category">
+                                MySQL
                             </a>
                         
                     </div>
@@ -326,57 +326,49 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>假如小明同学在某次需求开发中在Git仓库的main分支中分别提交了5次，分别是A-&gt;B-&gt;C-&gt;D-&gt;E。几天后突然觉悟了，发现某些功能搞错了，需要把B这个提交的代码剔除。这时候小明就着急了，该如何是好呢？正在这时，小明想起来貌似听说过一个很厉害的命令cherry-pick，这时小明开始变得淡定起来，嘴角上扬，胸有成足。那么它是怎么操作的呢？一起来还原现场吧。</p>
-<ol>
-<li>git reset A –hard 还原到A这个版本</li>
-<li>git cherry-pick C D E 把C、D、E cherry pick过来</li>
-<li>git push –force origin 强制推送到远端仓库</li>
-</ol>
-<p>就这样，小明就把B的提交给剔除了。这都多亏了cherry-pick命令了。</p>
-<h2 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h2><h3 id="应用于其他分支"><a href="#应用于其他分支" class="headerlink" title="应用于其他分支"></a>应用于其他分支</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> cherry-pick <span class="token operator">&lt;</span>commitHash<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>上面命令就会将指定的提交commitHash，应用于当前分支。这会在当前分支产生一个新的提交，当然它们的哈希值会不一样。</p>
-<p>举个栗子，代码仓库有main和dev两个分支。<br>    a - b - c main<br>         <br>           d - e - f - g dev<br>要将提交f应用到main分支中去</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> checkout main
-<span class="token function">git</span> cherry-pick f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>操作完成以后，代码库就变成了下面的样子。</p>
-<pre class="line-numbers language-none"><code class="language-none">a - b - c - f   main
-     \
-       d - e - f - g dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>从上面可以看到，main分支的末尾增加了一个提交f。</p>
-<p>git cherry-pick命令的参数，不一定是提交的哈希值，分支名也是可以的，表示转移该分支的最新提交。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> cherry-pick dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>操作把dev分支的最新一次提交应用到了main分支上，变成下面这样子。</p>
-<pre class="line-numbers language-none"><code class="language-none">a - b - c - g   main
-     \
-       d - e - f - g dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>如果一次性需要应用多个提交，直接命令后填写多个提交即可</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> cherry-pick <span class="token operator">&lt;</span>commitHash<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span> <span class="token operator">&lt;</span>commitHash<span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span> <span class="token operator">&lt;</span>commitHash<span class="token operator"><span class="token file-descriptor important">3</span>&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>如果需要应用的提交很多，比如需要应用commitHash1到commitHashN的所有提交，可以这样操作</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> cherry-pick <span class="token operator">&lt;</span>commitHash<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span><span class="token punctuation">..</span><span class="token operator">&lt;</span>commitHashN<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这样，就可以把从commitHash1到commitHashN的提交全应用上去了。不过需要注意的是，这是不包含commitHash1的，且commitHash1到commitHashN的顺序不能颠倒，否则会失败但不报错。如果需要包含commitHash1，则只需要稍加修改</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> cherry-pick <span class="token operator">&lt;</span>commitHash<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span>^<span class="token punctuation">..</span><span class="token operator">&lt;</span>commitHashN<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="转移到另一个仓库"><a href="#转移到另一个仓库" class="headerlink" title="转移到另一个仓库"></a>转移到另一个仓库</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> remote <span class="token function">add</span> target git://gitUrl<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>添加远程分支</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> fetch target<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>将远程分支拉取到本地</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> log target/main<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>从日志中获取提交的hash值</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> cherry-pick <span class="token operator">&lt;</span>commitHash<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>应用提交即可</p>
-<h3 id="cherry-pick常用配置项"><a href="#cherry-pick常用配置项" class="headerlink" title="cherry-pick常用配置项"></a>cherry-pick常用配置项</h3><ol>
-<li>-e，–edit<br>打开外部编辑器，编辑提交信息</li>
-<li>-n，–no-commit<br>只更新工作区和暂存区，不产生新的提交</li>
-<li>-x<br>在提交信息的末尾追加一行(cherry picked from commit …)，方便以后查到这个提交是如何产生的</li>
-<li>-s，–signoff<br>在提交信息的末尾追加一行操作者的签名，表示是谁进行了这个操作</li>
-<li>-m parent-number，–mainline parent-number<br>如果原始提交是一个合并节点，来自于两个分支的合并，那么 Cherry pick 默认将失败，因为它不知道应该采用哪个分支的代码变动。</li>
-</ol>
-<p>-m配置项告诉 Git，应该采用哪个分支的变动。它的参数parent-number是一个从1开始的整数，代表原始提交的父分支编号。</p>
-<h3 id="代码冲突策略"><a href="#代码冲突策略" class="headerlink" title="代码冲突策略"></a>代码冲突策略</h3><p>如果操作过程中发生代码冲突，Cherry pick 会停下来，让用户决定如何继续操作</p>
-<ol>
-<li>–continue<br>用户解决代码冲突后，第一步将修改的文件重新加入暂存区（git add .），第二步使用下面的命令，让 Cherry pick 过程继续执行。<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> cherry-pick --continue<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li>–abort<br>发生代码冲突后，放弃合并，回到操作前的样子</li>
-<li>–quit<br>发生代码冲突后，退出 Cherry pick，但是不回到操作前的样子</li>
-</ol>
+                <p>SQL标准事务隔离级别有：读未提交（read uncommitted）、读提交（read committed）、可重复读（repeatable read）、串行化（serializable）。这几种隔离级别由低到高，效率由高到低。</p>
+<h4 id="读未提交"><a href="#读未提交" class="headerlink" title="读未提交"></a>读未提交</h4><p>一个事务还未提交，它所作的变更就被其它的事务所看到。</p>
+<h4 id="读提交"><a href="#读提交" class="headerlink" title="读提交"></a>读提交</h4><p>一个事务的修改只有在它提交以后其他事务才能看到。</p>
+<h4 id="可重复读"><a href="#可重复读" class="headerlink" title="可重复读"></a>可重复读</h4><p>在读提交的基础上，保证一个事务在执行的过程中看到的数据总是和在这个事务启动的时候看到的数据是一致的。</p>
+<h4 id="串行化"><a href="#串行化" class="headerlink" title="串行化"></a>串行化</h4><p>对同一行数据的修改，后一个事务必须要等待前一个事务完成。也就是说对同一行数据，读会加上读锁，写会加上写锁。</p>
+<p>有这么四种隔离级别 ，那么MySQL是默认哪一种呢？</p>
+<p>mysql&gt; show variables like ‘transaction_isolation’;<br>+———————–+—————–+<br>| Variable_name         | Value           |<br>+———————–+—————–+<br>| transaction_isolation | REPEATABLE-READ |<br>+———————–+—————–+</p>
+<p>事实证明<strong>MySQL的默认隔离级别是可重复读</strong>，Oracle默认是读提交，所以当Oracle迁移到MySQL的时候注意设置MySQL的隔离级别为读提交哦。</p>
+<p>举个栗子来看看各个隔离级别的表现，加深理解。创建一个表t,并预置一行数据：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">table</span> t<span class="token punctuation">(</span>c <span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token keyword">engine</span><span class="token operator">=</span><span class="token keyword">InnoDB</span><span class="token punctuation">;</span>
+<span class="token keyword">insert</span> <span class="token keyword">into</span> t<span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>创建两个session会话，分别启动两个事务，它们的执行顺序如下所示：</p>
+<pre class="line-numbers language-none"><code class="language-none">session1                | session2
+------------------------------------------------------------- 
+begin;                    begin;
+-------------------------------------------------------------
+select * from t; (c=1)
+-------------------------------------------------------------
+                          select * from t; (c=1)
+-------------------------------------------------------------
+                          update t set c = 2 where c = 1;
+-------------------------------------------------------------
+select * from t; (c=?);
+-------------------------------------------------------------
+                          commit;
+-------------------------------------------------------------
+select * from t; (c=?);
+-------------------------------------------------------------
+commit;
+-------------------------------------------------------------
+select * from t; (c=?);
+-------------------------------------------------------------<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="读未提交-1"><a href="#读未提交-1" class="headerlink" title="读未提交"></a>读未提交</h5><p>第一个问号里c=2，第二个问好c=2，第三个问好c=2</p>
+<h5 id="读已提交"><a href="#读已提交" class="headerlink" title="读已提交"></a>读已提交</h5><p>第一个问号里c=1，第二个问好c=2，第三个问好c=2</p>
+<h5 id="可重复读-1"><a href="#可重复读-1" class="headerlink" title="可重复读"></a>可重复读</h5><p>第一个问号里c=1，第二个问好c=1，第三个问好c=2。</p>
+<h5 id="串行化-1"><a href="#串行化-1" class="headerlink" title="串行化"></a>串行化</h5><p>第一个问号里c=1，第二个问好c=1，第三个问好c=2。需要注意的是，session2中的事务执行update语句的时候会申请写锁所以会被卡住，只有当session1中的事务提交后session2中的语句才能继续执行。</p>
+<p>实际上，在数据库中会创建一个视图，访问的时候以这个视图的逻辑结果为准。在<strong>读未提交</strong>隔离级别下，实际上是不存在视图的概念，因为每次都是返回最新的值。在<strong>读提交</strong>隔离级别下，这个视图是每个SQL语句开始执行的时候创建的。在<strong>可重复读</strong>隔离级别下，这个视图是在事务启动的时候创建的，整个事务过程中都是使用这个视图。在<strong>串行化</strong>隔离级别下直接通过加锁的方式避免并行访问。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>MySQL默认隔离级别是可重复读。</li>
+<li>隔离级别有四种，读未提交、读提交、可重复读、串行化，并行效率依次从高到低。</li>
+</ul>
 
                 
             </div>
@@ -403,7 +395,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2021/05/19/git01/">https://onlyonezhongjinhui.github.io/2021/05/19/git01/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/05/19/mysql06/">https://onlyonezhongjinhui.github.io/2021/05/19/mysql06/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -441,8 +433,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Git/">
-                                    <span class="chip bg-color">Git</span>
+                                <a href="/tags/MySQL/">
+                                    <span class="chip bg-color">MySQL</span>
                                 </a>
                             
                         </div>
@@ -616,13 +608,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/05/19/mysql06/">
+                <a href="/2021/06/16/spring-security-oauth2-01/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/34.jpg" class="responsive-img" alt="MySQL默认隔离级别是什么">
+                        <img src="/medias/featureimages/30.jpg" class="responsive-img" alt="使用Spring Security搭建一个简易的Oauth授权服务">
                         
-                        <span class="card-title">MySQL默认隔离级别是什么</span>
+                        <span class="card-title">使用Spring Security搭建一个简易的Oauth授权服务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -633,14 +625,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-19
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-16
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MySQL/" class="post-category">
-                                    MySQL
+                            <a href="/categories/Spring-Security-Oauth2/" class="post-category">
+                                    Spring Security Oauth2
                                 </a>
                             
                             
@@ -650,8 +642,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/Spring-Security-Oauth2/">
+                        <span class="chip bg-color">Spring Security Oauth2</span>
                     </a>
                     
                 </div>
@@ -665,13 +657,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/05/17/mysql05/">
+                <a href="/2021/05/19/git01/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/38.jpg" class="responsive-img" alt="MySQL更新语句执行流程是怎样？">
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="Git如何剔除某些提交">
                         
-                        <span class="card-title">MySQL更新语句执行流程是怎样？</span>
+                        <span class="card-title">Git如何剔除某些提交</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -682,14 +674,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-19
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MySQL/" class="post-category">
-                                    MySQL
+                            <a href="/categories/Git/" class="post-category">
+                                    Git
                                 </a>
                             
                             
@@ -699,8 +691,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/MySQL/">
-                        <span class="chip bg-color">MySQL</span>
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
                     </a>
                     
                 </div>

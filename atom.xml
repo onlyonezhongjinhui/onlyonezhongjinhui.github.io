@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-05-19T08:08:57.489Z</updated>
+  <updated>2021-06-17T01:21:11.883Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,57 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Spring Security搭建一个简易的Oauth授权服务</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/06/16/spring-security-oauth2-01/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/06/16/spring-security-oauth2-01/</id>
+    <published>2021-06-16T08:00:00.000Z</published>
+    <updated>2021-06-17T01:21:11.883Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;搭建授权服务器&quot;&gt;&lt;a href=&quot;#搭建授权服务器&quot; class=&quot;headerlink&quot; title=&quot;搭建授权服务器&quot;&gt;&lt;/a&gt;搭建授权服务器&lt;/h2&gt;&lt;h4</summary>
+        
+      
+    
+    
+    
+    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/categories/Spring-Security-Oauth2/"/>
+    
+    
+    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/tags/Spring-Security-Oauth2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL默认隔离级别是什么</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/05/19/mysql06/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/05/19/mysql06/</id>
+    <published>2021-05-19T14:20:00.000Z</published>
+    <updated>2021-06-16T07:38:34.269Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;SQL标准事务隔离级别有：读未提交（read uncommitted）、读提交（read committed）、可重复读（repeatable read）、串行化（serializable）。这几种隔离级别由低到高，效率由高到低。&lt;/p&gt;
+&lt;h4 id=&quot;读未提交&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
+    
+  </entry>
   
   <entry>
     <title>Git如何剔除某些提交</title>
@@ -463,61 +514,6 @@
         
     <summary type="html">&lt;p&gt;上篇了解了Hystrix的资源隔离的两种方式，线程池和信号量。今天我们再看看Hystrix的熔断。&lt;/p&gt;
 &lt;h2 id=&quot;什么是熔断&quot;&gt;&lt;a href=&quot;#什么是熔断&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关Hystrix插件3</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/02/01/soul-hystrix-plugin-03/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/02/01/soul-hystrix-plugin-03/</id>
-    <published>2021-02-01T02:00:06.000Z</published>
-    <updated>2021-04-08T00:19:36.600Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上一篇我们看了一个Hystrix的入门例子，了解了Hystrix的工作流程。今天我们再来看看Hystrix的命令执行的方式、资源的隔离类型。&lt;/p&gt;
-&lt;h2 id=&quot;执行命令的几种方法&quot;&gt;&lt;a href=&quot;#执行命令的几种方法&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
-    
-    
-    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Soul网关Hystrix插件2</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/01/30/soul-hystrix-plugin-02/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/01/30/soul-hystrix-plugin-02/</id>
-    <published>2021-01-30T02:00:06.000Z</published>
-    <updated>2021-04-07T03:16:28.691Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;上一篇从宏观上认识了Hystrix，大体了解了Hystrix是什么，能解决什么问题。今天我们再从一个入门例子看起，看看具体怎么使用，过程怎么执行。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;继承HystrixCommand，进行简单的配置&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre</summary>
         
       
     
