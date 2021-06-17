@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-06-17T09:17:19.424Z</updated>
+  <updated>2021-06-17T09:58:07.121Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -17,18 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>使用Spring Security搭建一个简易的Oauth资源服务</title>
+    <title>从零搭建spring security oauth2认证授权体系（二）</title>
     <link href="https://onlyonezhongjinhui.github.io/2021/06/17/spring-security-oauth2-02/"/>
     <id>https://onlyonezhongjinhui.github.io/2021/06/17/spring-security-oauth2-02/</id>
     <published>2021-06-17T08:00:00.000Z</published>
-    <updated>2021-06-17T09:17:19.424Z</updated>
+    <updated>2021-06-17T09:58:07.121Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;创建资源服务应用，添加如下依赖&quot;&gt;&lt;a href=&quot;#创建资源服务应用，添加如下依赖&quot; class=&quot;headerlink&quot; title=&quot;创建资源服务应用，添加如下依赖&quot;&gt;&lt;/a&gt;创建资源服务应用，添加如下依赖&lt;/h3&gt;&lt;pre</summary>
+    <summary type="html">&lt;h2 id=&quot;搭建资源服务&quot;&gt;&lt;a href=&quot;#搭建资源服务&quot; class=&quot;headerlink&quot; title=&quot;搭建资源服务&quot;&gt;&lt;/a&gt;搭建资源服务&lt;/h2&gt;&lt;h3 id=&quot;创建资源服务应用&quot;&gt;&lt;a href=&quot;#创建资源服务应用&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -42,18 +42,18 @@
   </entry>
   
   <entry>
-    <title>使用Spring Security搭建一个简易的Oauth授权服务</title>
+    <title>从零搭建spring security oauth2认证授权体系（一）</title>
     <link href="https://onlyonezhongjinhui.github.io/2021/06/16/spring-security-oauth2-01/"/>
     <id>https://onlyonezhongjinhui.github.io/2021/06/16/spring-security-oauth2-01/</id>
     <published>2021-06-16T08:00:00.000Z</published>
-    <updated>2021-06-17T03:14:01.853Z</updated>
+    <updated>2021-06-17T09:58:09.241Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;搭建授权服务器&quot;&gt;&lt;a href=&quot;#搭建授权服务器&quot; class=&quot;headerlink&quot; title=&quot;搭建授权服务器&quot;&gt;&lt;/a&gt;搭建授权服务器&lt;/h2&gt;&lt;h4</summary>
+    <summary type="html">&lt;h2 id=&quot;搭建授权服务器&quot;&gt;&lt;a href=&quot;#搭建授权服务器&quot; class=&quot;headerlink&quot; title=&quot;搭建授权服务器&quot;&gt;&lt;/a&gt;搭建授权服务器&lt;/h2&gt;&lt;h3 id=&quot;创建授权服务应用&quot;&gt;&lt;a href=&quot;#创建授权服务应用&quot;</summary>
         
       
     
