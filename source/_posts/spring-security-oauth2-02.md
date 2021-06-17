@@ -1,5 +1,5 @@
 ---
-title: 使用Spring Security搭建一个简易的Oauth资源服务
+title: 从零搭建spring security oauth2认证授权体系（二）
 date: 2021-06-17 16:00:00
 author: maybe
 top: true
@@ -11,7 +11,11 @@ tags: Spring Security Oauth2
 categories:
 - [Spring Security Oauth2]
 ---
-### 创建资源服务应用，添加如下依赖
+## 搭建资源服务
+
+### 创建资源服务应用
+
+依赖
 
 ```xml
         <dependency>
@@ -38,7 +42,7 @@ categories:
 
 ![](/medias/assets/20210617164410.png)
 
-### 资源服务器配置
+### 资源服务配置
 
 **@EnableResourceServer **注解到一个 @Configuration 配置类上，并且必须使用 ResourceServerConfigurer 这个配置对象来进行配置（可以选择继承自 ResourceServerConfigurerAdapter 然后覆写其中的方法，参数就是这个对象的实例），下面是一些可以配置的属性：
 
@@ -103,80 +107,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         tokenServices.setClientId("order");
         tokenServices.setClientSecret("secret");
         return tokenServices;
-    }
-
-}
-```
-
-对应的授权服务应用的主要配置如下：
-
-```java
-@Configuration
-@RequiredArgsConstructor
-@EnableAuthorizationServer
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
-
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security
-                .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("permitAll()")
-                .allowFormAuthenticationForClients();
-    }
-
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("order")
-                .authorizedGrantTypes("authorization_code", "client_credentials", "password", "implicit", "refresh_token")
-                .scopes("read", "write")
-                .secret("{noop}secret")
-                .autoApprove(true)
-                .redirectUris("http://www.baidu.com");
-    }
-
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints
-                .authenticationManager(this.authenticationManager)
-                .userDetailsService(this.userDetailsService)
-                .tokenStore(tokenStore());
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new InMemoryTokenStore();
-    }
-}
-```
-
-```java
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and().formLogin();
-    }
-
-    @Bean
-    public UserDetailsService users() throws Exception {
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(users.username("user").password("password").roles("USER").build());
-        manager.createUser(users.username("admin").password("password").roles("USER", "ADMIN").build());
-        return manager;
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
     }
 
 }
