@@ -145,6 +145,7 @@ categories:
   @EnableAuthorizationServer
   public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
       private final AuthenticationManager authenticationManager;
+      private final UserDetailsService userDetailsService;
 
       @Override
       public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -169,6 +170,7 @@ categories:
       public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
           endpoints
                   .authenticationManager(this.authenticationManager)
+                  .userDetailsService(this.userDetailsService) // 使用刷新token必须配置
                   .tokenStore(tokenStore());
       }
 
@@ -297,4 +299,51 @@ categories:
   响应：
   ```
   https://www.baidu.com/#access_token=500ac853-aa32-4415-b7e8-ee91c410652c&token_type=bearer&expires_in=41575&scope=all
+  ```
+
+### 验证token
+
+  请求：
+  ```
+  GET http://localhost:8090/oauth/check_token?token=7f779d38-0629-4df1-84e0-6fa6a3da64cd
+  ```
+
+  响应：
+  ```
+  {
+    "active": true,
+    "exp": 1623938919,
+    "user_name": "admin",
+    "authorities": [
+      "ROLE_ADMIN",
+      "ROLE_USER"
+    ],
+    "client_id": "client",
+    "scope": [
+      "all"
+    ]
+  }
+  ```
+
+### 刷新token
+
+  请求：
+  ```
+  POST http://localhost:8090/oauth/token
+  Accept: application/json
+  Content-Type: application/x-www-form-urlencoded
+  Authorization: Basic Y2xpZW50OnNlY3JldA==
+
+  grant_type=refresh_token&refresh_token=f32fe1fa-a5c4-4bdd-b325-8130cb39430e
+  ```
+
+  响应：
+  ```JSON
+  {
+    "access_token": "cea4788b-a2f5-4d39-b411-05dd36ed6257",
+    "token_type": "bearer",
+    "refresh_token": "f32fe1fa-a5c4-4bdd-b325-8130cb39430e",
+    "expires_in": 43200,
+    "scope": "all"
+  }
   ```
