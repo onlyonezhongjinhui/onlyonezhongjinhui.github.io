@@ -34,16 +34,6 @@ categories:
       <version>2.2.4.RELEASE</version>
   </dependency>
   <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-jwt</artifactId>
-      <version>1.1.0.RELEASE</version>
-  </dependency>
-  <dependency>
-      <groupId>com.nimbusds</groupId>
-      <artifactId>nimbus-jose-jwt</artifactId>
-      <version>8.2.1</version>
-  </dependency>
-  <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
