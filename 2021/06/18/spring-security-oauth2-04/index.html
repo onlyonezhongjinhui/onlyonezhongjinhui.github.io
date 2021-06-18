@@ -29,9 +29,9 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="向阳而生" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="向阳而生" type="application/atom+xml">
 </head>
 
 
@@ -547,8 +547,28 @@ grant_type=refresh_token&amp;refresh_token=fab9886a-ef2d-4506-9501-d379103090ca<
   "scope": "read write"
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>###代码地址#代码#</p>
-<p><a href="https://">https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E5%9B%9B%EF%BC%89</a></p>
+<p>测试资源服务</p>
+<p>不带token请求：</p>
+<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8092/api/order<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>响应：</p>
+<pre class="line-numbers language-none"><code class="language-none">{
+  "error": "unauthorized",
+  "error_description": "Full authentication is required to access this resource"
+}
+
+Response code: 401; Time: 40ms; Content length: 102 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>带token请求：</p>
+<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8092/api/order
+Authorization: Bearer b8a2a416-4e67-4aeb-b471-00256c8a5779<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>响应：</p>
+<pre class="line-numbers language-none"><code class="language-none">get order
+
+Response code: 200; Time: 139ms; Content length: 9 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="代码地址"><a href="#代码地址" class="headerlink" title="代码地址"></a>代码地址</h3><p><a href="https://">https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E5%9B%9B%EF%BC%89</a></p>
 
                 
             </div>
