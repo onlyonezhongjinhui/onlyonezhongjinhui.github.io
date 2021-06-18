@@ -42,56 +42,6 @@
   </entry>
   
   <entry>
-    <title>从零搭建spring security oauth2认证授权体系（二）</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/06/17/spring-security-oauth2-02/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/06/17/spring-security-oauth2-02/</id>
-    <published>2021-06-17T08:00:00.000Z</published>
-    <updated>2021-06-18T00:46:17.582Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;搭建资源服务&quot;&gt;&lt;a href=&quot;#搭建资源服务&quot; class=&quot;headerlink&quot; title=&quot;搭建资源服务&quot;&gt;&lt;/a&gt;搭建资源服务&lt;/h2&gt;&lt;h3 id=&quot;创建资源服务应用&quot;&gt;&lt;a href=&quot;#创建资源服务应用&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/categories/Spring-Security-Oauth2/"/>
-    
-    
-    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/tags/Spring-Security-Oauth2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从零搭建spring security oauth2认证授权体系（一）</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/06/16/spring-security-oauth2-01/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/06/16/spring-security-oauth2-01/</id>
-    <published>2021-06-16T08:00:00.000Z</published>
-    <updated>2021-06-18T03:49:43.401Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;搭建授权服务器&quot;&gt;&lt;a href=&quot;#搭建授权服务器&quot; class=&quot;headerlink&quot; title=&quot;搭建授权服务器&quot;&gt;&lt;/a&gt;搭建授权服务器&lt;/h2&gt;&lt;h3 id=&quot;创建授权服务应用&quot;&gt;&lt;a href=&quot;#创建授权服务应用&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/categories/Spring-Security-Oauth2/"/>
-    
-    
-    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/tags/Spring-Security-Oauth2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>MySQL默认隔离级别是什么</title>
     <link href="https://onlyonezhongjinhui.github.io/2021/05/19/mysql06/"/>
     <id>https://onlyonezhongjinhui.github.io/2021/05/19/mysql06/</id>
@@ -512,6 +462,58 @@
     <summary type="html">&lt;p&gt;前面几篇都聊了Hystrix的基本原理，今天回归主题，看看soul是如何使用Hystrix的。&lt;/p&gt;
 &lt;p&gt;首先使用Hystrix就要定义Command，嘿嘿，一看，果然soul里面定义了Command。&lt;/p&gt;
 &lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Soul网关Hystrix插件5</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/02/03/soul-hystrix-plugin-05/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/02/03/soul-hystrix-plugin-05/</id>
+    <published>2021-02-03T02:00:06.000Z</published>
+    <updated>2021-04-07T03:16:28.693Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一篇了解了Hystrix的熔断机制，今天我们再看看回退和降级&lt;/p&gt;
+&lt;h2 id=&quot;回退降级&quot;&gt;&lt;a href=&quot;#回退降级&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="gateway" scheme="https://onlyonezhongjinhui.github.io/categories/gateway/"/>
+    
+    
+    <category term="soul" scheme="https://onlyonezhongjinhui.github.io/tags/soul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Soul网关Hystrix插件4</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/02/02/soul-hystrix-plugin-04/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/02/02/soul-hystrix-plugin-04/</id>
+    <published>2021-02-02T02:00:06.000Z</published>
+    <updated>2021-04-08T00:19:36.600Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上篇了解了Hystrix的资源隔离的两种方式，线程池和信号量。今天我们再看看Hystrix的熔断。&lt;/p&gt;
+&lt;h2 id=&quot;什么是熔断&quot;&gt;&lt;a href=&quot;#什么是熔断&quot; class=&quot;headerlink&quot;</summary>
         
       
     
