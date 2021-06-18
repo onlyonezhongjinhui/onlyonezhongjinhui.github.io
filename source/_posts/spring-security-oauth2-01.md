@@ -279,7 +279,7 @@ grant_type=password&username=admin&password=password
   "token_type": "bearer",
   "refresh_token": "c36079e9-72ee-46a0-a629-82da565062d7",
   "expires_in": 42099,
-  "scope": "all"
+  "scope": "read write"
 }
 ```
 
@@ -288,7 +288,7 @@ grant_type=password&username=admin&password=password
 请求：
 
 ```
-GET http://localhost:8090/oauth/authorize?client_id=client&response_type=code&grant_type=authorization_code&redirect_uri=http://www.baidu.com
+GET http://localhost:8090/oauth/authorize?client_id=order&response_type=code&grant_type=authorization_code&redirect_uri=http://www.baidu.com
 ```
 
 响应：
@@ -305,7 +305,7 @@ Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic b3JkZXI6c2VjcmV0
 
-grant_type=authorization_code&client_id=client&client_secret=secret&redirect_uri=http://www.baidu.com&code=kY8L5A
+grant_type=authorization_code&client_id=order&client_secret=secret&redirect_uri=http://www.baidu.com&code=kY8L5A
 ```
 
 响应：
@@ -316,7 +316,7 @@ grant_type=authorization_code&client_id=client&client_secret=secret&redirect_uri
   "token_type": "bearer",
   "refresh_token": "c36079e9-72ee-46a0-a629-82da565062d7",
   "expires_in": 41631,
-  "scope": "all"
+  "scope": "read write"
 }
 ```
 
@@ -325,7 +325,7 @@ grant_type=authorization_code&client_id=client&client_secret=secret&redirect_uri
 请求：
 
 ```
-GET http://localhost:8090/oauth/authorize?client_id=client&response_type=token&grant_type=authorization_code&redirect_uri=http://www.baidu.com
+GET http://localhost:8090/oauth/authorize?client_id=order&response_type=token&grant_type=authorization_code&redirect_uri=http://www.baidu.com
 ```
 
 响应：
@@ -353,9 +353,10 @@ GET http://localhost:8090/oauth/check_token?token=7f779d38-0629-4df1-84e0-6fa6a3
     "ROLE_ADMIN",
     "ROLE_USER"
   ],
-  "client_id": "client",
+  "client_id": "order",
   "scope": [
-    "all"
+    "read",
+    "write"
   ]
 }
 ```
@@ -381,6 +382,8 @@ grant_type=refresh_token&refresh_token=f32fe1fa-a5c4-4bdd-b325-8130cb39430e
   "token_type": "bearer",
   "refresh_token": "f32fe1fa-a5c4-4bdd-b325-8130cb39430e",
   "expires_in": 43200,
-  "scope": "all"
+  "scope": "read write"
 }
 ```
+
+### 完整代码在这里:https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%80%EF%BC%89/authorization-server
