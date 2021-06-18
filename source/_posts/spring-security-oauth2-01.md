@@ -254,7 +254,7 @@ Authorization: Basic b3JkZXI6c2VjcmV0
   "access_token": "1f7c97f2-c048-4425-8463-244be95b2ee1",
   "token_type": "bearer",
   "expires_in": 42496,
-  "scope": "all"
+  "scope": "read write"
 }
 ```
 
@@ -386,8 +386,6 @@ grant_type=refresh_token&refresh_token=f32fe1fa-a5c4-4bdd-b325-8130cb39430e
 }
 ```
 
-### 完整代码在这里:https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%80%EF%BC%89/authorization-server
+### 完整代码
 
-br
-
----
+[https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%80%EF%BC%89/authorization-server](https://)

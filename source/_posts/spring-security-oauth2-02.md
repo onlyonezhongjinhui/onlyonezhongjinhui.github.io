@@ -39,7 +39,7 @@ categories:
 
 项目结构
 
-![20210617164410.png](assets/20210617164544-u1bkb8w-20210617164410.png)
+![](/medias/assets/20210617174356.png)
 
 ### 资源服务配置
 
@@ -210,3 +210,7 @@ get order
 
 Response code: 200; Time: 39ms; Content length: 9 bytes
 ```
+
+### 代码地址
+
+[https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%89%EF%BC%89](https://)

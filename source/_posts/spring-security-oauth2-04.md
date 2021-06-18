@@ -317,3 +317,7 @@ grant_type=refresh_token&refresh_token=fab9886a-ef2d-4506-9501-d379103090ca
   "scope": "read write"
 }
 ```
+
+###代码地址#代码#
+
+[https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E5%9B%9B%EF%BC%89](https://)
