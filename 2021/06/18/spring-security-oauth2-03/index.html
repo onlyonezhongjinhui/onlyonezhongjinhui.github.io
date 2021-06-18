@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零搭建spring security oauth2认证授权体系（二）, 向阳而生">
+    <meta name="keywords" content="从零搭建spring security oauth2认证授权体系（三）, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零搭建spring security oauth2认证授权体系（二） | 向阳而生</title>
+    <title>从零搭建spring security oauth2认证授权体系（三） | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零搭建spring security oauth2认证授权体系（二）</h1>
+                    <h1 class="description center-align post-title">从零搭建spring security oauth2认证授权体系（三）</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-17
+                    2021-06-18
                 </div>
                 
 
@@ -326,149 +326,162 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="搭建资源服务"><a href="#搭建资源服务" class="headerlink" title="搭建资源服务"></a>搭建资源服务</h2><h3 id="创建资源服务应用"><a href="#创建资源服务应用" class="headerlink" title="创建资源服务应用"></a>创建资源服务应用</h3><p>依赖</p>
-<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-web<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-security<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-cloud-starter-oauth2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>2.2.4.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.projectlombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>lombok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>optional</span><span class="token punctuation">&gt;</span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>optional</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>项目结构</p>
-<p><img src="/medias/assets/20210617164410.png"></p>
-<h3 id="资源服务配置"><a href="#资源服务配置" class="headerlink" title="资源服务配置"></a>资源服务配置</h3><p>**@EnableResourceServer **注解到一个 @Configuration 配置类上，并且必须使用 ResourceServerConfigurer 这个配置对象来进行配置（可以选择继承自 ResourceServerConfigurerAdapter 然后覆写其中的方法，参数就是这个对象的实例），下面是一些可以配置的属性：</p>
-<p><strong>ResourceServerSecurityConfigurer</strong>中主要包括：</p>
-<ul>
-<li>tokenServices：ResourceServerTokenServices 类的实例，用来实现令牌服务</li>
-<li>tokenStore：TokenStore类的实例，指定令牌如何访问，与tokenServices配置可选</li>
-<li>resourceId：这个资源服务的ID，这个属性是可选的，但是推荐设置并在授权服务中进行验证。</li>
-<li>其他的拓展属性例如 tokenExtractor 令牌提取器用来提取请求中的令牌</li>
+                <h2 id="使用JWT令牌"><a href="#使用JWT令牌" class="headerlink" title="使用JWT令牌"></a>使用JWT令牌</h2><h3 id="什么是JWT"><a href="#什么是JWT" class="headerlink" title="什么是JWT"></a>什么是JWT</h3><p>JSON Web Token（JWT）是一个开放的行业标准（RFC 7519），它定义了一种简介的、自包含的协议格式，用于在通信双方传递JSON对象，传递的信息经过数字签名可以被验证和信任。JWT可以使用HMAC算法或使用RSA的公钥/私钥对来签名，防止被篡改。</p>
+<h3 id="JWT优缺点"><a href="#JWT优缺点" class="headerlink" title="JWT优缺点"></a>JWT优缺点</h3><ul>
+<li>JWT基于JSON,非常方便解析</li>
+<li>可以在令牌中自定义丰富内容，易扩展</li>
+<li>通过非对称加密算法以及数字签名技术，防止JWT令牌被篡改，安全性高</li>
+<li>资源服务使用JWT可不依赖认证服务就能完成授权，减少远程调用校验令牌的网络开销，提升性能</li>
+<li>JWT的无状态，有助于增强系统的可用性和可伸缩性</li>
+<li>一般不存在cookie中，有效避免了CSRF攻击</li>
+<li>适合移动端（有些不支持cookie的）</li>
+<li>对单点登录友好</li>
 </ul>
-<p><strong>HttpSecurity</strong>配置这个与Spring Security类似：</p>
-<ul>
-<li>请求匹配器，用来设置需要进行保护的资源路径，默认的情况下是保护资源服务的全部路径</li>
-<li>通过http.authorizeRequests()来设置受保护资源的访问规则</li>
-<li>其他的自定义权限保护规则通过 HttpSecurity 来进行配置</li>
+<h3 id="JWT缺点"><a href="#JWT缺点" class="headerlink" title="JWT缺点"></a>JWT缺点</h3><ul>
+<li>JWT令牌很长，占用存储空间占用大</li>
+<li>无法在服务器注销，有被劫持的风险</li>
+<li>JWT验证签名耗CPU</li>
 </ul>
-<p><strong>@EnableResourceServer</strong> 注解自动增加了一个类型为 OAuth2AuthenticationProcessingFilter 的过滤器链</p>
-<h3 id="配置令牌验证"><a href="#配置令牌验证" class="headerlink" title="配置令牌验证"></a>配置令牌验证</h3><p><strong>ResourceServerTokenServices</strong> 是组成授权服务的另一半，如果授权服务和资源服务在同一个应用程序上的<br>话，你可以使用 <strong>DefaultTokenServices</strong> ，这样的话，你就不用考虑关于实现所有必要的接口的一致性问题。如果资源服务器是分离开的，那么你就必须要确保能够有匹配授权服务提供的 ResourceServerTokenServices，它知道如何对令牌进行解码。</p>
-<ul>
-<li>** DefaultTokenServices** 资源服务器本地配置令牌存储、解码、解析方式</li>
-<li>**RemoteTokenServices **资源服务器通过 HTTP 请求来解码令牌，每次都请求授权服务器端点 /oauth/check_token进行验证。所以授权服务要把 /oauth/check_token 端点暴露出去</li>
-</ul>
-<p>这里资源服务是独立的应用，则具体配置代码如下所示：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
-<span class="token annotation punctuation">@RequiredArgsConstructor</span>
-<span class="token annotation punctuation">@EnableResourceServer</span>
-<span class="token annotation punctuation">@EnableGlobalMethodSecurity</span><span class="token punctuation">(</span>prePostEnabled <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ResourceServerConfig</span> <span class="token keyword">extends</span> <span class="token class-name">ResourceServerConfigurerAdapter</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> RESOURCE_ID <span class="token operator">=</span> <span class="token string">"order"</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">TokenStore</span> tokenStore<span class="token punctuation">;</span>
+<h3 id="如何使用JWT"><a href="#如何使用JWT" class="headerlink" title="如何使用JWT"></a>如何使用JWT</h3><h4 id="配置JWT令牌服务"><a href="#配置JWT令牌服务" class="headerlink" title="配置JWT令牌服务"></a>配置JWT令牌服务</h4><p>授权服务配置类中<strong>AuthorizationServerConfig</strong>配置JWT令牌服务</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationServerEndpointsConfigurer</span> endpoints<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+    endpoints
+            <span class="token punctuation">.</span><span class="token function">authenticationManager</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>authenticationManager<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">userDetailsService</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>userDetailsService<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 配置令牌管理为JWT</span>
+            <span class="token punctuation">.</span><span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 配置令牌转换器（授权信息&lt;-&gt;令牌双向转换）</span>
+<span class="token punctuation">}</span>
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">ResourceServerSecurityConfigurer</span> security<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
-        security
-                <span class="token punctuation">.</span><span class="token function">resourceId</span><span class="token punctuation">(</span>RESOURCE_ID<span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>tokenStore<span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">tokenServices</span><span class="token punctuation">(</span><span class="token function">tokenServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">TokenStore</span> <span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JwtTokenStore</span><span class="token punctuation">(</span><span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">HttpSecurity</span> http<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
-        http
-                <span class="token punctuation">.</span><span class="token function">authorizeRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">antMatchers</span><span class="token punctuation">(</span><span class="token class-name">HttpMethod</span><span class="token punctuation">.</span>GET<span class="token punctuation">,</span> <span class="token string">"/api/order/**"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hasRole</span><span class="token punctuation">(</span><span class="token string">"USER"</span><span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">antMatchers</span><span class="token punctuation">(</span><span class="token string">"/api/order/**"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hasRole</span><span class="token punctuation">(</span><span class="token string">"ADMIN"</span><span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">antMatchers</span><span class="token punctuation">(</span><span class="token string">"/api/goods/**"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">permitAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">anyRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">authenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">and</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">csrf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">disable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sessionManagement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sessionCreationPolicy</span><span class="token punctuation">(</span><span class="token class-name">SessionCreationPolicy</span><span class="token punctuation">.</span>STATELESS<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">JwtAccessTokenConverter</span> <span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">JwtAccessTokenConverter</span> converter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JwtAccessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 对称秘钥，资源服务器使用该秘钥来验证</span>
+    converter<span class="token punctuation">.</span><span class="token function">setSigningKey</span><span class="token punctuation">(</span><span class="token string">"test123456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> converter<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token annotation punctuation">@Bean</span>
-    <span class="token keyword">public</span> <span class="token class-name">ResourceServerTokenServices</span> <span class="token function">tokenServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment">// 使用远程服务请求授权服务器校验token,必须指定校验token 的url、client_id，client_secret</span>
-        <span class="token class-name">RemoteTokenServices</span> tokenServices <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RemoteTokenServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        tokenServices<span class="token punctuation">.</span><span class="token function">setCheckTokenEndpointUrl</span><span class="token punctuation">(</span><span class="token string">"http://localhost:8090/oauth/check_token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        tokenServices<span class="token punctuation">.</span><span class="token function">setClientId</span><span class="token punctuation">(</span><span class="token string">"order"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        tokenServices<span class="token punctuation">.</span><span class="token function">setClientSecret</span><span class="token punctuation">(</span><span class="token string">"secret"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> tokenServices<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h4 id="配置资源服务器令牌认证"><a href="#配置资源服务器令牌认证" class="headerlink" title="配置资源服务器令牌认证"></a>配置资源服务器令牌认证</h4><p>资源服务器配置类<strong>ResourceServerConfig</strong>配置JWT令牌认证</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">TokenStore</span> <span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JwtTokenStore</span><span class="token punctuation">(</span><span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">JwtAccessTokenConverter</span> <span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">JwtAccessTokenConverter</span> converter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JwtAccessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 对称秘钥，资源服务器使用该秘钥来验证</span>
+    converter<span class="token punctuation">.</span><span class="token function">setSigningKey</span><span class="token punctuation">(</span><span class="token string">"test123456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> converter<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="创建受保护资源"><a href="#创建受保护资源" class="headerlink" title="创建受保护资源"></a>创建受保护资源</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
-<span class="token annotation punctuation">@RestController</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"api/order"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OrderController</span> <span class="token punctuation">{</span>
+<h3 id="测试授权服务"><a href="#测试授权服务" class="headerlink" title="测试授权服务"></a>测试授权服务</h3><h4 id="客户端模式"><a href="#客户端模式" class="headerlink" title="客户端模式"></a>客户端模式</h4><p><em>注意：POST请求需要在请求头带上Authorization参数，参数格式固定为Base64({client_id}:{client_secret})。POST请求带参的Content-Type是application/x-www-form-urlencoded。这里使用的是IDEA的http client工具测试</em></p>
+<p>请求：</p>
+<pre class="line-numbers language-none"><code class="language-none">POST http://localhost:8090/oauth/token?grant_type=client_credentials
+Accept: application/json
+Authorization: Basic b3JkZXI6c2VjcmV0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token annotation punctuation">@PostMapping</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">post</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"post order"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<p>响应：</p>
+<pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjI0MDMwMTUxLCJqdGkiOiJmMDcyNjZmZi1kMTJiLTRlODMtOGE4MS0yYmUyNjdhOTEwNWIiLCJjbGllbnRfaWQiOiJvcmRlciJ9.kX4YcgrKH_XEDmeXUs_2XufJ-NbjNeUX2FVyi7CPfgI",
+  "token_type": "bearer",
+  "expires_in": 43199,
+  "scope": "read write",
+  "jti": "f07266ff-d12b-4e83-8a81-2be267a9105b"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token annotation punctuation">@PutMapping</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"put order"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h4 id="密码模式"><a href="#密码模式" class="headerlink" title="密码模式"></a>密码模式</h4><p>请求：</p>
+<pre class="line-numbers language-none"><code class="language-none">POST http://localhost:8090/oauth/token
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic b3JkZXI6c2VjcmV0
 
-    <span class="token annotation punctuation">@DeleteMapping</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"delete order"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+grant_type=password&amp;username=admin&amp;password=password<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token annotation punctuation">@GetMapping</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">Authentication</span> authentication <span class="token operator">=</span> <span class="token class-name">SecurityContextHolder</span><span class="token punctuation">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAuthentication</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"get order"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<p>响应：</p>
+<pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMzAyNDYsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJhNzdiODM2YS03ZTBhLTRjNzctYmJjNC01ZGM5Y2QyZjViNTQiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.rF1b4K8S8R276GXDfjocC4zGvTP5bNjVLkFb_8vmZrg",
+  "token_type": "bearer",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiJhNzdiODM2YS03ZTBhLTRjNzctYmJjNC01ZGM5Y2QyZjViNTQiLCJleHAiOjE2MjY1NzkwNDYsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiNTQxZTJiYTAtMTkxOC00ZTg2LTljNDItYzA2NWI1ZDZiMTk4IiwiY2xpZW50X2lkIjoib3JkZXIifQ.n6KTMcXShbcVdgllGFGZxHSALrrx-xVnOgFSGpcrI-I",
+  "expires_in": 43199,
+  "scope": "read write",
+  "jti": "a77b836a-7e0a-4c77-bbc4-5dc9cd2f5b54"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="授权码模式"><a href="#授权码模式" class="headerlink" title="授权码模式"></a>授权码模式</h4><p>请求：</p>
+<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/authorize?client_id=order&amp;response_type=code&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
-<span class="token annotation punctuation">@RestController</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"api/goods"</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GoodsController</span> <span class="token punctuation">{</span>
+<p>响应：</p>
+<pre class="line-numbers language-none"><code class="language-none">https://www.baidu.com/?code=1lZbxO<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-    <span class="token annotation punctuation">@PostMapping</span>
-    <span class="token annotation punctuation">@PreAuthorize</span><span class="token punctuation">(</span><span class="token string">"hasRole('ADMIN')"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">post</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"post goods"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<p>使用响应连接中的code获取token</p>
+<pre class="line-numbers language-none"><code class="language-none">POST http://localhost:8090/oauth/token
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic b3JkZXI6c2VjcmV0
 
-    <span class="token annotation punctuation">@PutMapping</span>
-    <span class="token annotation punctuation">@PreAuthorize</span><span class="token punctuation">(</span><span class="token string">"hasRole('ADMIN')"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"put goods"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+grant_type=authorization_code&amp;client_id=order&amp;client_secret=secret&amp;redirect_uri=http://www.baidu.com&amp;code=1lZbxO<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token annotation punctuation">@DeleteMapping</span>
-    <span class="token annotation punctuation">@PreAuthorize</span><span class="token punctuation">(</span><span class="token string">"hasRole('ADMIN')"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"delete goods"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<p>响应：</p>
+<pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMzA1NzAsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiI4ZjU0NTBhMy1mZGU5LTQwZmEtYjQ4Zi0wNmRkNDQ0NzRjN2EiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.39vnXeQwIekYdDXUXUKKIHKcJ71Regm3jtXxfYvIVKQ",
+  "token_type": "bearer",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiI4ZjU0NTBhMy1mZGU5LTQwZmEtYjQ4Zi0wNmRkNDQ0NzRjN2EiLCJleHAiOjE2MjY1NzkzNzAsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZDdkYjdhNzEtYWJkOS00ZjM0LWE4ZmMtNWJmMmM4MzI3MTgxIiwiY2xpZW50X2lkIjoib3JkZXIifQ.d2LCYsCLBjDAzXCHyWPmwu9xaLjXURT-Tj6gVSuKEIE",
+  "expires_in": 43199,
+  "scope": "read write",
+  "jti": "8f5450a3-fde9-40fa-b48f-06dd44474c7a"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token annotation punctuation">@GetMapping</span>
-    <span class="token annotation punctuation">@PreAuthorize</span><span class="token punctuation">(</span><span class="token string">"hasRole('USER')"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">Authentication</span> authentication <span class="token operator">=</span> <span class="token class-name">SecurityContextHolder</span><span class="token punctuation">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAuthentication</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string">"get goods"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<h4 id="简易模式"><a href="#简易模式" class="headerlink" title="简易模式"></a>简易模式</h4><p>请求：</p>
+<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/authorize?client_id=order&amp;response_type=token&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>响应：</p>
+<pre class="line-numbers language-none"><code class="language-none">https://www.baidu.com/#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMzA2MzEsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJiZDVhODRiNi0wMzNiLTQxYjUtYjQxMC03MmMwYzcyYzgzNDMiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.nnNiGaxCq9bJHiJY-sSWAMpGz4xR9XT6WDol0dHxbD8&amp;token_type=bearer&amp;expires_in=43200&amp;scope=read%20write&amp;jti=bd5a84b6-033b-41b5-b410-72c0c72c8343<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>不带token请求：</p>
+<h3 id="验证token"><a href="#验证token" class="headerlink" title="验证token"></a>验证token</h3><p>请求：</p>
+<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/check_token?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMjcxMjksInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJiZGExZTdlOC1iNGE1LTRhY2MtODQwNS0yYzkzMmEwNDkzZjYiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.LCnyavxv7hhsTd1pGG0_fVYEV5oeYZg0mKKuiNemSfo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>响应：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"user_name"</span><span class="token operator">:</span> <span class="token string">"admin"</span><span class="token punctuation">,</span>
+  <span class="token property">"scope"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"read"</span><span class="token punctuation">,</span>
+    <span class="token string">"write"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"exp"</span><span class="token operator">:</span> <span class="token number">1624027129</span><span class="token punctuation">,</span>
+  <span class="token property">"authorities"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"ROLE_ADMIN"</span><span class="token punctuation">,</span>
+    <span class="token string">"ROLE_USER"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"jti"</span><span class="token operator">:</span> <span class="token string">"bda1e7e8-b4a5-4acc-8405-2c932a0493f6"</span><span class="token punctuation">,</span>
+  <span class="token property">"client_id"</span><span class="token operator">:</span> <span class="token string">"order"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="刷新token"><a href="#刷新token" class="headerlink" title="刷新token"></a>刷新token</h3><p>请求：</p>
+<pre class="line-numbers language-none"><code class="language-none">POST http://localhost:8090/oauth/token
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic b3JkZXI6c2VjcmV0
+
+grant_type=refresh_token&amp;refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiI4ZjU0NTBhMy1mZGU5LTQwZmEtYjQ4Zi0wNmRkNDQ0NzRjN2EiLCJleHAiOjE2MjY1NzkzNzAsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZDdkYjdhNzEtYWJkOS00ZjM0LWE4ZmMtNWJmMmM4MzI3MTgxIiwiY2xpZW50X2lkIjoib3JkZXIifQ.d2LCYsCLBjDAzXCHyWPmwu9xaLjXURT-Tj6gVSuKEIE
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>响应：</p>
+<pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMzA4MTIsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJmOWU5MzdmZC1lNDhiLTQ1ZDEtOWIwMy1iOTkzNWM5ZjEyMzUiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.YRWaDwSo3SMrjANYJ3vLpqv8oaDuhiEsHnvn6sW2FEM",
+  "token_type": "bearer",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiJmOWU5MzdmZC1lNDhiLTQ1ZDEtOWIwMy1iOTkzNWM5ZjEyMzUiLCJleHAiOjE2MjY1NzkzNzAsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZDdkYjdhNzEtYWJkOS00ZjM0LWE4ZmMtNWJmMmM4MzI3MTgxIiwiY2xpZW50X2lkIjoib3JkZXIifQ.x6032Z5h72c5cqxN53too6bA96i1OuaVdtg5by-_ek4",
+  "expires_in": 43200,
+  "scope": "read write",
+  "jti": "f9e937fd-e48b-45d1-9b03-b9935c9f1235"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="测试资源服务"><a href="#测试资源服务" class="headerlink" title="测试资源服务"></a>测试资源服务</h3><p>不带token请求：</p>
 <pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8092/api/order<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>响应：</p>
@@ -486,9 +499,9 @@ Authorization: Bearer b8a2a416-4e67-4aeb-b471-00256c8a5779<span aria-hidden="tru
 <p>响应：</p>
 <pre class="line-numbers language-none"><code class="language-none">get order
 
-Response code: 200; Time: 39ms; Content length: 9 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+Response code: 200; Time: 139ms; Content length: 9 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="完整代码在这里-https-github-com-onlyonezhongjinhui-spring-security-ouath2-learning-tree-main-E4-BB-8E-E9-9B-B6-E6-90-AD-E5-BB-BAspring-20security-20oauth2-E8-AE-A4-E8-AF-81-E6-8E-88-E6-9D-83-E4-BD-93-E7-B3-BB-EF-BC-88-E4-BA-8C-EF-BC-89"><a href="#完整代码在这里-https-github-com-onlyonezhongjinhui-spring-security-ouath2-learning-tree-main-E4-BB-8E-E9-9B-B6-E6-90-AD-E5-BB-BAspring-20security-20oauth2-E8-AE-A4-E8-AF-81-E6-8E-88-E6-9D-83-E4-BD-93-E7-B3-BB-EF-BC-88-E4-BA-8C-EF-BC-89" class="headerlink" title="完整代码在这里:https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%BA%8C%EF%BC%89"></a>完整代码在这里:<a target="_blank" rel="noopener" href="https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%BA%8C%EF%BC%89">https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%BA%8C%EF%BC%89</a></h3>
+<h3 id="完整代码在这里-https-github-com-onlyonezhongjinhui-spring-security-ouath2-learning-tree-main-E4-BB-8E-E9-9B-B6-E6-90-AD-E5-BB-BAspring-20security-20oauth2-E8-AE-A4-E8-AF-81-E6-8E-88-E6-9D-83-E4-BD-93-E7-B3-BB-EF-BC-88-E4-B8-89-EF-BC-89"><a href="#完整代码在这里-https-github-com-onlyonezhongjinhui-spring-security-ouath2-learning-tree-main-E4-BB-8E-E9-9B-B6-E6-90-AD-E5-BB-BAspring-20security-20oauth2-E8-AE-A4-E8-AF-81-E6-8E-88-E6-9D-83-E4-BD-93-E7-B3-BB-EF-BC-88-E4-B8-89-EF-BC-89" class="headerlink" title="完整代码在这里:https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%89%EF%BC%89"></a>完整代码在这里:<a target="_blank" rel="noopener" href="https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%89%EF%BC%89">https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%89%EF%BC%89</a></h3>
                 
             </div>
             <hr/>
@@ -514,7 +527,7 @@ Response code: 200; Time: 39ms; Content length: 9 bytes<span aria-hidden="true" 
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2021/06/17/spring-security-oauth2-02/">https://onlyonezhongjinhui.github.io/2021/06/17/spring-security-oauth2-02/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/06/18/spring-security-oauth2-03/">https://onlyonezhongjinhui.github.io/2021/06/18/spring-security-oauth2-03/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -723,9 +736,10 @@ Response code: 200; Time: 39ms; Content length: 9 bytes<span aria-hidden="true" 
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/06/18/spring-security-oauth2-03/">
                     <div class="card-image">
@@ -743,9 +757,9 @@ Response code: 200; Time: 39ms; Content length: 9 bytes<span aria-hidden="true" 
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -758,6 +772,7 @@ Response code: 200; Time: 39ms; Content length: 9 bytes<span aria-hidden="true" 
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -776,13 +791,13 @@ Response code: 200; Time: 39ms; Content length: 9 bytes<span aria-hidden="true" 
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/16/spring-security-oauth2-01/">
+                <a href="/2021/06/17/spring-security-oauth2-02/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="从零搭建spring security oauth2认证授权体系（一）">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="从零搭建spring security oauth2认证授权体系（二）">
                         
-                        <span class="card-title">从零搭建spring security oauth2认证授权体系（一）</span>
+                        <span class="card-title">从零搭建spring security oauth2认证授权体系（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -793,7 +808,7 @@ Response code: 200; Time: 39ms; Content length: 9 bytes<span aria-hidden="true" 
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-17
                             </span>
                         <span class="publish-author">
                             

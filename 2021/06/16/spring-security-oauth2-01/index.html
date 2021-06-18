@@ -529,11 +529,11 @@ grant_type=password&amp;username=admin&amp;password=password<span aria-hidden="t
   "token_type": "bearer",
   "refresh_token": "c36079e9-72ee-46a0-a629-82da565062d7",
   "expires_in": 42099,
-  "scope": "all"
+  "scope": "read write"
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="授权码模式"><a href="#授权码模式" class="headerlink" title="授权码模式"></a>授权码模式</h4><p>请求：</p>
-<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/authorize?client_id=client&amp;response_type=code&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/authorize?client_id=order&amp;response_type=code&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>响应：</p>
 <pre class="line-numbers language-none"><code class="language-none">https://www.baidu.com/?code=kY8L5A<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -544,7 +544,7 @@ Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic b3JkZXI6c2VjcmV0
 
-grant_type=authorization_code&amp;client_id=client&amp;client_secret=secret&amp;redirect_uri=http://www.baidu.com&amp;code=kY8L5A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+grant_type=authorization_code&amp;client_id=order&amp;client_secret=secret&amp;redirect_uri=http://www.baidu.com&amp;code=kY8L5A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>响应：</p>
 <pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
@@ -552,11 +552,11 @@ grant_type=authorization_code&amp;client_id=client&amp;client_secret=secret&amp;
   "token_type": "bearer",
   "refresh_token": "c36079e9-72ee-46a0-a629-82da565062d7",
   "expires_in": 41631,
-  "scope": "all"
+  "scope": "read write"
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="简易模式"><a href="#简易模式" class="headerlink" title="简易模式"></a>简易模式</h4><p>请求：</p>
-<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/authorize?client_id=client&amp;response_type=token&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/authorize?client_id=order&amp;response_type=token&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>响应：</p>
 <pre class="line-numbers language-none"><code class="language-none">https://www.baidu.com/#access_token=500ac853-aa32-4415-b7e8-ee91c410652c&amp;token_type=bearer&amp;expires_in=41575&amp;scope=all<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -573,11 +573,12 @@ grant_type=authorization_code&amp;client_id=client&amp;client_secret=secret&amp;
     "ROLE_ADMIN",
     "ROLE_USER"
   ],
-  "client_id": "client",
+  "client_id": "order",
   "scope": [
-    "all"
+    "read",
+    "write"
   ]
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="刷新token"><a href="#刷新token" class="headerlink" title="刷新token"></a>刷新token</h3><p>请求：</p>
 <pre class="line-numbers language-none"><code class="language-none">POST http://localhost:8090/oauth/token
@@ -593,9 +594,10 @@ grant_type=refresh_token&amp;refresh_token=f32fe1fa-a5c4-4bdd-b325-8130cb39430e<
   "token_type": "bearer",
   "refresh_token": "f32fe1fa-a5c4-4bdd-b325-8130cb39430e",
   "expires_in": 43200,
-  "scope": "all"
+  "scope": "read write"
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="完整代码在这里-https-github-com-onlyonezhongjinhui-spring-security-ouath2-learning-tree-main-E4-BB-8E-E9-9B-B6-E6-90-AD-E5-BB-BAspring-20security-20oauth2-E8-AE-A4-E8-AF-81-E6-8E-88-E6-9D-83-E4-BD-93-E7-B3-BB-EF-BC-88-E4-B8-80-EF-BC-89-authorization-server"><a href="#完整代码在这里-https-github-com-onlyonezhongjinhui-spring-security-ouath2-learning-tree-main-E4-BB-8E-E9-9B-B6-E6-90-AD-E5-BB-BAspring-20security-20oauth2-E8-AE-A4-E8-AF-81-E6-8E-88-E6-9D-83-E4-BD-93-E7-B3-BB-EF-BC-88-E4-B8-80-EF-BC-89-authorization-server" class="headerlink" title="完整代码在这里:https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%80%EF%BC%89/authorization-server"></a>完整代码在这里:<a target="_blank" rel="noopener" href="https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%80%EF%BC%89/authorization-server">https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%80%EF%BC%89/authorization-server</a></h3>
                 
             </div>
             <hr/>
