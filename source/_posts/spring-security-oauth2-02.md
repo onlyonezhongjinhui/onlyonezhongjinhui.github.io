@@ -6,8 +6,7 @@ top: true
 cover: true
 toc: false
 mathjax: false
-summary:
-tags: Spring Security Oauth2
+summary: 搭建资源服务tags: Spring Security Oauth2
 categories:
 - [Spring Security Oauth2]
 ---
@@ -40,7 +39,7 @@ categories:
 
 项目结构
 
-![](/medias/assets/20210617164410.png)
+![20210617164410.png](assets/20210617164544-u1bkb8w-20210617164410.png)
 
 ### 资源服务配置
 
@@ -75,7 +74,7 @@ categories:
 @Configuration
 @RequiredArgsConstructor
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true) 
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private static final String RESOURCE_ID = "order";
     private final TokenStore tokenStore;
@@ -211,5 +210,3 @@ get order
 
 Response code: 200; Time: 39ms; Content length: 9 bytes
 ```
-
-### 完整代码在这里:https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%BA%8C%EF%BC%89

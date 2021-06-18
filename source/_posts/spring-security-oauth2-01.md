@@ -6,12 +6,12 @@ top: true
 cover: true
 toc: false
 mathjax: false
-summary:
-tags: Spring Security Oauth2
+summary: 搭建授权服务
+ tags: Spring Security Oauth2
 categories:
 - [Spring Security Oauth2]
 ---
-## 搭建授权服务器
+## 搭建授权服务
 
 ### 创建授权服务应用
 
@@ -387,3 +387,7 @@ grant_type=refresh_token&refresh_token=f32fe1fa-a5c4-4bdd-b325-8130cb39430e
 ```
 
 ### 完整代码在这里:https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%80%EF%BC%89/authorization-server
+
+br
+
+---
