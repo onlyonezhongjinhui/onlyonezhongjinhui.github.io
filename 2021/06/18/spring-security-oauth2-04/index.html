@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零搭建spring security oauth2认证授权体系（三）, 向阳而生">
+    <meta name="keywords" content="从零搭建spring security oauth2认证授权体系（四）, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零搭建spring security oauth2认证授权体系（三） | 向阳而生</title>
+    <title>从零搭建spring security oauth2认证授权体系（四） | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零搭建spring security oauth2认证授权体系（三）</h1>
+                    <h1 class="description center-align post-title">从零搭建spring security oauth2认证授权体系（四）</h1>
                 </div>
             </div>
         </div>
@@ -326,58 +326,122 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="使用JWT令牌"><a href="#使用JWT令牌" class="headerlink" title="使用JWT令牌"></a>使用JWT令牌</h2><h3 id="什么是JWT"><a href="#什么是JWT" class="headerlink" title="什么是JWT"></a>什么是JWT</h3><p>JSON Web Token（JWT）是一个开放的行业标准（RFC 7519），它定义了一种简介的、自包含的协议格式，用于在通信双方传递JSON对象，传递的信息经过数字签名可以被验证和信任。JWT可以使用HMAC算法或使用RSA的公钥/私钥对来签名，防止被篡改。</p>
-<h3 id="JWT优缺点"><a href="#JWT优缺点" class="headerlink" title="JWT优缺点"></a>JWT优缺点</h3><ul>
-<li>JWT基于JSON,非常方便解析</li>
-<li>可以在令牌中自定义丰富内容，易扩展</li>
-<li>通过非对称加密算法以及数字签名技术，防止JWT令牌被篡改，安全性高</li>
-<li>资源服务使用JWT可不依赖认证服务就能完成授权，减少远程调用校验令牌的网络开销，提升性能</li>
-<li>JWT的无状态，有助于增强系统的可用性和可伸缩性</li>
-<li>一般不存在cookie中，有效避免了CSRF攻击</li>
-<li>适合移动端（有些不支持cookie的）</li>
-<li>对单点登录友好</li>
-</ul>
-<h3 id="JWT缺点"><a href="#JWT缺点" class="headerlink" title="JWT缺点"></a>JWT缺点</h3><ul>
-<li>JWT令牌很长，占用存储空间占用大</li>
-<li>无法在服务器注销，有被劫持的风险</li>
-<li>JWT验证签名耗CPU</li>
-</ul>
-<h3 id="如何使用JWT"><a href="#如何使用JWT" class="headerlink" title="如何使用JWT"></a>如何使用JWT</h3><h4 id="配置JWT令牌服务"><a href="#配置JWT令牌服务" class="headerlink" title="配置JWT令牌服务"></a>配置JWT令牌服务</h4><p>授权服务配置类中<strong>AuthorizationServerConfig</strong>配置JWT令牌服务</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
-<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationServerEndpointsConfigurer</span> endpoints<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
-    endpoints
-            <span class="token punctuation">.</span><span class="token function">authenticationManager</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>authenticationManager<span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">userDetailsService</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>userDetailsService<span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 配置令牌管理为JWT</span>
-            <span class="token punctuation">.</span><span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 配置令牌转换器（授权信息&lt;-&gt;令牌双向转换）</span>
-<span class="token punctuation">}</span>
+                <h2 id="客户端信息和授权码持久化"><a href="#客户端信息和授权码持久化" class="headerlink" title="客户端信息和授权码持久化"></a>客户端信息和授权码持久化</h2><h3 id="添加jdbc、mysql驱动依赖"><a href="#添加jdbc、mysql驱动依赖" class="headerlink" title="添加jdbc、mysql驱动依赖"></a>添加jdbc、mysql驱动依赖</h3><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-data-jdbc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>mysql<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>mysql-connector-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<span class="token annotation punctuation">@Bean</span>
-<span class="token keyword">public</span> <span class="token class-name">TokenStore</span> <span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JwtTokenStore</span><span class="token punctuation">(</span><span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<h3 id="创建数据表"><a href="#创建数据表" class="headerlink" title="创建数据表"></a>创建数据表</h3><p>sql脚本从github源码中拷贝的<a href="https://">https://github.com/spring-projects/spring-security-oauth/blob/main/tests/annotation/jdbc/src/main/resources/schema.sql</a></p>
+<p>稍微修改一下符合mysql的语法</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">drop</span> <span class="token keyword">database</span> <span class="token keyword">if</span> <span class="token keyword">exists</span> user_center<span class="token punctuation">;</span>
+<span class="token keyword">create</span> <span class="token keyword">database</span> user_center <span class="token keyword">character</span> <span class="token keyword">set</span> utf8mb4 <span class="token keyword">collate</span> utf8mb4_unicode_ci<span class="token punctuation">;</span>
+<span class="token keyword">use</span> user_center<span class="token punctuation">;</span>
 
-<span class="token annotation punctuation">@Bean</span>
-<span class="token keyword">public</span> <span class="token class-name">JwtAccessTokenConverter</span> <span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token class-name">JwtAccessTokenConverter</span> converter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JwtAccessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 对称秘钥，资源服务器使用该秘钥来验证</span>
-    converter<span class="token punctuation">.</span><span class="token function">setSigningKey</span><span class="token punctuation">(</span><span class="token string">"test123456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> converter<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">create</span> <span class="token keyword">table</span> oauth_client_details
+<span class="token punctuation">(</span>
+    client_id               <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    resource_ids            <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    client_secret           <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    scope                   <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    authorized_grant_types  <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    web_server_redirect_uri <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    authorities             <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    access_token_validity   <span class="token keyword">int</span>          <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    refresh_token_validity  <span class="token keyword">int</span>          <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
+    additional_information  <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">4096</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    autoapprove             <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<h4 id="配置资源服务器令牌认证"><a href="#配置资源服务器令牌认证" class="headerlink" title="配置资源服务器令牌认证"></a>配置资源服务器令牌认证</h4><p>资源服务器配置类<strong>ResourceServerConfig</strong>配置JWT令牌认证</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
-<span class="token keyword">public</span> <span class="token class-name">TokenStore</span> <span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JwtTokenStore</span><span class="token punctuation">(</span><span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<span class="token keyword">create</span> <span class="token keyword">table</span> oauth_client_token
+<span class="token punctuation">(</span>
+    authentication_id <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    token_id          <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    token             <span class="token keyword">blob</span><span class="token punctuation">,</span>
+    user_name         <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    client_id         <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token annotation punctuation">@Bean</span>
-<span class="token keyword">public</span> <span class="token class-name">JwtAccessTokenConverter</span> <span class="token function">accessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token class-name">JwtAccessTokenConverter</span> converter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JwtAccessTokenConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 对称秘钥，资源服务器使用该秘钥来验证</span>
-    converter<span class="token punctuation">.</span><span class="token function">setSigningKey</span><span class="token punctuation">(</span><span class="token string">"test123456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> converter<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">create</span> <span class="token keyword">table</span> oauth_access_token
+<span class="token punctuation">(</span>
+    authentication_id <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    token_id          <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    token             <span class="token keyword">blob</span><span class="token punctuation">,</span>
+    user_name         <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    client_id         <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    authentication    <span class="token keyword">blob</span><span class="token punctuation">,</span>
+    refresh_token     <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">key</span> token_id <span class="token punctuation">(</span>token_id<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">key</span> user_name <span class="token punctuation">(</span>user_name<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">key</span> client_id <span class="token punctuation">(</span>client_id<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">key</span> refresh_token <span class="token punctuation">(</span>refresh_token<span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">create</span> <span class="token keyword">table</span> oauth_refresh_token
+<span class="token punctuation">(</span>
+    token_id       <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    token          <span class="token keyword">blob</span><span class="token punctuation">,</span>
+    authentication <span class="token keyword">blob</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">create</span> <span class="token keyword">table</span> oauth_code
+<span class="token punctuation">(</span>
+    code           <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
+    authentication <span class="token keyword">blob</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">insert</span> <span class="token keyword">into</span> oauth_client_details <span class="token punctuation">(</span>client_id<span class="token punctuation">,</span> resource_ids<span class="token punctuation">,</span> client_secret<span class="token punctuation">,</span> scope<span class="token punctuation">,</span> authorized_grant_types<span class="token punctuation">,</span>
+                                  web_server_redirect_uri<span class="token punctuation">,</span> authorities<span class="token punctuation">,</span> access_token_validity<span class="token punctuation">,</span> refresh_token_validity<span class="token punctuation">,</span>
+                                  additional_information<span class="token punctuation">,</span> autoapprove<span class="token punctuation">)</span>
+<span class="token keyword">values</span> <span class="token punctuation">(</span><span class="token string">'order'</span><span class="token punctuation">,</span> <span class="token string">'order'</span><span class="token punctuation">,</span> <span class="token string">'{noop}secret'</span><span class="token punctuation">,</span> <span class="token string">'read,write'</span><span class="token punctuation">,</span>
+        <span class="token string">'authorization_code,client_credentials,password,implicit,refresh_token'</span><span class="token punctuation">,</span> <span class="token string">'http://www.baidu.com'</span><span class="token punctuation">,</span> <span class="token string">'ADMIN,USER'</span><span class="token punctuation">,</span> <span class="token number">2592000</span><span class="token punctuation">,</span>
+        <span class="token number">15552000</span><span class="token punctuation">,</span> <span class="token boolean">null</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="配置数据源"><a href="#配置数据源" class="headerlink" title="配置数据源"></a>配置数据源</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">datasource</span><span class="token punctuation">:</span>
+    <span class="token key atrule">url</span><span class="token punctuation">:</span> jdbc<span class="token punctuation">:</span>mysql<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span>3306/user_center<span class="token punctuation">?</span>useUnicode=true<span class="token important">&amp;autoReconnect=true&amp;useSSL=false&amp;zeroDateTimeBehavior=convertToNull&amp;serverTimezone=Asia/Shanghai</span>
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> root
+    <span class="token key atrule">password</span><span class="token punctuation">:</span>
+    <span class="token key atrule">platform</span><span class="token punctuation">:</span> mysql
+    <span class="token key atrule">driver-class-name</span><span class="token punctuation">:</span> com.mysql.cj.jdbc.Driver
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> com.zaxxer.hikari.HikariDataSource<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="配置授权服务"><a href="#配置授权服务" class="headerlink" title="配置授权服务"></a>配置授权服务</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">ClientDetailsServiceConfigurer</span> clients<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        clients<span class="token punctuation">.</span><span class="token function">jdbc</span><span class="token punctuation">(</span>dataSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationServerEndpointsConfigurer</span> endpoints<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        endpoints
+                <span class="token punctuation">.</span><span class="token function">authenticationManager</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>authenticationManager<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">userDetailsService</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>userDetailsService<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 设置 jdbc TokenStore</span>
+                <span class="token punctuation">.</span><span class="token function">authorizationCodeServices</span><span class="token punctuation">(</span><span class="token function">authorizationCodeServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 设置授权码服务</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">TokenStore</span> <span class="token function">tokenStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JdbcTokenStore</span><span class="token punctuation">(</span>dataSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">AuthorizationCodeServices</span> <span class="token function">authorizationCodeServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JdbcAuthorizationCodeServices</span><span class="token punctuation">(</span>dataSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="置资源服务"><a href="#置资源服务" class="headerlink" title="置资源服务"></a>置资源服务</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">ResourceServerTokenServices</span> <span class="token function">tokenServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 使用远程服务请求授权服务器校验token,必须指定校验token 的url、client_id，client_secret</span>
+    <span class="token class-name">RemoteTokenServices</span> tokenServices <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RemoteTokenServices</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    tokenServices<span class="token punctuation">.</span><span class="token function">setCheckTokenEndpointUrl</span><span class="token punctuation">(</span><span class="token string">"http://localhost:8090/oauth/check_token"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    tokenServices<span class="token punctuation">.</span><span class="token function">setClientId</span><span class="token punctuation">(</span><span class="token string">"order"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    tokenServices<span class="token punctuation">.</span><span class="token function">setClientSecret</span><span class="token punctuation">(</span><span class="token string">"secret"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> tokenServices<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="测试授权服务"><a href="#测试授权服务" class="headerlink" title="测试授权服务"></a>测试授权服务</h3><h4 id="客户端模式"><a href="#客户端模式" class="headerlink" title="客户端模式"></a>客户端模式</h4><p><em>注意：POST请求需要在请求头带上Authorization参数，参数格式固定为Base64({client_id}:{client_secret})。POST请求带参的Content-Type是application/x-www-form-urlencoded。这里使用的是IDEA的http client工具测试</em></p>
 <p>请求：</p>
@@ -387,13 +451,15 @@ Authorization: Basic b3JkZXI6c2VjcmV0<span aria-hidden="true" class="line-number
 
 <p>响应：</p>
 <pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNjI0MDMwMTUxLCJqdGkiOiJmMDcyNjZmZi1kMTJiLTRlODMtOGE4MS0yYmUyNjdhOTEwNWIiLCJjbGllbnRfaWQiOiJvcmRlciJ9.kX4YcgrKH_XEDmeXUs_2XufJ-NbjNeUX2FVyi7CPfgI",
+  "access_token": "2ad17022-7d2e-44b6-9fd4-57d17a2a9568",
   "token_type": "bearer",
-  "expires_in": 43199,
-  "scope": "read write",
-  "jti": "f07266ff-d12b-4e83-8a81-2be267a9105b"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  "expires_in": 2589707,
+  "scope": "read write"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>数据库中生成了相关记录</p>
+<p><img src="/medias/assets/20210618170013.png"></p>
+<p><img src="/medias/assets/20210618170205.png"></p>
 <h4 id="密码模式"><a href="#密码模式" class="headerlink" title="密码模式"></a>密码模式</h4><p>请求：</p>
 <pre class="line-numbers language-none"><code class="language-none">POST http://localhost:8090/oauth/token
 Accept: application/json
@@ -404,19 +470,18 @@ grant_type=password&amp;username=admin&amp;password=password<span aria-hidden="t
 
 <p>响应：</p>
 <pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMzAyNDYsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJhNzdiODM2YS03ZTBhLTRjNzctYmJjNC01ZGM5Y2QyZjViNTQiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.rF1b4K8S8R276GXDfjocC4zGvTP5bNjVLkFb_8vmZrg",
+  "access_token": "4e4285e5-2673-42eb-858d-9c299aaae9ce",
   "token_type": "bearer",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiJhNzdiODM2YS03ZTBhLTRjNzctYmJjNC01ZGM5Y2QyZjViNTQiLCJleHAiOjE2MjY1NzkwNDYsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiNTQxZTJiYTAtMTkxOC00ZTg2LTljNDItYzA2NWI1ZDZiMTk4IiwiY2xpZW50X2lkIjoib3JkZXIifQ.n6KTMcXShbcVdgllGFGZxHSALrrx-xVnOgFSGpcrI-I",
-  "expires_in": 43199,
-  "scope": "read write",
-  "jti": "a77b836a-7e0a-4c77-bbc4-5dc9cd2f5b54"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  "refresh_token": "eba78cf6-2ff4-49a6-a653-b72f3c95d6ae",
+  "expires_in": 2589453,
+  "scope": "read write"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="授权码模式"><a href="#授权码模式" class="headerlink" title="授权码模式"></a>授权码模式</h4><p>请求：</p>
 <pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/authorize?client_id=order&amp;response_type=code&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>响应：</p>
-<pre class="line-numbers language-none"><code class="language-none">https://www.baidu.com/?code=1lZbxO<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">https://www.baidu.com/?code=9gqy0y<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>使用响应连接中的code获取token</p>
 <pre class="line-numbers language-none"><code class="language-none">POST http://localhost:8090/oauth/token
@@ -424,43 +489,46 @@ Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic b3JkZXI6c2VjcmV0
 
-grant_type=authorization_code&amp;client_id=order&amp;client_secret=secret&amp;redirect_uri=http://www.baidu.com&amp;code=1lZbxO<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+grant_type=authorization_code&amp;client_id=order&amp;client_secret=secret&amp;redirect_uri=http://www.baidu.com&amp;code=kY8L5A<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>响应：</p>
 <pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMzA1NzAsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiI4ZjU0NTBhMy1mZGU5LTQwZmEtYjQ4Zi0wNmRkNDQ0NzRjN2EiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.39vnXeQwIekYdDXUXUKKIHKcJ71Regm3jtXxfYvIVKQ",
+  "access_token": "4e4285e5-2673-42eb-858d-9c299aaae9ce",
   "token_type": "bearer",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiI4ZjU0NTBhMy1mZGU5LTQwZmEtYjQ4Zi0wNmRkNDQ0NzRjN2EiLCJleHAiOjE2MjY1NzkzNzAsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZDdkYjdhNzEtYWJkOS00ZjM0LWE4ZmMtNWJmMmM4MzI3MTgxIiwiY2xpZW50X2lkIjoib3JkZXIifQ.d2LCYsCLBjDAzXCHyWPmwu9xaLjXURT-Tj6gVSuKEIE",
-  "expires_in": 43199,
-  "scope": "read write",
-  "jti": "8f5450a3-fde9-40fa-b48f-06dd44474c7a"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  "refresh_token": "eba78cf6-2ff4-49a6-a653-b72f3c95d6ae",
+  "expires_in": 2589355,
+  "scope": "read write"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>使用后授权码被删除</p>
+<p><img src="/medias/assets/20210618165609.png"></p>
 <h4 id="简易模式"><a href="#简易模式" class="headerlink" title="简易模式"></a>简易模式</h4><p>请求：</p>
 <pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/authorize?client_id=order&amp;response_type=token&amp;grant_type=authorization_code&amp;redirect_uri=http://www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>响应：</p>
-<pre class="line-numbers language-none"><code class="language-none">https://www.baidu.com/#access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMzA2MzEsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJiZDVhODRiNi0wMzNiLTQxYjUtYjQxMC03MmMwYzcyYzgzNDMiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.nnNiGaxCq9bJHiJY-sSWAMpGz4xR9XT6WDol0dHxbD8&amp;token_type=bearer&amp;expires_in=43200&amp;scope=read%20write&amp;jti=bd5a84b6-033b-41b5-b410-72c0c72c8343<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">https://www.baidu.com/#access_token=54c7973e-8ae0-4dee-85bb-e2f44c649fe8&amp;token_type=bearer&amp;expires_in=2591760&amp;scope=read%20write<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="验证token"><a href="#验证token" class="headerlink" title="验证token"></a>验证token</h3><p>请求：</p>
-<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/check_token?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMjcxMjksInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJiZGExZTdlOC1iNGE1LTRhY2MtODQwNS0yYzkzMmEwNDkzZjYiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.LCnyavxv7hhsTd1pGG0_fVYEV5oeYZg0mKKuiNemSfo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8090/oauth/check_token?token=7f779d38-0629-4df1-84e0-6fa6a3da64cd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>响应：</p>
 <pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"aud"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"order"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"user_name"</span><span class="token operator">:</span> <span class="token string">"admin"</span><span class="token punctuation">,</span>
   <span class="token property">"scope"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token string">"read"</span><span class="token punctuation">,</span>
     <span class="token string">"write"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-  <span class="token property">"exp"</span><span class="token operator">:</span> <span class="token number">1624027129</span><span class="token punctuation">,</span>
+  <span class="token property">"exp"</span><span class="token operator">:</span> <span class="token number">1626598954</span><span class="token punctuation">,</span>
   <span class="token property">"authorities"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token string">"ROLE_ADMIN"</span><span class="token punctuation">,</span>
     <span class="token string">"ROLE_USER"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"jti"</span><span class="token operator">:</span> <span class="token string">"bda1e7e8-b4a5-4acc-8405-2c932a0493f6"</span><span class="token punctuation">,</span>
   <span class="token property">"client_id"</span><span class="token operator">:</span> <span class="token string">"order"</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="刷新token"><a href="#刷新token" class="headerlink" title="刷新token"></a>刷新token</h3><p>请求：</p>
 <pre class="line-numbers language-none"><code class="language-none">POST http://localhost:8090/oauth/token
@@ -468,40 +536,19 @@ Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic b3JkZXI6c2VjcmV0
 
-grant_type=refresh_token&amp;refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiI4ZjU0NTBhMy1mZGU5LTQwZmEtYjQ4Zi0wNmRkNDQ0NzRjN2EiLCJleHAiOjE2MjY1NzkzNzAsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZDdkYjdhNzEtYWJkOS00ZjM0LWE4ZmMtNWJmMmM4MzI3MTgxIiwiY2xpZW50X2lkIjoib3JkZXIifQ.d2LCYsCLBjDAzXCHyWPmwu9xaLjXURT-Tj6gVSuKEIE
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+grant_type=refresh_token&amp;refresh_token=fab9886a-ef2d-4506-9501-d379103090ca<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>响应：</p>
 <pre class="line-numbers language-JSON" data-language="JSON"><code class="language-JSON">{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjQwMzA4MTIsInVzZXJfbmFtZSI6ImFkbWluIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJqdGkiOiJmOWU5MzdmZC1lNDhiLTQ1ZDEtOWIwMy1iOTkzNWM5ZjEyMzUiLCJjbGllbnRfaWQiOiJvcmRlciIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.YRWaDwSo3SMrjANYJ3vLpqv8oaDuhiEsHnvn6sW2FEM",
+  "access_token": "c8e0cf74-b5f2-46f4-9c8d-21fd4d74e36e",
   "token_type": "bearer",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiJmOWU5MzdmZC1lNDhiLTQ1ZDEtOWIwMy1iOTkzNWM5ZjEyMzUiLCJleHAiOjE2MjY1NzkzNzAsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZDdkYjdhNzEtYWJkOS00ZjM0LWE4ZmMtNWJmMmM4MzI3MTgxIiwiY2xpZW50X2lkIjoib3JkZXIifQ.x6032Z5h72c5cqxN53too6bA96i1OuaVdtg5by-_ek4",
-  "expires_in": 43200,
-  "scope": "read write",
-  "jti": "f9e937fd-e48b-45d1-9b03-b9935c9f1235"
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  "refresh_token": "fab9886a-ef2d-4506-9501-d379103090ca",
+  "expires_in": 2591999,
+  "scope": "read write"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="测试资源服务"><a href="#测试资源服务" class="headerlink" title="测试资源服务"></a>测试资源服务</h3><p>不带token请求：</p>
-<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8092/api/order<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>响应：</p>
-<pre class="line-numbers language-none"><code class="language-none">{
-  "error": "unauthorized",
-  "error_description": "Full authentication is required to access this resource"
-}
-
-Response code: 401; Time: 40ms; Content length: 102 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>带token请求：</p>
-<pre class="line-numbers language-none"><code class="language-none">GET http://localhost:8092/api/order
-Authorization: Bearer b8a2a416-4e67-4aeb-b471-00256c8a5779<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>响应：</p>
-<pre class="line-numbers language-none"><code class="language-none">get order
-
-Response code: 200; Time: 139ms; Content length: 9 bytes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="代码地址"><a href="#代码地址" class="headerlink" title="代码地址"></a>代码地址</h3><p><a href="https://">https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E4%B8%89%EF%BC%89</a></p>
+<p>###代码地址#代码#</p>
+<p><a href="https://">https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E5%9B%9B%EF%BC%89</a></p>
 
                 
             </div>
@@ -528,7 +575,7 @@ Response code: 200; Time: 139ms; Content length: 9 bytes<span aria-hidden="true"
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2021/06/18/spring-security-oauth2-03/">https://onlyonezhongjinhui.github.io/2021/06/18/spring-security-oauth2-03/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/06/18/spring-security-oauth2-04/">https://onlyonezhongjinhui.github.io/2021/06/18/spring-security-oauth2-04/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -737,10 +784,9 @@ Response code: 200; Time: 139ms; Content length: 9 bytes<span aria-hidden="true"
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2021/06/18/spring-security-oauth2-03/">
                     <div class="card-image">
@@ -758,9 +804,9 @@ Response code: 200; Time: 139ms; Content length: 9 bytes<span aria-hidden="true"
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -773,7 +819,6 @@ Response code: 200; Time: 139ms; Content length: 9 bytes<span aria-hidden="true"
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -792,24 +837,24 @@ Response code: 200; Time: 139ms; Content length: 9 bytes<span aria-hidden="true"
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/18/spring-security-oauth2-04/">
+                <a href="/2021/06/17/spring-security-oauth2-02/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="从零搭建spring security oauth2认证授权体系（四）">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="从零搭建spring security oauth2认证授权体系（二）">
                         
-                        <span class="card-title">从零搭建spring security oauth2认证授权体系（四）</span>
+                        <span class="card-title">从零搭建spring security oauth2认证授权体系（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            客户端信息和授权码持久化
+                            搭建资源服务
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-17
                             </span>
                         <span class="publish-author">
                             
