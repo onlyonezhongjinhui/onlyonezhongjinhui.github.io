@@ -6,7 +6,8 @@ top: true
 cover: true
 toc: false
 mathjax: false
-summary: 搭建资源服务tags: Spring Security Oauth2
+summary: 搭建资源服务
+tags: Spring Security Oauth2
 categories:
 - [Spring Security Oauth2]
 ---
@@ -74,7 +75,7 @@ categories:
 @Configuration
 @RequiredArgsConstructor
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true) 
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private static final String RESOURCE_ID = "order";
     private final TokenStore tokenStore;

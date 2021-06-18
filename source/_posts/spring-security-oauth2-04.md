@@ -7,7 +7,7 @@ cover: true
 toc: false
 mathjax: false
 summary: 客户端信息和授权码持久化
- tags: Spring Security Oauth2
+tags: Spring Security Oauth2
 categories:
 - [Spring Security Oauth2]
 ---
@@ -318,6 +318,40 @@ grant_type=refresh_token&refresh_token=fab9886a-ef2d-4506-9501-d379103090ca
 }
 ```
 
-###代码地址#代码#
+测试资源服务
+
+不带token请求：
+
+```
+GET http://localhost:8092/api/order
+```
+
+响应：
+
+```
+{
+  "error": "unauthorized",
+  "error_description": "Full authentication is required to access this resource"
+}
+
+Response code: 401; Time: 40ms; Content length: 102 bytes
+```
+
+带token请求：
+
+```
+GET http://localhost:8092/api/order
+Authorization: Bearer b8a2a416-4e67-4aeb-b471-00256c8a5779
+```
+
+响应：
+
+```
+get order
+
+Response code: 200; Time: 139ms; Content length: 9 bytes
+```
+
+### 代码地址
 
 [https://github.com/onlyonezhongjinhui/spring-security-ouath2-learning/tree/main/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAspring%20security%20oauth2%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E4%BD%93%E7%B3%BB%EF%BC%88%E5%9B%9B%EF%BC%89](https://)

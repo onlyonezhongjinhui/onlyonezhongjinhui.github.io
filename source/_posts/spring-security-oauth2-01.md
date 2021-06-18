@@ -7,7 +7,7 @@ cover: true
 toc: false
 mathjax: false
 summary: 搭建授权服务
- tags: Spring Security Oauth2
+tags: Spring Security Oauth2
 categories:
 - [Spring Security Oauth2]
 ---
