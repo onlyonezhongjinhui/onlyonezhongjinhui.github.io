@@ -331,7 +331,7 @@ GET http://localhost:8090/oauth/authorize?client_id=order&response_type=token&gr
 响应：
 
 ```
-https://www.baidu.com/#access_token=500ac853-aa32-4415-b7e8-ee91c410652c&token_type=bearer&expires_in=41575&scope=all
+https://www.baidu.com/#access_token=500ac853-aa32-4415-b7e8-ee91c410652c&token_type=bearer&expires_in=41575&scope=read%20write
 ```
 
 ### 验证token
