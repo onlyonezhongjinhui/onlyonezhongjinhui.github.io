@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-06-23T09:47:25.087Z</updated>
+  <updated>2021-06-23T11:04:50.656Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>混沌工程（Netflix系统稳定之道）——Aaron Blohowiak</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/06/23/reading02/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/06/23/reading02/</id>
+    <published>2021-06-23T10:43:00.000Z</published>
+    <updated>2021-06-23T11:04:50.656Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;混沌工程&quot;&gt;&lt;a href=&quot;#混沌工程&quot; class=&quot;headerlink&quot; title=&quot;混沌工程&quot;&gt;&lt;/a&gt;混沌工程&lt;/h2&gt;&lt;h3 id=&quot;存在的意义&quot;&gt;&lt;a href=&quot;#存在的意义&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Reading" scheme="https://onlyonezhongjinhui.github.io/categories/Reading/"/>
+    
+    
+    <category term="Reading notes" scheme="https://onlyonezhongjinhui.github.io/tags/Reading-notes/"/>
+    
+  </entry>
   
   <entry>
     <title>从零搭建spring security oauth2认证授权体系（七）</title>
@@ -484,31 +509,6 @@
 &lt;ol&gt;
 &lt;li&gt;官网上下载最新2.7版本的Kafka，解压缩后复制三份。&lt;/li&gt;
 &lt;li</summary>
-        
-      
-    
-    
-    
-    <category term="MQ" scheme="https://onlyonezhongjinhui.github.io/categories/MQ/"/>
-    
-    
-    <category term="Kafka" scheme="https://onlyonezhongjinhui.github.io/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka如何安装部署</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/04/08/kafka03/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/04/08/kafka03/</id>
-    <published>2021-04-08T13:29:00.000Z</published>
-    <updated>2021-04-09T00:34:06.040Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;Kafka如何安装部署&quot;&gt;&lt;a href=&quot;#Kafka如何安装部署&quot; class=&quot;headerlink&quot;</summary>
         
       
     
