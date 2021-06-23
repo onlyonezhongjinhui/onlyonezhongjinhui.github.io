@@ -1,6 +1,6 @@
 ---
 title: 从零搭建spring security oauth2认证授权体系（四）
-date: 2021-06-18 16:00:00
+date: 2021-06-19 16:00:00
 author: maybe
 top: true
 cover: true
