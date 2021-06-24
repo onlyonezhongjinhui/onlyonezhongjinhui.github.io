@@ -48,13 +48,13 @@ public class SpringRedisAuthorizationCodeServices extends RandomValueAuthorizati
 
     @Override
     protected void store(String code, OAuth2Authentication authentication) {
-        redisTemplate.opsForValue().set("oauth_code:" + code, authentication, 10, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set("oauth2:oauth_code:" + code, authentication, 10, TimeUnit.MINUTES);
     }
 
     @Override
     protected OAuth2Authentication remove(String code) {
-        OAuth2Authentication token = redisTemplate.opsForValue().get("oauth_code:" + code);
-        this.redisTemplate.delete("oauth_code:" + code);
+        OAuth2Authentication token = redisTemplate.opsForValue().get("oauth2:oauth_code:" + code);
+        this.redisTemplate.delete("oauth2:oauth_code:" + code);
         return token;
     }
 
@@ -74,7 +74,7 @@ public class SpringRedisAuthorizationCodeServices extends RandomValueAuthorizati
 
 ### 配置redis
 
-创建RedisConfig配置类
+创建RedisConfig配置类,**注意只能采用JdkSerializationRedisSerializer进行字符串的序列化，不然读取授权码的时候会报错**。
 
 ```java
 @EnableCaching
@@ -105,7 +105,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
         GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
-        redisTemplate.setKeySerializer(genericJackson2JsonRedisSerializer);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(genericJackson2JsonRedisSerializer);
@@ -135,6 +135,19 @@ public class RedisConfig extends CachingConfigurerSupport {
                         .entryTtl(Duration.ofDays(8).plusSeconds(new Random().nextInt(100)))
                         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
         return RedisCacheManager.builder(factory).cacheDefaults(cacheConfiguration).build();
+    }
+
+}
+```
+
+### 设置redis key前缀
+
+```java
+    @Bean
+    public TokenStore tokenStore() {
+        RedisTokenStore tokenStore = new RedisTokenStore(factory);
+        tokenStore.setPrefix("oauth2:");
+        return tokenStore;
     }
 ```
 
@@ -180,10 +193,6 @@ userId:1406151407442780160,phone:,openId:
 Response code: 200; Time: 41ms; Content length: 41 bytes
 ```
 
-查看redis，发现token相关信息都存储在里面了
-
-![](/medias/assets/20210623132153.png)
-
 #### 授权码模式
 
 ```
@@ -195,10 +204,6 @@ GET http://localhost:8090/oauth/authorize?client_id=order&response_type=code&gra
 ```
 https://www.baidu.com/?code=CXmj01
 ```
-
-查看redis，发现了授权码信息存储在里面
-
-![](/medias/assets/20210623173438.png)
 
 继续获取token
 
@@ -222,6 +227,10 @@ grant_type=authorization_code&client_id=order&client_secret=secret&redirect_uri=
   "scope": "read write"
 }
 ```
+
+查看redis，相关token信息已经存储在里面了
+
+![](/medias/assets/20210624091958.png)
 
 ### 代码地址
 
