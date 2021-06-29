@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-06-23T11:04:50.656Z</updated>
+  <updated>2021-06-29T04:02:51.014Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零学架构（一）</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/06/29/architecture-01/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/06/29/architecture-01/</id>
+    <published>2021-06-29T03:30:00.000Z</published>
+    <updated>2021-06-29T04:02:51.014Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;架构相关的定义&quot;&gt;&lt;a href=&quot;#架构相关的定义&quot; class=&quot;headerlink&quot; title=&quot;架构相关的定义&quot;&gt;&lt;/a&gt;架构相关的定义&lt;/h2&gt;&lt;h3 id=&quot;系统&quot;&gt;&lt;a href=&quot;#系统&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从零搭建spring security oauth2认证授权体系（八）</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/06/24/spring-security-oauth2-08/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/06/24/spring-security-oauth2-08/</id>
+    <published>2021-06-24T09:30:00.000Z</published>
+    <updated>2021-06-24T09:29:30.141Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;性能优化&quot;&gt;&lt;a href=&quot;#性能优化&quot; class=&quot;headerlink&quot; title=&quot;性能优化&quot;&gt;&lt;/a&gt;性能优化&lt;/h2&gt;&lt;h3 id=&quot;优化点1&quot;&gt;&lt;a href=&quot;#优化点1&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/categories/Spring-Security-Oauth2/"/>
+    
+    
+    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/tags/Spring-Security-Oauth2/"/>
+    
+  </entry>
   
   <entry>
     <title>混沌工程（Netflix系统稳定之道）——Aaron Blohowiak</title>
@@ -54,31 +104,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;Redis替换Jdbc&quot;&gt;&lt;a href=&quot;#Redis替换Jdbc&quot; class=&quot;headerlink&quot; title=&quot;Redis替换Jdbc&quot;&gt;&lt;/a&gt;Redis替换Jdbc&lt;/h2&gt;&lt;h3 id=&quot;添加redis依赖&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/categories/Spring-Security-Oauth2/"/>
-    
-    
-    <category term="Spring Security Oauth2" scheme="https://onlyonezhongjinhui.github.io/tags/Spring-Security-Oauth2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从零搭建spring security oauth2认证授权体系（八）</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/06/23/spring-security-oauth2-08/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/06/23/spring-security-oauth2-08/</id>
-    <published>2021-06-23T09:45:00.000Z</published>
-    <updated>2021-06-24T09:24:56.923Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;性能优化&quot;&gt;&lt;a href=&quot;#性能优化&quot; class=&quot;headerlink&quot; title=&quot;性能优化&quot;&gt;&lt;/a&gt;性能优化&lt;/h2&gt;&lt;h3 id=&quot;优化点1&quot;&gt;&lt;a href=&quot;#优化点1&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -481,31 +506,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;为什么Kafka不允许减少主题的分区数&quot;&gt;&lt;a href=&quot;#为什么Kafka不允许减少主题的分区数&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="MQ" scheme="https://onlyonezhongjinhui.github.io/categories/MQ/"/>
-    
-    
-    <category term="Kafka" scheme="https://onlyonezhongjinhui.github.io/tags/Kafka/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kafka集群参数</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/04/09/kafka05/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/04/09/kafka05/</id>
-    <published>2021-04-09T15:00:00.000Z</published>
-    <updated>2021-04-10T00:25:09.521Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;Kafka集群参数&quot;&gt;&lt;a href=&quot;#Kafka集群参数&quot; class=&quot;headerlink&quot;</summary>
         
       
     
