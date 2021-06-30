@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-06-30T01:26:29.443Z</updated>
+  <updated>2021-06-30T03:21:30.360Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零学架构（三）</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/06/30/architecture-03/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/06/30/architecture-03/</id>
+    <published>2021-06-30T04:00:00.000Z</published>
+    <updated>2021-06-30T03:21:30.360Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;架构设计的本质&quot;&gt;&lt;a href=&quot;#架构设计的本质&quot; class=&quot;headerlink&quot; title=&quot;架构设计的本质&quot;&gt;&lt;/a&gt;架构设计的本质&lt;/h2&gt;&lt;p&gt;降低软件系统的复杂度&lt;/p&gt;
+&lt;h2 id=&quot;架构的方法论&quot;&gt;&lt;a href=&quot;#架构的方法论&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>从零学架构（二）</title>
@@ -490,31 +516,6 @@
     
     
     <category term="Reading notes" scheme="https://onlyonezhongjinhui.github.io/tags/Reading-notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SPI和门面模式有什么区别</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/04/11/design-pattern-facade/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/04/11/design-pattern-facade/</id>
-    <published>2021-04-11T10:00:00.000Z</published>
-    <updated>2021-04-12T01:05:57.536Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;SPI和门面模式有什么区别&quot;&gt;&lt;a href=&quot;#SPI和门面模式有什么区别&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Design Pattern" scheme="https://onlyonezhongjinhui.github.io/categories/Design-Pattern/"/>
-    
-    
-    <category term="Design Pattern" scheme="https://onlyonezhongjinhui.github.io/tags/Design-Pattern/"/>
     
   </entry>
   
