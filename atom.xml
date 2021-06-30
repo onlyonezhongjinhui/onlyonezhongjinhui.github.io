@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-06-30T03:21:30.360Z</updated>
+  <updated>2021-06-30T08:58:41.186Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零学架构（四）</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/06/30/architecture-04/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/06/30/architecture-04/</id>
+    <published>2021-06-30T08:00:00.000Z</published>
+    <updated>2021-06-30T08:58:41.186Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;架构设计原则&quot;&gt;&lt;a href=&quot;#架构设计原则&quot; class=&quot;headerlink&quot; title=&quot;架构设计原则&quot;&gt;&lt;/a&gt;架构设计原则&lt;/h2&gt;&lt;h3 id=&quot;原则的作用&quot;&gt;&lt;a href=&quot;#原则的作用&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>从零学架构（三）</title>
@@ -491,31 +516,6 @@
     
     
     <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>经营者养成笔记——柳井正</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/04/18/read01/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/04/18/read01/</id>
-    <published>2021-04-18T11:43:00.000Z</published>
-    <updated>2021-05-19T03:15:25.824Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;经营者养成笔记&quot;&gt;&lt;a href=&quot;#经营者养成笔记&quot; class=&quot;headerlink&quot; title=&quot;经营者养成笔记&quot;&gt;&lt;/a&gt;经营者养成笔记&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="Reading" scheme="https://onlyonezhongjinhui.github.io/categories/Reading/"/>
-    
-    
-    <category term="Reading notes" scheme="https://onlyonezhongjinhui.github.io/tags/Reading-notes/"/>
     
   </entry>
   
