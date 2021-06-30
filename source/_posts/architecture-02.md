@@ -128,7 +128,7 @@ categories:
 
 如果系统简单，画一张
 
-![](/medias/assets/简单系统架构.jpg)
+![](/medias/assets/简单系统架构图.jpg)
 
 如果系统复杂，画两张（功能示意图、交互示意图）
 
@@ -157,7 +157,7 @@ categories:
 
 相对简单的系统架构和应用架构是等价的。一般中间件都相对比较简单，所以一般情况下它们的系统架构和应用架构等价，比如Redis
 
-![](/medias/assets/简单系统架构.jpg)
+![](/medias/assets/简单系统架构图.jpg)
 
 #### 部署架构
 
