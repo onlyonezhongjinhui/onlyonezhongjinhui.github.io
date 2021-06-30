@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>从零学架构（二）</title>
+      <link href="2021/06/30/architecture-02/"/>
+      <url>2021/06/30/architecture-02/</url>
+      
+        <content type="html"><![CDATA[<h2 id="架构描述"><a href="#架构描述" class="headerlink" title="架构描述"></a>架构描述</h2><h3 id="4-1架构视图"><a href="#4-1架构视图" class="headerlink" title="4+1架构视图"></a>4+1架构视图</h3><h4 id="逻辑视图"><a href="#逻辑视图" class="headerlink" title="逻辑视图"></a>逻辑视图</h4><p>系统提供给用户的功能，对应UML的类图和状态图</p><h5 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h5><p><img src="/medias/assets/%E7%B1%BB%E5%9B%BE.png"></p><h5 id="状态图"><a href="#状态图" class="headerlink" title="状态图"></a>状态图</h5><p><img src="/medias/assets/%E7%8A%B6%E6%80%81%E5%9B%BE.png"></p><h3 id="处理视图"><a href="#处理视图" class="headerlink" title="处理视图"></a>处理视图</h3><p>系统处理的过程，对应UML的时序图和活动图</p><h5 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h5><p><img src="/medias/assets/%E6%97%B6%E5%BA%8F%E5%9B%BE.png"></p><h5 id="活动图"><a href="#活动图" class="headerlink" title="活动图"></a>活动图</h5><p><img src="/medias/assets/%E6%B4%BB%E5%8A%A8%E5%9B%BE.png"></p><h4 id="开发视图"><a href="#开发视图" class="headerlink" title="开发视图"></a>开发视图</h4><p>程序员角度看系统的逻辑组成，对应UML的包图</p><p><img src="/medias/assets/%E5%8C%85%E5%9B%BE.png"></p><h4 id="物理视图"><a href="#物理视图" class="headerlink" title="物理视图"></a>物理视图</h4><p>系统工程师角度看系统的物理组成，对应UML的部署图</p><p><img src="/medias/assets/%E9%83%A8%E7%BD%B2%E5%9B%BE.png"></p><h4 id="场景视图"><a href="#场景视图" class="headerlink" title="场景视图"></a>场景视图</h4><p>用户角度看系统需要实现的需求，对应UML的用例图</p><p><img src="/medias/assets/%E7%94%A8%E4%BE%8B%E5%9B%BE.png"></p><h3 id="4-1架构视图的缺点"><a href="#4-1架构视图的缺点" class="headerlink" title="4+1架构视图的缺点"></a>4+1架构视图的缺点</h3><ol><li>4+1架构视图提出的时候是1995年，那时候大部分的系统还是单体系统，而现在大部分是分布式系统。随着架构复杂度的提升，UML的表达能力不够</li><li>4+1架构视图绑定UML图，灵活性不够，也不美观</li><li>4+1架构视图的逻辑视图、开发视图、处理视图比较容易混淆，难理解</li></ol><h3 id="目前国内流行的架构图"><a href="#目前国内流行的架构图" class="headerlink" title="目前国内流行的架构图"></a>目前国内流行的架构图</h3><h4 id="业务架构"><a href="#业务架构" class="headerlink" title="业务架构"></a>业务架构</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>描述系统对用户提供了什么业务功能，类似4+1的场景视图</p><h5 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h5><ol><li>产品人员规划业务</li><li>给上层汇报业务</li><li>给新员工培训业务</li><li>整体架构设计</li></ol><h5 id="画图技巧"><a href="#画图技巧" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol><li>通过不同的颜色来识别业务状态</li><li>业务分组管理</li></ol><h5 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84.png"></p><h4 id="前端架构-客户端架构"><a href="#前端架构-客户端架构" class="headerlink" title="前端架构/客户端架构"></a>前端架构/客户端架构</h4><h5 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h5><p>前端/客户端的领域逻辑架构，类似4+1视图里的逻辑视图</p><h5 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h5><ol><li>整体架构设计</li><li>架构培训</li></ol><h5 id="画图技巧-1"><a href="#画图技巧-1" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol><li><p>用不同的颜色来标识不同的角色</p></li><li><p>用连线标识关联关系</p></li></ol><h5 id="样例-1"><a href="#样例-1" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84.png"></p><h4 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h4><h5 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h5><p>后端的逻辑架构，又称“后端架构”、“技术架构”</p><h5 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h5><ol><li>整体架构设计</li><li>架构培训</li></ol><h5 id="画图技巧-2"><a href="#画图技巧-2" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol><li>通过不同的颜色来标识不同的角色</li><li>用连线标识关联关系</li></ol><h5 id="样例-2"><a href="#样例-2" class="headerlink" title="样例"></a>样例</h5><p>如果系统简单，画一张</p><p><img src="/medias/assets/%E7%AE%80%E5%8D%95%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.jpg"></p><p>如果系统复杂，画两张（功能示意图、交互示意图）</p><p><img src="/medias/assets/%E5%A4%8D%E6%9D%82%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png"></p><h4 id="应用架构"><a href="#应用架构" class="headerlink" title="应用架构"></a>应用架构</h4><h5 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h5><p>描述后端系统由哪些应用组成</p><h5 id="使用场景-3"><a href="#使用场景-3" class="headerlink" title="使用场景"></a>使用场景</h5><ol><li>项目开发测试</li><li>部署发布</li><li>子域架构设计</li></ol><h5 id="画图技巧-3"><a href="#画图技巧-3" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol><li>通过不同颜色来标识不同角色</li><li>通过连接线来表示关系</li></ol><h5 id="样例-3"><a href="#样例-3" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84.png"></p><p>相对简单的系统架构和应用架构是等价的。一般中间件都相对比较简单，所以一般情况下它们的系统架构和应用架构等价，比如Redis</p><p><img src="/medias/assets/%E7%AE%80%E5%8D%95%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.jpg"></p><h4 id="部署架构"><a href="#部署架构" class="headerlink" title="部署架构"></a>部署架构</h4><h5 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h5><p>描述后端系统具体如何部署，对应4+1视图里面的物理视图</p><h5 id="使用场景-4"><a href="#使用场景-4" class="headerlink" title="使用场景"></a>使用场景</h5><ol><li>总体架构设计</li><li>运维规划和优化</li></ol><h5 id="画图技巧-4"><a href="#画图技巧-4" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol><li>用图标代替区块</li></ol><h5 id="样例-4"><a href="#样例-4" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84.png"></p><h4 id="系统序列图"><a href="#系统序列图" class="headerlink" title="系统序列图"></a>系统序列图</h4><h5 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h5><p>描述系统运作规则，属于动态架构图</p><h5 id="样例-5"><a href="#样例-5" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E7%B3%BB%E7%BB%9F%E5%BA%8F%E5%88%97%E5%9B%BE.png"></p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="/medias/assets/%E6%9E%B6%E6%9E%84%E6%8F%8F%E8%BF%B0.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 架构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 架构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>从零学架构（一）</title>
       <link href="2021/06/29/architecture-01/"/>
       <url>2021/06/29/architecture-01/</url>

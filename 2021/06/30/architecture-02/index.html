@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零学架构（一）, 向阳而生">
+    <meta name="keywords" content="从零学架构（二）, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零学架构（一） | 向阳而生</title>
+    <title>从零学架构（二） | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零学架构（一）</h1>
+                    <h1 class="description center-align post-title">从零学架构（二）</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-29
+                    2021-06-30
                 </div>
                 
 
@@ -326,20 +326,85 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="架构相关的定义"><a href="#架构相关的定义" class="headerlink" title="架构相关的定义"></a>架构相关的定义</h2><h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>泛指由一群有关联的个体组成，根据某种规则运作，能完成个别元件不能单独完成的工作的群体。强调“总体”、“整体”或者“联盟”</p>
-<h3 id="子系统"><a href="#子系统" class="headerlink" title="子系统"></a>子系统</h3><p>由一群有关联的个体组成的系统，是更大系统的一部分</p>
-<p><img src="/medias/assets/%E7%B3%BB%E7%BB%9F&amp;%E5%AD%90%E7%B3%BB%E7%BB%9F.png"></p>
-<h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><p>是一套一致而相互有紧密关联的软件组织。它分别包含了程序和数据结构两部分。现代软件开发往往利用模块作为合成单位。模块的接口表达了由该模块提供的功能和调用它时所需的元素。模块是可以分开编写的单位。这使它们可再用和允许人员同时协作、编写及研究不同的模块。它是系统按照逻辑拆分的结果，主要目的是职责分离。</p>
-<p><img src="/medias/assets/%E6%A8%A1%E5%9D%97.png"></p>
-<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><p>自包含的、可编程的、可重用的、与语言无关的软件单元，软件组件可以很容易被用于组装应用程序中。它是系统按照物理拆分的结果，主要目的是单元复用。</p>
-<p><img src="/medias/assets/%E7%BB%84%E4%BB%B6.png"></p>
-<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p>通常指的是为了实现某个业界标准或完成特定基本任务的软件组件规范，也指为了实现某个组件规范时，提供规范所要求之基础功能的软件产品</p>
-<h2 id="架构的定义"><a href="#架构的定义" class="headerlink" title="架构的定义"></a>架构的定义</h2><p>软件架构指软件系统的顶层（Rank）结构，它定义了系统由哪些角色（Role）组成，角色之间的关系（Relation）和运作规则（Rule）。</p>
-<h3 id="分层架构"><a href="#分层架构" class="headerlink" title="分层架构"></a>分层架构</h3><p>分层架构是一种可扩展的架构模式</p>
-<p><img src="/medias/assets/%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84.png"></p>
-<h3 id="架构分层"><a href="#架构分层" class="headerlink" title="架构分层"></a>架构分层</h3><p>架构分层是指架构自顶向下，逐步细化</p>
-<p><img src="/medias/assets/%E7%B3%BB%E7%BB%9F&amp;%E5%AD%90%E7%B3%BB%E7%BB%9F.png"></p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="/medias/assets/%E6%9E%B6%E6%9E%84%E5%AE%9A%E4%B9%89.png"></p>
+                <h2 id="架构描述"><a href="#架构描述" class="headerlink" title="架构描述"></a>架构描述</h2><h3 id="4-1架构视图"><a href="#4-1架构视图" class="headerlink" title="4+1架构视图"></a>4+1架构视图</h3><h4 id="逻辑视图"><a href="#逻辑视图" class="headerlink" title="逻辑视图"></a>逻辑视图</h4><p>系统提供给用户的功能，对应UML的类图和状态图</p>
+<h5 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h5><p><img src="/medias/assets/%E7%B1%BB%E5%9B%BE.png"></p>
+<h5 id="状态图"><a href="#状态图" class="headerlink" title="状态图"></a>状态图</h5><p><img src="/medias/assets/%E7%8A%B6%E6%80%81%E5%9B%BE.png"></p>
+<h3 id="处理视图"><a href="#处理视图" class="headerlink" title="处理视图"></a>处理视图</h3><p>系统处理的过程，对应UML的时序图和活动图</p>
+<h5 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h5><p><img src="/medias/assets/%E6%97%B6%E5%BA%8F%E5%9B%BE.png"></p>
+<h5 id="活动图"><a href="#活动图" class="headerlink" title="活动图"></a>活动图</h5><p><img src="/medias/assets/%E6%B4%BB%E5%8A%A8%E5%9B%BE.png"></p>
+<h4 id="开发视图"><a href="#开发视图" class="headerlink" title="开发视图"></a>开发视图</h4><p>程序员角度看系统的逻辑组成，对应UML的包图</p>
+<p><img src="/medias/assets/%E5%8C%85%E5%9B%BE.png"></p>
+<h4 id="物理视图"><a href="#物理视图" class="headerlink" title="物理视图"></a>物理视图</h4><p>系统工程师角度看系统的物理组成，对应UML的部署图</p>
+<p><img src="/medias/assets/%E9%83%A8%E7%BD%B2%E5%9B%BE.png"></p>
+<h4 id="场景视图"><a href="#场景视图" class="headerlink" title="场景视图"></a>场景视图</h4><p>用户角度看系统需要实现的需求，对应UML的用例图</p>
+<p><img src="/medias/assets/%E7%94%A8%E4%BE%8B%E5%9B%BE.png"></p>
+<h3 id="4-1架构视图的缺点"><a href="#4-1架构视图的缺点" class="headerlink" title="4+1架构视图的缺点"></a>4+1架构视图的缺点</h3><ol>
+<li>4+1架构视图提出的时候是1995年，那时候大部分的系统还是单体系统，而现在大部分是分布式系统。随着架构复杂度的提升，UML的表达能力不够</li>
+<li>4+1架构视图绑定UML图，灵活性不够，也不美观</li>
+<li>4+1架构视图的逻辑视图、开发视图、处理视图比较容易混淆，难理解</li>
+</ol>
+<h3 id="目前国内流行的架构图"><a href="#目前国内流行的架构图" class="headerlink" title="目前国内流行的架构图"></a>目前国内流行的架构图</h3><h4 id="业务架构"><a href="#业务架构" class="headerlink" title="业务架构"></a>业务架构</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>描述系统对用户提供了什么业务功能，类似4+1的场景视图</p>
+<h5 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h5><ol>
+<li>产品人员规划业务</li>
+<li>给上层汇报业务</li>
+<li>给新员工培训业务</li>
+<li>整体架构设计</li>
+</ol>
+<h5 id="画图技巧"><a href="#画图技巧" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol>
+<li>通过不同的颜色来识别业务状态</li>
+<li>业务分组管理</li>
+</ol>
+<h5 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84.png"></p>
+<h4 id="前端架构-客户端架构"><a href="#前端架构-客户端架构" class="headerlink" title="前端架构/客户端架构"></a>前端架构/客户端架构</h4><h5 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h5><p>前端/客户端的领域逻辑架构，类似4+1视图里的逻辑视图</p>
+<h5 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h5><ol>
+<li>整体架构设计</li>
+<li>架构培训</li>
+</ol>
+<h5 id="画图技巧-1"><a href="#画图技巧-1" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol>
+<li><p>用不同的颜色来标识不同的角色</p>
+</li>
+<li><p>用连线标识关联关系</p>
+</li>
+</ol>
+<h5 id="样例-1"><a href="#样例-1" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84.png"></p>
+<h4 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h4><h5 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h5><p>后端的逻辑架构，又称“后端架构”、“技术架构”</p>
+<h5 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h5><ol>
+<li>整体架构设计</li>
+<li>架构培训</li>
+</ol>
+<h5 id="画图技巧-2"><a href="#画图技巧-2" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol>
+<li>通过不同的颜色来标识不同的角色</li>
+<li>用连线标识关联关系</li>
+</ol>
+<h5 id="样例-2"><a href="#样例-2" class="headerlink" title="样例"></a>样例</h5><p>如果系统简单，画一张</p>
+<p><img src="/medias/assets/%E7%AE%80%E5%8D%95%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.jpg"></p>
+<p>如果系统复杂，画两张（功能示意图、交互示意图）</p>
+<p><img src="/medias/assets/%E5%A4%8D%E6%9D%82%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png"></p>
+<h4 id="应用架构"><a href="#应用架构" class="headerlink" title="应用架构"></a>应用架构</h4><h5 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h5><p>描述后端系统由哪些应用组成</p>
+<h5 id="使用场景-3"><a href="#使用场景-3" class="headerlink" title="使用场景"></a>使用场景</h5><ol>
+<li>项目开发测试</li>
+<li>部署发布</li>
+<li>子域架构设计</li>
+</ol>
+<h5 id="画图技巧-3"><a href="#画图技巧-3" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol>
+<li>通过不同颜色来标识不同角色</li>
+<li>通过连接线来表示关系</li>
+</ol>
+<h5 id="样例-3"><a href="#样例-3" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84.png"></p>
+<p>相对简单的系统架构和应用架构是等价的。一般中间件都相对比较简单，所以一般情况下它们的系统架构和应用架构等价，比如Redis</p>
+<p><img src="/medias/assets/%E7%AE%80%E5%8D%95%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.jpg"></p>
+<h4 id="部署架构"><a href="#部署架构" class="headerlink" title="部署架构"></a>部署架构</h4><h5 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h5><p>描述后端系统具体如何部署，对应4+1视图里面的物理视图</p>
+<h5 id="使用场景-4"><a href="#使用场景-4" class="headerlink" title="使用场景"></a>使用场景</h5><ol>
+<li>总体架构设计</li>
+<li>运维规划和优化</li>
+</ol>
+<h5 id="画图技巧-4"><a href="#画图技巧-4" class="headerlink" title="画图技巧"></a>画图技巧</h5><ol>
+<li>用图标代替区块</li>
+</ol>
+<h5 id="样例-4"><a href="#样例-4" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84.png"></p>
+<h4 id="系统序列图"><a href="#系统序列图" class="headerlink" title="系统序列图"></a>系统序列图</h4><h5 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h5><p>描述系统运作规则，属于动态架构图</p>
+<h5 id="样例-5"><a href="#样例-5" class="headerlink" title="样例"></a>样例</h5><p><img src="/medias/assets/%E7%B3%BB%E7%BB%9F%E5%BA%8F%E5%88%97%E5%9B%BE.png"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="/medias/assets/%E6%9E%B6%E6%9E%84%E6%8F%8F%E8%BF%B0.png"></p>
 
                 
             </div>
@@ -366,7 +431,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2021/06/29/architecture-01/">https://onlyonezhongjinhui.github.io/2021/06/29/architecture-01/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/06/30/architecture-02/">https://onlyonezhongjinhui.github.io/2021/06/30/architecture-02/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -575,9 +640,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/06/30/architecture-02/">
                     <div class="card-image">
@@ -595,9 +661,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -610,6 +676,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -628,31 +695,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/06/24/spring-security-oauth2-08/">
+                <a href="/2021/06/29/architecture-01/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/30.jpg" class="responsive-img" alt="从零搭建spring security oauth2认证授权体系（八）">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="从零学架构（一）">
                         
-                        <span class="card-title">从零搭建spring security oauth2认证授权体系（八）</span>
+                        <span class="card-title">从零学架构（一）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            性能优化
+                            架构的定义
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Spring-Security-Oauth2/" class="post-category">
-                                    Spring Security Oauth2
+                            <a href="/categories/%E6%9E%B6%E6%9E%84/" class="post-category">
+                                    架构
                                 </a>
                             
                             
@@ -662,8 +729,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Spring-Security-Oauth2/">
-                        <span class="chip bg-color">Spring Security Oauth2</span>
+                    <a href="/tags/%E6%9E%B6%E6%9E%84/">
+                        <span class="chip bg-color">架构</span>
                     </a>
                     
                 </div>
