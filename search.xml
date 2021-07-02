@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>从零学架构（六）</title>
+      <link href="2021/07/01/architecture-06/"/>
+      <url>2021/07/01/architecture-06/</url>
+      
+        <content type="html"><![CDATA[<h2 id="学生管理云平台系统架构设计"><a href="#学生管理云平台系统架构设计" class="headerlink" title="学生管理云平台系统架构设计"></a>学生管理云平台系统架构设计</h2><h3 id="需求背景"><a href="#需求背景" class="headerlink" title="需求背景"></a>需求背景</h3><p>你们是一家创业公司，公司老板具备丰富的高校人脉资源，老板看到各个高校都在重复建设各自的学生管理系统，建设周期长，功能不完善，老板认为做一个学生管理云平台，既能够减少高校这方面的投入，又可以让高校也“上云”。全中国有 3000 多所高校，这是一个很大的市场。</p><h3 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h3><p>和外包学生管理系统一样</p><h3 id="平台需求"><a href="#平台需求" class="headerlink" title="平台需求"></a>平台需求</h3><ol><li>云平台要具备高可用、高性能；</li><li>云平台要能够隔离各个高校，避免互相影响。</li></ol><h3 id="面向复杂度架构设计"><a href="#面向复杂度架构设计" class="headerlink" title="面向复杂度架构设计"></a>面向复杂度架构设计</h3><p><img src="/medias/assets/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E6%AD%A5%E9%AA%A4.png"></p><h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><ol><li>高性能？一个学校一般也就几万学生，3000多所高校，用户量5w * 3000 = 1.5亿，亿级。需要高性能。</li><li>高可用？3000多高校，一旦宕机影响太广。为减少相互影响，需要分区、分机房部署来保证高可用。</li><li>可扩展？整体业务复杂度比较高，且高校间肯定有各种不一样的定制需求。需要可扩展。</li><li>成本？老板有丰富的高校人脉资源，有钱又舍得投入，不是问题。</li><li>安全性？学生管理系统里面都是学生的一些公开信息，不涉及什么隐私、金钱等，安全性要求不高。</li><li>其它？各高校之间数据不能相互影响，数据隔离必须保证。</li></ol><h4 id="设计备选方案"><a href="#设计备选方案" class="headerlink" title="设计备选方案"></a>设计备选方案</h4><h5 id="方案1"><a href="#方案1" class="headerlink" title="方案1"></a>方案1</h5><p><img src="/medias/assets/20210701103457.png"></p><ol><li>服务不隔离</li><li>数据隔离，每个学校建立一个独立的数据库</li><li>MySQL主备复制+每日备份保证数据安全</li></ol><h5 id="方案2"><a href="#方案2" class="headerlink" title="方案2"></a>方案2</h5><p><img src="/medias/assets/20210701103723.png"></p><ol><li>docker做服务隔离</li><li>数据隔离，每个学校建立一个独立的数据库</li><li>MySQL主备复制+每日备份保证数据安全</li></ol><h5 id="方案3"><a href="#方案3" class="headerlink" title="方案3"></a>方案3</h5><p><img src="/medias/assets/20210701103859.png"></p><ol><li>服务不隔离</li><li>数据隔离，每个学校建立一个独立的数据库</li><li>双机房部署</li></ol><h5 id="方案4"><a href="#方案4" class="headerlink" title="方案4"></a>方案4</h5><p><img src="/medias/assets/20210701104035.png"></p><ol><li>docker做服务隔离</li><li>数据隔离，每个学校建立一个独立的数据库</li><li>双机房部署</li></ol><h5 id="判断维度"><a href="#判断维度" class="headerlink" title="判断维度"></a>判断维度</h5><h6 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h6><ol><li>业务当前量级</li><li>业务发展速度</li><li>业务发展形态</li></ol><h6 id="团队"><a href="#团队" class="headerlink" title="团队"></a>团队</h6><ol><li>团队的规模</li><li>团队能力水平</li><li>投入的资源</li></ol><h6 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h6><ol><li>已有的技术体系</li><li>当前技术能力</li><li>技术成熟度</li></ol><p><strong>根据上面三个维度分析判断，最终选择方案1</strong></p><h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><h6 id="合适原则"><a href="#合适原则" class="headerlink" title="合适原则"></a>合适原则</h6><ol><li>符合团队技术水平积累</li><li>开发成本低</li><li>运维成本低</li></ol><h6 id="简单原则"><a href="#简单原则" class="headerlink" title="简单原则"></a>简单原则</h6><ol><li>服务不隔离，只做数据隔离，单机房部署，开发、运维都相对简单</li></ol><h6 id="演化原则"><a href="#演化原则" class="headerlink" title="演化原则"></a>演化原则</h6><ol><li>不可能一下子接下3000多个高校，先满足几个或者十几个学校的需求，系统短时间内完全够用，后续再重构</li><li>创业公司，先用单机房架构方案，快速开发上线。双机房成本太高、架构也更为复杂，不要一步到位。</li></ol><h4 id="输出4R架构文档交付开发实现"><a href="#输出4R架构文档交付开发实现" class="headerlink" title="输出4R架构文档交付开发实现"></a>输出4R架构文档交付开发实现</h4>]]></content>
+      
+      
+      <categories>
+          
+          <category> 架构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 架构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>从零学架构（五）</title>
       <link href="2021/07/01/architecture-05/"/>
       <url>2021/07/01/architecture-05/</url>
