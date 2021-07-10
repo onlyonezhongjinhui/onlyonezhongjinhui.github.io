@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零学架构（六）, 向阳而生">
+    <meta name="keywords" content="从零学架构（七）, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零学架构（六） | 向阳而生</title>
+    <title>从零学架构（七） | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零学架构（六）</h1>
+                    <h1 class="description center-align post-title">从零学架构（七）</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-07-01
+                    2021-07-10
                 </div>
                 
 
@@ -326,74 +326,33 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="学生管理云平台系统架构设计"><a href="#学生管理云平台系统架构设计" class="headerlink" title="学生管理云平台系统架构设计"></a>学生管理云平台系统架构设计</h2><h3 id="需求背景"><a href="#需求背景" class="headerlink" title="需求背景"></a>需求背景</h3><p>你们是一家创业公司，公司老板具备丰富的高校人脉资源，老板看到各个高校都在重复建设各自的学生管理系统，建设周期长，功能不完善，老板认为做一个学生管理云平台，既能够减少高校这方面的投入，又可以让高校也“上云”。全中国有 3000 多所高校，这是一个很大的市场。</p>
-<h3 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h3><p>和外包学生管理系统一样</p>
-<h3 id="平台需求"><a href="#平台需求" class="headerlink" title="平台需求"></a>平台需求</h3><ol>
-<li>云平台要具备高可用、高性能；</li>
-<li>云平台要能够隔离各个高校，避免互相影响。</li>
+                <h2 id="如何设计可扩展架构"><a href="#如何设计可扩展架构" class="headerlink" title="如何设计可扩展架构"></a>如何设计可扩展架构</h2><h3 id="复杂度模型"><a href="#复杂度模型" class="headerlink" title="复杂度模型"></a>复杂度模型</h3><p><img src="/medias/assets/20210710150101.png"></p>
+<h4 id="业务复杂度"><a href="#业务复杂度" class="headerlink" title="业务复杂度"></a>业务复杂度</h4><p>业务固有的复杂度，主要体现为难以理解，难以扩展，例如业务数量多（微信），业务流程长（支付宝），业务之间关系复杂（例如ERP）</p>
+<h4 id="质量复杂度"><a href="#质量复杂度" class="headerlink" title="质量复杂度"></a>质量复杂度</h4><p>高性能、高可用、成本、安全等质量属性要求</p>
+<h3 id="架构复杂度应对之道"><a href="#架构复杂度应对之道" class="headerlink" title="架构复杂度应对之道"></a>架构复杂度应对之道</h3><p><img src="/medias/assets/20210710150858.png"></p>
+<p><img src="/medias/assets/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E6%AD%A5%E9%AA%A4.png"></p>
+<h3 id="可扩展（extensibility）"><a href="#可扩展（extensibility）" class="headerlink" title="可扩展（extensibility）"></a>可扩展（extensibility）</h3><p>系统适应变化的能力，包含可理解和可复用两个部分</p>
+<h3 id="可伸缩（scalability）"><a href="#可伸缩（scalability）" class="headerlink" title="可伸缩（scalability）"></a>可伸缩（scalability）</h3><p>系统通过添加更多的资源来提升性能的能力</p>
+<h3 id="可扩展复杂度模型"><a href="#可扩展复杂度模型" class="headerlink" title="可扩展复杂度模型"></a>可扩展复杂度模型</h3><p><img src="/medias/assets/20210710152734.png"></p>
+<h3 id="可扩展架构设计"><a href="#可扩展架构设计" class="headerlink" title="可扩展架构设计"></a>可扩展架构设计</h3><h4 id="拆分"><a href="#拆分" class="headerlink" title="拆分"></a>拆分</h4><h5 id="拆分复杂度模型"><a href="#拆分复杂度模型" class="headerlink" title="拆分复杂度模型"></a>拆分复杂度模型</h5><p><img src="/medias/assets/20210710153155.png"></p>
+<h5 id="拆分粒度"><a href="#拆分粒度" class="headerlink" title="拆分粒度"></a>拆分粒度</h5><h6 id="内部复杂度"><a href="#内部复杂度" class="headerlink" title="内部复杂度"></a>内部复杂度</h6><p>又称为“单体复杂度”，指单个对象内部的复杂度，例如传统的单体系统，所以业务都在一个系统里面。可以用参与的开发人数来衡量单个拆分对象的复杂度。例如：3个人负责一个子系统/子模块是比较合理的，20个人来在同一个子系统上开发，则内部复杂度过高</p>
+<h6 id="外部复杂度"><a href="#外部复杂度" class="headerlink" title="外部复杂度"></a>外部复杂度</h6><p>又称为“群体复杂度”，指拆分后的多个对象之间的关系复杂度。可以用业务流程涉及对象数量来衡量外部复杂度。例如：一次用户请求需要5个子系统参与比较合理的，如果需要20个子系统参与，则外部复杂度过高。</p>
+<h5 id="拆分原则"><a href="#拆分原则" class="headerlink" title="拆分原则"></a>拆分原则</h5><ol>
+<li>内外平衡原则</li>
+<li>先粗后细原则</li>
 </ol>
-<h3 id="面向复杂度架构设计"><a href="#面向复杂度架构设计" class="headerlink" title="面向复杂度架构设计"></a>面向复杂度架构设计</h3><p><img src="/medias/assets/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E6%AD%A5%E9%AA%A4.png"></p>
-<h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><ol>
-<li>高性能？一个学校一般也就几万学生，3000多所高校，用户量5w * 3000 = 1.5亿，亿级。需要高性能。</li>
-<li>高可用？3000多高校，一旦宕机影响太广。为减少相互影响，需要分区、分机房部署来保证高可用。</li>
-<li>可扩展？整体业务复杂度比较高，且高校间肯定有各种不一样的定制需求。需要可扩展。</li>
-<li>成本？老板有丰富的高校人脉资源，有钱又舍得投入，不是问题。</li>
-<li>安全性？学生管理系统里面都是学生的一些公开信息，不涉及什么隐私、金钱等，安全性要求不高。</li>
-<li>其它？各高校之间数据不能相互影响，数据隔离必须保证。</li>
+<h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><h5 id="封装复杂度模型"><a href="#封装复杂度模型" class="headerlink" title="封装复杂度模型"></a>封装复杂度模型</h5><p><img src="/medias/assets/20210710154359.png"></p>
+<h5 id="预测原则"><a href="#预测原则" class="headerlink" title="预测原则"></a>预测原则</h5><ol>
+<li>2年原则</li>
 </ol>
-<h4 id="设计备选方案"><a href="#设计备选方案" class="headerlink" title="设计备选方案"></a>设计备选方案</h4><h5 id="方案1"><a href="#方案1" class="headerlink" title="方案1"></a>方案1</h5><p><img src="/medias/assets/20210701103457.png"></p>
+<p>只预测2年内的可能变化，不要试图预测10年后的变化。例如你准备接入微信支付，那么预测接入支付宝是很自然的，但数字钱包就没那么必要了</p>
 <ol>
-<li>服务不隔离</li>
-<li>数据隔离，每个学校建立一个独立的数据库</li>
-<li>MySQL主备复制+每日备份保证数据安全</li>
+<li>3次法则</li>
 </ol>
-<h5 id="方案2"><a href="#方案2" class="headerlink" title="方案2"></a>方案2</h5><p><img src="/medias/assets/20210701103723.png"></p>
-<ol>
-<li>docker做服务隔离</li>
-<li>数据隔离，每个学校建立一个独立的数据库</li>
-<li>MySQL主备复制+每日备份保证数据安全</li>
-</ol>
-<h5 id="方案3"><a href="#方案3" class="headerlink" title="方案3"></a>方案3</h5><p><img src="/medias/assets/20210701103859.png"></p>
-<ol>
-<li>服务不隔离</li>
-<li>数据隔离，每个学校建立一个独立的数据库</li>
-<li>双机房部署</li>
-</ol>
-<h5 id="方案4"><a href="#方案4" class="headerlink" title="方案4"></a>方案4</h5><p><img src="/medias/assets/20210701104035.png"></p>
-<ol>
-<li>docker做服务隔离</li>
-<li>数据隔离，每个学校建立一个独立的数据库</li>
-<li>双机房部署</li>
-</ol>
-<h5 id="判断维度"><a href="#判断维度" class="headerlink" title="判断维度"></a>判断维度</h5><h6 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h6><ol>
-<li>业务当前量级</li>
-<li>业务发展速度</li>
-<li>业务发展形态</li>
-</ol>
-<h6 id="团队"><a href="#团队" class="headerlink" title="团队"></a>团队</h6><ol>
-<li>团队的规模</li>
-<li>团队能力水平</li>
-<li>投入的资源</li>
-</ol>
-<h6 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h6><ol>
-<li>已有的技术体系</li>
-<li>当前技术能力</li>
-<li>技术成熟度</li>
-</ol>
-<p><strong>根据上面三个维度分析判断，最终选择方案1</strong></p>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><h6 id="合适原则"><a href="#合适原则" class="headerlink" title="合适原则"></a>合适原则</h6><ol>
-<li>符合团队技术水平积累</li>
-<li>开发成本低</li>
-<li>运维成本低</li>
-</ol>
-<h6 id="简单原则"><a href="#简单原则" class="headerlink" title="简单原则"></a>简单原则</h6><ol>
-<li>服务不隔离，只做数据隔离，单机房部署，开发、运维都相对简单</li>
-</ol>
-<h6 id="演化原则"><a href="#演化原则" class="headerlink" title="演化原则"></a>演化原则</h6><ol>
-<li>不可能一下子接下3000多个高校，先满足几个或者十几个学校的需求，系统短时间内完全够用，后续再重构</li>
-<li>创业公司，先用单机房架构方案，快速开发上线。双机房成本太高、架构也更为复杂，不要一步到位。</li>
-</ol>
-<h4 id="输出4R架构文档交付开发实现"><a href="#输出4R架构文档交付开发实现" class="headerlink" title="输出4R架构文档交付开发实现"></a>输出4R架构文档交付开发实现</h4>
+<p>预测没有把握就不要封装，等到需要的时候重构即可。例如要不要支持数据库为 Oracle、MySQL、PostgreSQL。(Martin Fowler)Rule of three: Three strikes and you refactor （1写2抄3封装）。</p>
+<h5 id="封装技巧"><a href="#封装技巧" class="headerlink" title="封装技巧"></a>封装技巧</h5><p><img src="/medias/assets/20210710155106.png"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="/medias/assets/%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1.png"></p>
+
                 
             </div>
             <hr/>
@@ -419,7 +378,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2021/07/01/architecture-06/">https://onlyonezhongjinhui.github.io/2021/07/01/architecture-06/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/07/10/architecture-07/">https://onlyonezhongjinhui.github.io/2021/07/10/architecture-07/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -628,9 +587,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/07/10/architecture-07/">
                     <div class="card-image">
@@ -648,9 +608,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -663,6 +623,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -681,19 +642,19 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/01/architecture-05/">
+                <a href="/2021/07/01/architecture-06/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/34.jpg" class="responsive-img" alt="从零学架构（五）">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="从零学架构（六）">
                         
-                        <span class="card-title">从零学架构（五）</span>
+                        <span class="card-title">从零学架构（六）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            实战（一）：外包学生管理系统架构设计
+                            实战（二）：学生管理云平台系统架构设计
                         
                     </div>
                     <div class="publish-info">

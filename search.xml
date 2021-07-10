@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>从零学架构（七）</title>
+      <link href="2021/07/10/architecture-07/"/>
+      <url>2021/07/10/architecture-07/</url>
+      
+        <content type="html"><![CDATA[<h2 id="如何设计可扩展架构"><a href="#如何设计可扩展架构" class="headerlink" title="如何设计可扩展架构"></a>如何设计可扩展架构</h2><h3 id="复杂度模型"><a href="#复杂度模型" class="headerlink" title="复杂度模型"></a>复杂度模型</h3><p><img src="/medias/assets/20210710150101.png"></p><h4 id="业务复杂度"><a href="#业务复杂度" class="headerlink" title="业务复杂度"></a>业务复杂度</h4><p>业务固有的复杂度，主要体现为难以理解，难以扩展，例如业务数量多（微信），业务流程长（支付宝），业务之间关系复杂（例如ERP）</p><h4 id="质量复杂度"><a href="#质量复杂度" class="headerlink" title="质量复杂度"></a>质量复杂度</h4><p>高性能、高可用、成本、安全等质量属性要求</p><h3 id="架构复杂度应对之道"><a href="#架构复杂度应对之道" class="headerlink" title="架构复杂度应对之道"></a>架构复杂度应对之道</h3><p><img src="/medias/assets/20210710150858.png"></p><p><img src="/medias/assets/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E6%AD%A5%E9%AA%A4.png"></p><h3 id="可扩展（extensibility）"><a href="#可扩展（extensibility）" class="headerlink" title="可扩展（extensibility）"></a>可扩展（extensibility）</h3><p>系统适应变化的能力，包含可理解和可复用两个部分</p><h3 id="可伸缩（scalability）"><a href="#可伸缩（scalability）" class="headerlink" title="可伸缩（scalability）"></a>可伸缩（scalability）</h3><p>系统通过添加更多的资源来提升性能的能力</p><h3 id="可扩展复杂度模型"><a href="#可扩展复杂度模型" class="headerlink" title="可扩展复杂度模型"></a>可扩展复杂度模型</h3><p><img src="/medias/assets/20210710152734.png"></p><h3 id="可扩展架构设计"><a href="#可扩展架构设计" class="headerlink" title="可扩展架构设计"></a>可扩展架构设计</h3><h4 id="拆分"><a href="#拆分" class="headerlink" title="拆分"></a>拆分</h4><h5 id="拆分复杂度模型"><a href="#拆分复杂度模型" class="headerlink" title="拆分复杂度模型"></a>拆分复杂度模型</h5><p><img src="/medias/assets/20210710153155.png"></p><h5 id="拆分粒度"><a href="#拆分粒度" class="headerlink" title="拆分粒度"></a>拆分粒度</h5><h6 id="内部复杂度"><a href="#内部复杂度" class="headerlink" title="内部复杂度"></a>内部复杂度</h6><p>又称为“单体复杂度”，指单个对象内部的复杂度，例如传统的单体系统，所以业务都在一个系统里面。可以用参与的开发人数来衡量单个拆分对象的复杂度。例如：3个人负责一个子系统/子模块是比较合理的，20个人来在同一个子系统上开发，则内部复杂度过高</p><h6 id="外部复杂度"><a href="#外部复杂度" class="headerlink" title="外部复杂度"></a>外部复杂度</h6><p>又称为“群体复杂度”，指拆分后的多个对象之间的关系复杂度。可以用业务流程涉及对象数量来衡量外部复杂度。例如：一次用户请求需要5个子系统参与比较合理的，如果需要20个子系统参与，则外部复杂度过高。</p><h5 id="拆分原则"><a href="#拆分原则" class="headerlink" title="拆分原则"></a>拆分原则</h5><ol><li>内外平衡原则</li><li>先粗后细原则</li></ol><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><h5 id="封装复杂度模型"><a href="#封装复杂度模型" class="headerlink" title="封装复杂度模型"></a>封装复杂度模型</h5><p><img src="/medias/assets/20210710154359.png"></p><h5 id="预测原则"><a href="#预测原则" class="headerlink" title="预测原则"></a>预测原则</h5><ol><li>2年原则</li></ol><p>只预测2年内的可能变化，不要试图预测10年后的变化。例如你准备接入微信支付，那么预测接入支付宝是很自然的，但数字钱包就没那么必要了</p><ol><li>3次法则</li></ol><p>预测没有把握就不要封装，等到需要的时候重构即可。例如要不要支持数据库为 Oracle、MySQL、PostgreSQL。(Martin Fowler)Rule of three: Three strikes and you refactor （1写2抄3封装）。</p><h5 id="封装技巧"><a href="#封装技巧" class="headerlink" title="封装技巧"></a>封装技巧</h5><p><img src="/medias/assets/20210710155106.png"></p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="/medias/assets/%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 架构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 架构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>从零学架构（六）</title>
       <link href="2021/07/01/architecture-06/"/>
       <url>2021/07/01/architecture-06/</url>

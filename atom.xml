@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-07-02T08:21:40.008Z</updated>
+  <updated>2021-07-10T08:10:28.866Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零学架构（七）</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/07/10/architecture-07/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/07/10/architecture-07/</id>
+    <published>2021-07-10T07:30:00.000Z</published>
+    <updated>2021-07-10T08:10:28.866Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;如何设计可扩展架构&quot;&gt;&lt;a href=&quot;#如何设计可扩展架构&quot; class=&quot;headerlink&quot; title=&quot;如何设计可扩展架构&quot;&gt;&lt;/a&gt;如何设计可扩展架构&lt;/h2&gt;&lt;h3 id=&quot;复杂度模型&quot;&gt;&lt;a href=&quot;#复杂度模型&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>从零学架构（六）</title>
@@ -482,31 +507,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;undo-log&quot;&gt;&lt;a href=&quot;#undo-log&quot; class=&quot;headerlink&quot; title=&quot;undo log&quot;&gt;&lt;/a&gt;undo log&lt;/h2&gt;&lt;p&gt;undo</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如果binlog格式为mixed，语句insert into t values(1,1,now())会记录为row格式还是statement格式？</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/05/08/mysql03/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/05/08/mysql03/</id>
-    <published>2021-05-08T13:49:00.000Z</published>
-    <updated>2021-05-19T03:15:25.823Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;如果binlog格式为mixed，语句insert-into-t-values-1-1-now-会记录为row格式还是statement格式？&quot;&gt;&lt;a</summary>
         
       
     
