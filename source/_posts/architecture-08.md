@@ -6,7 +6,7 @@ top: true
 cover: true
 toc: false
 mathjax: false
-summary: 如何设计可扩展架构
+summary: 如何设计高性能架构
 tags: 架构
 categories:
 - [架构]
