@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零学架构（七）, 向阳而生">
+    <meta name="keywords" content="从零学架构（八）, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零学架构（七） | 向阳而生</title>
+    <title>从零学架构（八） | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零学架构（七）</h1>
+                    <h1 class="description center-align post-title">从零学架构（八）</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-07-10
+                    2021-07-12
                 </div>
                 
 
@@ -326,32 +326,38 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="如何设计可扩展架构"><a href="#如何设计可扩展架构" class="headerlink" title="如何设计可扩展架构"></a>如何设计可扩展架构</h2><h3 id="复杂度模型"><a href="#复杂度模型" class="headerlink" title="复杂度模型"></a>复杂度模型</h3><p><img src="/medias/assets/20210710150101.png"></p>
-<h4 id="业务复杂度"><a href="#业务复杂度" class="headerlink" title="业务复杂度"></a>业务复杂度</h4><p>业务固有的复杂度，主要体现为难以理解，难以扩展，例如业务数量多（微信），业务流程长（支付宝），业务之间关系复杂（例如ERP）</p>
-<h4 id="质量复杂度"><a href="#质量复杂度" class="headerlink" title="质量复杂度"></a>质量复杂度</h4><p>高性能、高可用、成本、安全等质量属性要求</p>
-<h3 id="架构复杂度应对之道"><a href="#架构复杂度应对之道" class="headerlink" title="架构复杂度应对之道"></a>架构复杂度应对之道</h3><p><img src="/medias/assets/20210710150858.png"></p>
-<p><img src="/medias/assets/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E6%AD%A5%E9%AA%A4.png"></p>
-<h3 id="可扩展（extensibility）"><a href="#可扩展（extensibility）" class="headerlink" title="可扩展（extensibility）"></a>可扩展（extensibility）</h3><p>系统适应变化的能力，包含可理解和可复用两个部分</p>
-<h3 id="可伸缩（scalability）"><a href="#可伸缩（scalability）" class="headerlink" title="可伸缩（scalability）"></a>可伸缩（scalability）</h3><p>系统通过添加更多的资源来提升性能的能力</p>
-<h3 id="可扩展复杂度模型"><a href="#可扩展复杂度模型" class="headerlink" title="可扩展复杂度模型"></a>可扩展复杂度模型</h3><p><img src="/medias/assets/20210710152734.png"></p>
-<h3 id="可扩展架构设计"><a href="#可扩展架构设计" class="headerlink" title="可扩展架构设计"></a>可扩展架构设计</h3><h4 id="拆分"><a href="#拆分" class="headerlink" title="拆分"></a>拆分</h4><h5 id="拆分复杂度模型"><a href="#拆分复杂度模型" class="headerlink" title="拆分复杂度模型"></a>拆分复杂度模型</h5><p><img src="/medias/assets/20210710153155.png"></p>
-<h5 id="拆分粒度"><a href="#拆分粒度" class="headerlink" title="拆分粒度"></a>拆分粒度</h5><h6 id="内部复杂度"><a href="#内部复杂度" class="headerlink" title="内部复杂度"></a>内部复杂度</h6><p>又称为“单体复杂度”，指单个对象内部的复杂度，例如传统的单体系统，所以业务都在一个系统里面。可以用参与的开发人数来衡量单个拆分对象的复杂度。例如：3个人负责一个子系统/子模块是比较合理的，20个人来在同一个子系统上开发，则内部复杂度过高</p>
-<h6 id="外部复杂度"><a href="#外部复杂度" class="headerlink" title="外部复杂度"></a>外部复杂度</h6><p>又称为“群体复杂度”，指拆分后的多个对象之间的关系复杂度。可以用业务流程涉及对象数量来衡量外部复杂度。例如：一次用户请求需要5个子系统参与比较合理的，如果需要20个子系统参与，则外部复杂度过高。</p>
-<h5 id="拆分原则"><a href="#拆分原则" class="headerlink" title="拆分原则"></a>拆分原则</h5><ol>
-<li>内外平衡原则</li>
-<li>先粗后细原则</li>
+                <h2 id="如何设计高性能架构"><a href="#如何设计高性能架构" class="headerlink" title="如何设计高性能架构"></a>如何设计高性能架构</h2><h3 id="高性能架构复杂度模型"><a href="#高性能架构复杂度模型" class="headerlink" title="高性能架构复杂度模型"></a>高性能架构复杂度模型</h3><p><img src="/medias/assets/20210712085012.png"></p>
+<h3 id="高性能架构复杂度模型分析"><a href="#高性能架构复杂度模型分析" class="headerlink" title="高性能架构复杂度模型分析"></a>高性能架构复杂度模型分析</h3><p><img src="/medias/assets/20210712085101.png"></p>
+<h3 id="集群高性能架构设计"><a href="#集群高性能架构设计" class="headerlink" title="集群高性能架构设计"></a>集群高性能架构设计</h3><h4 id="指导理论"><a href="#指导理论" class="headerlink" title="指导理论"></a>指导理论</h4><p>鸡蛋篮子理论第二法则——叠加法则</p>
+<p><img src="/medias/assets/20210712085546.png"></p>
+<h4 id="任务分配"><a href="#任务分配" class="headerlink" title="任务分配"></a>任务分配</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>将任务分配给多个服务器执行</p>
+<h5 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h5><ol>
+<li><p>增加“任务分配器”节点，可以是独立的服务器也可以是SDK</p>
+</li>
+<li><p>任务分配器需要管理所有服务器，可以通过配置文件，也可以通过配置服务器，例如Zookeeper</p>
+</li>
+<li><p>任务分配器需要根据不同的需求采用不同的算法分配</p>
+</li>
 </ol>
-<h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><h5 id="封装复杂度模型"><a href="#封装复杂度模型" class="headerlink" title="封装复杂度模型"></a>封装复杂度模型</h5><p><img src="/medias/assets/20210710154359.png"></p>
-<h5 id="预测原则"><a href="#预测原则" class="headerlink" title="预测原则"></a>预测原则</h5><ol>
-<li>2年原则</li>
+<p><img src="/medias/assets/20210712091927.png"></p>
+<p><img src="/medias/assets/20210712092039.png"></p>
+<h5 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h5><p><img src="/medias/assets/20210712092223.png"></p>
+<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><p><img src="/medias/assets/20210712092705.png"></p>
+<p><img src="/medias/assets/20210712092812.png"></p>
+<p><img src="/medias/assets/20210712092906.png"></p>
+<h4 id="任务分解"><a href="#任务分解" class="headerlink" title="任务分解"></a>任务分解</h4><h5 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h5><p>将服务器拆分为不同的角色，不同服务器处理不同业务</p>
+<h5 id="复杂度分析-1"><a href="#复杂度分析-1" class="headerlink" title="复杂度分析"></a>复杂度分析</h5><ol>
+<li>增加“任务分解器”节点，可以是独立的服务器也可以是SDK</li>
+<li>任务分解器需要管理所有服务器，可以通过配置文件，也可以通过配置服务器，例如Zookeeper</li>
+<li>需要设计拆分任务的方式，任务分解器需要记录“任务”和“服务器”的映射关系</li>
+<li>任务分解器需要根据不同需求采用不同的算法分配</li>
 </ol>
-<p>只预测2年内的可能变化，不要试图预测10年后的变化。例如你准备接入微信支付，那么预测接入支付宝是很自然的，但数字钱包就没那么必要了</p>
-<ol>
-<li>3次法则</li>
-</ol>
-<p>预测没有把握就不要封装，等到需要的时候重构即可。例如要不要支持数据库为 Oracle、MySQL、PostgreSQL。(Martin Fowler)Rule of three: Three strikes and you refactor （1写2抄3封装）。</p>
-<h5 id="封装技巧"><a href="#封装技巧" class="headerlink" title="封装技巧"></a>封装技巧</h5><p><img src="/medias/assets/20210710155106.png"></p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="/medias/assets/%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1.png"></p>
+<p><img src="/medias/assets/20210712093533.png"></p>
+<h5 id="关键点-1"><a href="#关键点-1" class="headerlink" title="关键点"></a>关键点</h5><p><img src="/medias/assets/20210712093637.png"></p>
+<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h5><p><img src="/medias/assets/20210712094216.png"></p>
+<p><img src="/medias/assets/20210712094256.png"></p>
+<p><img src="/medias/assets/20210712094359.png"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><img src="/medias/assets/%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1.png"></p>
 
                 
             </div>
@@ -378,7 +384,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2021/07/10/architecture-07/">https://onlyonezhongjinhui.github.io/2021/07/10/architecture-07/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2021/07/12/architecture-08/">https://onlyonezhongjinhui.github.io/2021/07/12/architecture-08/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -587,9 +593,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/07/12/architecture-08/">
                     <div class="card-image">
@@ -607,9 +614,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -622,6 +629,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -640,24 +648,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/01/architecture-06/">
+                <a href="/2021/07/10/architecture-07/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="从零学架构（六）">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="从零学架构（七）">
                         
-                        <span class="card-title">从零学架构（六）</span>
+                        <span class="card-title">从零学架构（七）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            实战（二）：学生管理云平台系统架构设计
+                            如何设计可扩展架构
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-10
                             </span>
                         <span class="publish-author">
                             

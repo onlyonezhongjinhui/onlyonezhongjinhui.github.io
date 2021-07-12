@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2021-07-10T08:10:28.866Z</updated>
+  <updated>2021-07-12T02:27:06.836Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零学架构（八）</title>
+    <link href="https://onlyonezhongjinhui.github.io/2021/07/12/architecture-08/"/>
+    <id>https://onlyonezhongjinhui.github.io/2021/07/12/architecture-08/</id>
+    <published>2021-07-12T01:30:00.000Z</published>
+    <updated>2021-07-12T02:27:06.836Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;如何设计高性能架构&quot;&gt;&lt;a href=&quot;#如何设计高性能架构&quot; class=&quot;headerlink&quot; title=&quot;如何设计高性能架构&quot;&gt;&lt;/a&gt;如何设计高性能架构&lt;/h2&gt;&lt;h3 id=&quot;高性能架构复杂度模型&quot;&gt;&lt;a href=&quot;#高性能架构复杂度模型&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>从零学架构（七）</title>
@@ -482,31 +507,6 @@
         
     <summary type="html">&lt;p&gt;为了方便描述这个过程，先建个只包含一个主键id和age的表t,并插入一条数据：&lt;/p&gt;
 &lt;pre class=&quot;line-numbers language-sql&quot; data-language=&quot;sql&quot;&gt;&lt;code class=&quot;language-sql&quot;&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://onlyonezhongjinhui.github.io/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>undo log有什么用？</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/05/17/mysql04/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/05/17/mysql04/</id>
-    <published>2021-05-17T13:30:00.000Z</published>
-    <updated>2021-05-19T03:15:25.824Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;undo-log&quot;&gt;&lt;a href=&quot;#undo-log&quot; class=&quot;headerlink&quot; title=&quot;undo log&quot;&gt;&lt;/a&gt;undo log&lt;/h2&gt;&lt;p&gt;undo</summary>
         
       
     
