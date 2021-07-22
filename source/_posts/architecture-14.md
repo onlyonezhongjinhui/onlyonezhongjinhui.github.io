@@ -6,12 +6,12 @@ top: true
 cover: true
 toc: false
 mathjax: false
-summary: 架构师前期职责
+summary: 架构设计前期
 tags: 架构
 categories:
 - [架构]
 ---
-## 架构师前期职责
+## 架构设计前期
 
 ### 利益干系人
 
