@@ -1,6 +1,6 @@
 ---
 title: Mybatis（二）
-date: 2021-08-09 10:00:00
+date: 2021-08-10 15:00:00
 author: maybe
 top: false
 cover: false
@@ -38,7 +38,7 @@ categories:
 
 Configuration是由XMLConfigBuilder类创建并填充的。XMLConfigBuilder类构造函数有多个，可传递配置文件流、环境变量、额外属性配置。创建XMLConfigBuilder的时候就创建了一个Configuration对象，用来储存接下来的解析出来的全部配置
 
-```
+```java
   public XMLConfigBuilder(Reader reader) {
     this(reader, null, null);
   }
@@ -303,7 +303,7 @@ mapper的解析分为4种配置情形，分别是下面四种
 
 pakcage方式的注册过程
 
-```
+```java
 1. XMLConfigBuilder类的mapperElement直接传入包名调用MapperRegistry的addMappers方法 
  public void addMappers(String packageName) {
     mapperRegistry.addMappers(packageName);
@@ -502,7 +502,7 @@ XML方式，XML方式是通过XMLMapperBuilder类来解析的，具体就是它�
         // 真正解析
         cacheRefResolver.resolveCacheRef();
       } catch (IncompleteElementException e) {
-        // 如果抛出IncompleteElementException异常，表示引用的是还未解析的mapper，则把它假如到未解析完成列表中
+        // 如果抛出IncompleteElementException异常，表示引用的是还未解析的mapper，则把它加入到未解析完成列表中
         configuration.addIncompleteCacheRef(cacheRefResolver);
       }
     }
@@ -579,7 +579,7 @@ XML方式，XML方式是通过XMLMapperBuilder类来解析的，具体就是它�
         Class<? extends TypeHandler<?>> typeHandlerClass = resolveClass(typeHandler);
         // 创建一个参数映射
         ParameterMapping parameterMapping = builderAssistant.buildParameterMapping(parameterClass, property, javaTypeClass, jdbcTypeEnum, resultMap, modeEnum, typeHandlerClass, numericScale);
-        // 假如参数映射节点集合中
+        // 加入参数映射节点集合中
         parameterMappings.add(parameterMapping);
       }
       // 加入到configuration的成员属性parameterMaps中
