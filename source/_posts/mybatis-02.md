@@ -1,5 +1,5 @@
 ---
-title: Mybatis：Configuration配置详细解析（二）
+title: Mybatis（二）：Configuration配置详细解析
 date: 2021-08-10 15:00:00
 author: maybe
 top: false

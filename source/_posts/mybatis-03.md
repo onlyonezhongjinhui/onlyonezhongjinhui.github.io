@@ -1,6 +1,6 @@
 ---
-title: Mybatis：Mapper配置解析详解（三）
-date: 2021-08-11 15:00:00
+title: Mybatis（三）：Mapper配置解析详解
+date: 2021-08-12 12:00:00
 author: maybe
 top: false
 cover: false
@@ -10,8 +10,6 @@ summary: Mapper配置解析详解
 tags: Mybatis
 categories:
 - [Mybatis]
-{: id="20210810152348-th3zxsi"}
-{: id="20210810175110-m2gteis"}
 ---
 # Mapper配置解析详解
 

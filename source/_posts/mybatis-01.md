@@ -1,12 +1,12 @@
 ---
-title: Mybatis（一）
+title: Mybatis（一）：总体架构
 date: 2021-08-07 15:30:00
 author: maybe
 top: false
 cover: false
 toc: false
 mathjax: false
-summary: 总体介绍
+summary: 总体架构
 tags: Mybatis
 categories:
 - [Mybatis]
