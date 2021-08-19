@@ -112,7 +112,7 @@ categories:
 
 ![](/medias/assets/20210819220124.png)
 
-**实际情况Pipeline会更加合适**
+**实际情况Pipeline会更加合适，因为中台和业务边界很难界定，适用SPI落地开发难度会非常大**
 
 ## 小结
 
