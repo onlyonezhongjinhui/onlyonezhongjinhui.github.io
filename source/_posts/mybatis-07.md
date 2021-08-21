@@ -101,10 +101,10 @@ SqlSource接口有4个实现类
 
 ![](/medias/assets/20210821112127.png)
 
-1. StaticSqlSource静态SQL，没有动态SQL标签的
-2. DynamicSqlSource动态SQL，处理带${}的动态SQL
-3. RawSqlSource动态SQL，处理不包含${}的动态SQL
-4. ProviderSqlSource动态SQL，处理通过代码生成的SQL
+1. StaticSqlSource静态SQL，DynamicSqlSource、RawSqlSource处理过后都会转成StaticSqlSource
+2. DynamicSqlSource处理包含${}、动态SQL节点的
+3. RawSqlSource处理不包含${}、动态SQL节点的
+4. ProviderSqlSource动态SQL，处理通过代码生成SQL
 
 #### BoundSql
 
@@ -188,7 +188,7 @@ XMLScriptBuilder的职责是解析动态SQL标签构建SqlSource。其中属性�
 
 * context：整个SQL的节点
 
-* isDynamic：是否是动态SQL
+* isDynamic：是否是动态SQL（只要包含${}、动态SQL节点其中之一，就是true）
 
 * parameterType：SQL入参Class对象
 
@@ -249,7 +249,7 @@ public void parseStatementNode() {
   }
 ```
 
-先是调用自身的parseDynamicTags方法解析了整个SQL里的所有动态SQL节点，获得根节点MixedSqlNode，然后再根据SQL中是不是有分别创建了不同的SqlSource对象，如果是动态SQL创建DynamicSqlSource，否则创建RawSqlSource
+先是调用自身的parseDynamicTags方法解析了整个SQL里的所有动态SQL节点，获得根节点MixedSqlNode，然后再根据isDynamic创建不同的SqlSource对象
 
 ```java
   public SqlSource parseScriptNode() {
@@ -295,12 +295,13 @@ parseDynamicTags每次处理一个节点，处理嵌套的节点需要递归调�
         // 如果是CDATA或者是TEXT节点,则创建TextSqlNode节点
         String data = child.getStringBody("");
         TextSqlNode textSqlNode = new TextSqlNode(data);
+        // 如果包含${}或者是包含动态SQL节点的都是动态SQL
         if (textSqlNode.isDynamic()) {
           // 加到结果集中
           contents.add(textSqlNode);
           isDynamic = true;
         } else {
-          // 如果不是动态节点则创建StaticTextSqlNode节点并加到结果集中
+          // 如果不是动态节点则创建静态StaticTextSqlNode节点并加到结果集中
           contents.add(new StaticTextSqlNode(data));
         }
       } else if (child.getNode().getNodeType() == Node.ELEMENT_NODE) { // issue #628
@@ -477,7 +478,7 @@ parseDynamicTags每次处理一个节点，处理嵌套的节点需要递归调�
   }
 ```
 
-调用了SqlSource的关键方法getBaoundSql生成BoundSql对象，也就是到了这里动态的SQL才完全生成了
+调用了SqlSource的关键方法getBaoundSql生成BoundSql对象
 
 ```java
   public BoundSql getBoundSql(Object parameterObject) {
@@ -502,14 +503,23 @@ parseDynamicTags每次处理一个节点，处理嵌套的节点需要递归调�
   }
 ```
 
-动态SQL使用DynamicSqlSource处理。
-
+包含${}、动态SQL节点的使用DynamicSqlSource、否则使用RawSqlSource
 ```java
+public class DynamicSqlSource implements SqlSource {
+
+  private final Configuration configuration;
+  private final SqlNode rootSqlNode;
+
+  public DynamicSqlSource(Configuration configuration, SqlNode rootSqlNode) {
+    this.configuration = configuration;
+    this.rootSqlNode = rootSqlNode;
+  }
+
   @Override
   public BoundSql getBoundSql(Object parameterObject) {
-    // 创建上下文保存处理结果
+    // 创建上下文保存处理结果，这里需要传递参数对象，因为${}这种直接拼接的参数是在apply方法里要拼接进去的
     DynamicContext context = new DynamicContext(configuration, parameterObject);
-    // 应用SQL节点
+    // 应用动态SQL节点
     rootSqlNode.apply(context);
     // 创建SqlSourceBuilder
     SqlSourceBuilder sqlSourceParser = new SqlSourceBuilder(configuration);
@@ -519,13 +529,56 @@ parseDynamicTags每次处理一个节点，处理嵌套的节点需要递归调�
     SqlSource sqlSource = sqlSourceParser.parse(context.getSql(), parameterType, context.getBindings());
     // 创建BoundSql对象
     BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
-    // 设置参数值
     context.getBindings().forEach(boundSql::setAdditionalParameter);
     return boundSql;
   }
+
+}
 ```
 
-其中SqlNode的apply方法根据自身节点的特性，进行特殊的处理，然后最总都会调用StaticTextSqlNode的apply方法把SQL片段拼接起来。之后就是和普通的SQL没什么区别了，只要交给JDBC的Statement去执行即可。
+```java
+public class RawSqlSource implements SqlSource {
+
+  private final SqlSource sqlSource;
+
+  public RawSqlSource(Configuration configuration, SqlNode rootSqlNode, Class<?> parameterType) {
+    this(configuration, getSql(configuration, rootSqlNode), parameterType);
+  }
+
+  public RawSqlSource(Configuration configuration, String sql, Class<?> parameterType) {
+    // 创建SqlSourceBuilder
+    SqlSourceBuilder sqlSourceParser = new SqlSourceBuilder(configuration);
+    // 入参类型Class对象
+    Class<?> clazz = parameterType == null ? Object.class : parameterType;
+    // 解析生成StaticSqlSource,去除多余的空格压缩SQL,把占位符#{}换成?
+    sqlSource = sqlSourceParser.parse(sql, clazz, new HashMap<>());
+  }
+
+  private static String getSql(Configuration configuration, SqlNode rootSqlNode) {
+    // 创建上下文保存处理结果，这里不需要传递参数
+    DynamicContext context = new DynamicContext(configuration, null);
+    // 应用静态节点处理
+    rootSqlNode.apply(context);
+    return context.getSql();
+  }
+
+  @Override
+  public BoundSql getBoundSql(Object parameterObject) {
+    // 创建BoundSql对象
+    return sqlSource.getBoundSql(parameterObject);
+  }
+
+}
+```
+DynamicSqlSource和RawSqlSource不同之处很小，就三句不同而已
+
+```java
+    DynamicContext context = new DynamicContext(configuration, parameterObject);
+	SqlSource sqlSource = sqlSourceParser.parse(context.getSql(), parameterType, context.getBindings());
+	context.getBindings().forEach(boundSql::setAdditionalParameter);
+```
+
+首先他们都会调用节点的apply方法，各个节点的apply实现不同处理，但是最终都会调用StaticTextSqlNode的apply方法把SQL片段拼接起来。
 
 ```java
   @Override
@@ -534,3 +587,84 @@ parseDynamicTags每次处理一个节点，处理嵌套的节点需要递归调�
     return true;
   }
 ```
+
+如果是动态SQL，那么总会有TextSqlNode这个节点，而这个节点的apply方法比较特殊,它会通过GenericTokenParser的parse方法处理${}这种拼接参数
+```java
+  @Override
+  public boolean apply(DynamicContext context) {
+    GenericTokenParser parser = createParser(new BindingTokenParser(context, injectionFilter));
+    // 删除反斜杠并校验${}配对情况
+    context.appendSql(parser.parse(text));
+    return true;
+  }
+  
+  private GenericTokenParser createParser(TokenHandler handler) {
+    return new GenericTokenParser("${", "}", handler);
+  }
+```
+
+处理过后就会直接把参数拼接到SQL上
+```java
+  public String parse(String text) {
+    if (text == null || text.isEmpty()) {
+      return "";
+    }
+    // search open token
+    int start = text.indexOf(openToken);
+    if (start == -1) {
+      return text;
+    }
+    char[] src = text.toCharArray();
+    int offset = 0;
+    final StringBuilder builder = new StringBuilder();
+    StringBuilder expression = null;
+    do {
+      if (start > 0 && src[start - 1] == '\\') {
+        // this open token is escaped. remove the backslash and continue.
+        builder.append(src, offset, start - offset - 1).append(openToken);
+        offset = start + openToken.length();
+      } else {
+        // found open token. let's search close token.
+        if (expression == null) {
+          expression = new StringBuilder();
+        } else {
+          expression.setLength(0);
+        }
+        builder.append(src, offset, start - offset);
+        offset = start + openToken.length();
+        int end = text.indexOf(closeToken, offset);
+        while (end > -1) {
+          if (end > offset && src[end - 1] == '\\') {
+            // this close token is escaped. remove the backslash and continue.
+            expression.append(src, offset, end - offset - 1).append(closeToken);
+            offset = end + closeToken.length();
+            end = text.indexOf(closeToken, offset);
+          } else {
+            expression.append(src, offset, end - offset);
+            break;
+          }
+        }
+        if (end == -1) {
+          // close token was not found.
+          builder.append(src, start, src.length - start);
+          offset = src.length;
+        } else {
+		  // 直接拼接参数或者?占位符
+          builder.append(handler.handleToken(expression.toString()));
+          offset = end + closeToken.length();
+        }
+      }
+      start = text.indexOf(openToken, offset);
+    } while (start > -1);
+    if (offset < src.length) {
+      builder.append(src, offset, src.length - offset);
+    }
+    return builder.toString();
+  }
+}
+```
+
+之后DynamicSqlSource和RawSqlSource都会调用SqlSourceBuilder的parse方法把#{}变为?占位符
+
+到了这里，SQL就组装完成了，和普通的SQL没什么区别了，只要交给JDBC的Statement去执行即可。
+
