@@ -102,8 +102,8 @@ SqlSource接口有4个实现类
 ![](/medias/assets/20210821112127.png)
 
 1. StaticSqlSource静态SQL，没有动态SQL标签的
-2. DynamicSqlSource动态SQL，处理带有#{}的SQL
-3. RawSqlSource动态SQL，处理带有${}这种直接拼接的SQL
+2. DynamicSqlSource动态SQL，处理带${}的动态SQL
+3. RawSqlSource动态SQL，处理不包含${}的动态SQL
 4. ProviderSqlSource动态SQL，处理通过代码生成的SQL
 
 #### BoundSql
