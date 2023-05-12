@@ -1,0 +1,1453 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Mybatis（七）：动态SQL, 向阳而生">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Mybatis（七）：动态SQL | 向阳而生</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="向阳而生" type="application/atom+xml">
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">向阳而生</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">向阳而生</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Mybatis（七）：动态SQL</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Mybatis/">
+                                <span class="chip bg-color">Mybatis</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Mybatis/" class="post-category">
+                                Mybatis
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-08-21
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="动态SQL"><a href="#动态SQL" class="headerlink" title="动态SQL"></a>动态SQL</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>作为一个crud boy，写SQL是日常操作。而拼接SQL是一件特别恶心的事情，一不小心就拼错了。而且如果需要根据条件动态拼接SQL那更是恶心了。为了解决处理掉这种恶心的事情，Mybatis提供了动态SQL的强大特性，通过<strong>trim,where,set,foreach,if,choose,when,otherwise,bind</strong>标签节点使编写强大SQL变得简单而且优雅。</p>
+<p>根据参数动态生成复杂的查询SQL</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>findPost<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>org.apache.ibatis.domain.blog.Post<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  SELECT *
+  FROM POST P
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>where</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>choose</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>when</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>id != null<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>id = #{id}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>when</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>when</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>author_id != null<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>AND author_id = #{author_id}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>when</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>otherwise</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ids != null<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+          AND id IN
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>foreach</span> <span class="token attr-name">item</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>item_id<span class="token punctuation">"</span></span> <span class="token attr-name">index</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>index<span class="token punctuation">"</span></span> <span class="token attr-name">open</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>(<span class="token punctuation">"</span></span> <span class="token attr-name">close</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>)<span class="token punctuation">"</span></span> <span class="token attr-name">separator</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>,<span class="token punctuation">"</span></span> <span class="token attr-name">collection</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ids<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>#{ids[${index}]}
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>foreach</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>trim</span> <span class="token attr-name">prefix</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>AND<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include</span> <span class="token attr-name">refid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>byBlogId<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>prefix<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blog<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>trim</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>otherwise</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>choose</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>where</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>根据参数生成复杂的更新SQL</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>update</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>updateAuthorIfNecessary<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>org.apache.ibatis.domain.blog.Author<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    update Author
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>username != null<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>username=#{username},<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>password != null<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>password=#{password},<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email != null<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>email=#{email},<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>if</span> <span class="token attr-name">test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bio != null<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>bio=#{bio}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>if</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">&gt;</span></span>
+    where id=#{id}
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>update</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>根据参数生成复杂的插入SQL</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>insert</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>insertAuthor<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>org.apache.ibatis.domain.blog.Author<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selectKey</span> <span class="token attr-name">keyProperty</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>id<span class="token punctuation">"</span></span> <span class="token attr-name">resultType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>_int<span class="token punctuation">"</span></span> <span class="token attr-name">order</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>BEFORE<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>include</span> <span class="token attr-name">refid</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>selectNum<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>num<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>include</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selectKey</span><span class="token punctuation">&gt;</span></span>
+    insert into Author (username,password,email,bio)
+    values (#{username},#{password},#{email},#{bio})
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>insert</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>根据参数生成复杂的删除SQL</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>delete</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>deleteAuthor<span class="token punctuation">"</span></span> <span class="token attr-name">parameterType</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>int<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    delete from Author where id = #{id}
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>delete</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><p>在分析SQL生成流程前，先看看表示SQL的关键类</p>
+<h4 id="SqlSource"><a href="#SqlSource" class="headerlink" title="SqlSource"></a>SqlSource</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">SqlSource</span> <span class="token punctuation">{</span>
+
+  <span class="token class-name">BoundSql</span> <span class="token function">getBoundSql</span><span class="token punctuation">(</span><span class="token class-name">Object</span> parameterObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>SqlSource接口只定义了一个方法getBoundSql，表示根据入参生成SQL返回BoundSql</p>
+<p>SqlSource接口有4个实现类</p>
+<p><img src="/medias/assets/mybatis/20210821112127.png"></p>
+<ol>
+<li>StaticSqlSource静态SQL，DynamicSqlSource、RawSqlSource处理过后都会转成StaticSqlSource</li>
+<li>DynamicSqlSource处理包含${}、动态SQL节点的</li>
+<li>RawSqlSource处理不包含${}、动态SQL节点的</li>
+<li>ProviderSqlSource动态SQL，处理通过代码生成SQL</li>
+</ol>
+<h4 id="BoundSql"><a href="#BoundSql" class="headerlink" title="BoundSql"></a>BoundSql</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BoundSql</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">String</span> sql<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ParameterMapping</span><span class="token punctuation">&gt;</span></span> parameterMappings<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Object</span> parameterObject<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> additionalParameters<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">MetaObject</span> metaParameters<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>BoundSql包含了SQL以及入参映射、入参这些重要的信息，最终拿来设置到Statement</p>
+<h4 id="LanguageDriver"><a href="#LanguageDriver" class="headerlink" title="LanguageDriver"></a>LanguageDriver</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">LanguageDriver</span> <span class="token punctuation">{</span>
+
+  <span class="token class-name">ParameterHandler</span> <span class="token function">createParameterHandler</span><span class="token punctuation">(</span><span class="token class-name">MappedStatement</span> mappedStatement<span class="token punctuation">,</span> <span class="token class-name">Object</span> parameterObject<span class="token punctuation">,</span> <span class="token class-name">BoundSql</span> boundSql<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token class-name">SqlSource</span> <span class="token function">createSqlSource</span><span class="token punctuation">(</span><span class="token class-name">Configuration</span> configuration<span class="token punctuation">,</span> <span class="token class-name">XNode</span> script<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> parameterType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token class-name">SqlSource</span> <span class="token function">createSqlSource</span><span class="token punctuation">(</span><span class="token class-name">Configuration</span> configuration<span class="token punctuation">,</span> <span class="token class-name">String</span> script<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> parameterType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>LanguageDriver能够根据XML里的SQL语句节点、注解中的SQL字符串生成SqlSource对象。</p>
+<p>LanguageDriver的类关系如下</p>
+<p><img src="/medias/assets/mybatis/20210821120016.png"></p>
+<p>默认使用的是XMLLanguageDriver</p>
+<h4 id="SqlNode"><a href="#SqlNode" class="headerlink" title="SqlNode"></a>SqlNode</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">SqlNode</span> <span class="token punctuation">{</span>
+  <span class="token keyword">boolean</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token class-name">DynamicContext</span> context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>SqlNode只声明了一个apply方法，接收的是DynamicContext上下文对象，返回的是个布尔值。</p>
+<p><img src="/medias/assets/mybatis/20210821120804.png"></p>
+<p>子类分别对应了trim,where,set,foreach,if,choose,when,otherwise,bind这几个标签。</p>
+<p>SqlNode就是一个个SQL片段节点，如果apply方法返回true，表示这个SQL片段是要加到最终的SQL语句里面去。</p>
+<h4 id="DynamicContext"><a href="#DynamicContext" class="headerlink" title="DynamicContext"></a>DynamicContext</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DynamicContext</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">ContextMap</span> bindings<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">StringJoiner</span> sqlBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringJoiner</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">int</span> uniqueNumber <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>DynamicContext是个动态SQL解析的时候的一个上下文，bindings存放的是需要传入到SQL中的参数，sqlBuilder保存的是SQL语句</p>
+<h4 id="XMLScriptBuilder"><a href="#XMLScriptBuilder" class="headerlink" title="XMLScriptBuilder"></a>XMLScriptBuilder</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">XMLScriptBuilder</span> <span class="token keyword">extends</span> <span class="token class-name">BaseBuilder</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">XNode</span> context<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">boolean</span> isDynamic<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> parameterType<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">NodeHandler</span><span class="token punctuation">&gt;</span></span> nodeHandlerMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>XMLScriptBuilder的职责是解析动态SQL标签构建SqlSource。其中属性包括</p>
+<ul>
+<li><p>context：整个SQL的节点</p>
+</li>
+<li><p>isDynamic：是否是动态SQL（只要包含${}、动态SQL节点其中之一，就是true）</p>
+</li>
+<li><p>parameterType：SQL入参Class对象</p>
+</li>
+<li><p>nodeHandlerMap：处理动态SQL节点的Handler</p>
+</li>
+</ul>
+<p>构造该对象的时候就会初始化动态SQL节点的Handler</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">initNodeHandlerMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"trim"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">TrimHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"where"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">WhereHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"set"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">SetHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"foreach"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ForEachHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"if"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">IfHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"choose"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ChooseHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"when"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">IfHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"otherwise"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">OtherwiseHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  nodeHandlerMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"bind"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">BindHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其主要方法是parseScriptNode，该方法会解析动态SQL节点并创建SqlSource对象</p>
+<h4 id="NodeHandler"><a href="#NodeHandler" class="headerlink" title="NodeHandler"></a>NodeHandler</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">interface</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>NodeHandler接口声明了handleNode方法，参数是动态SQL节点和接收处理结果的SqlNode集合。其子类分别是TrimHandler、WhereHandler、ForEachHandler、IfHandler、ChooseHandler、OtherwiseHandler、BindHandler。从名字已经看出来它们的处理对象是谁了。</p>
+<p>关键的类都出来了，现在要做的是就是看看Mybatis是如何把它们组合起来的。</p>
+<h4 id="过程分析"><a href="#过程分析" class="headerlink" title="过程分析"></a>过程分析</h4><p>XMLStatementBuilder解析Mapper文件SQL节点select、insert、update、delete的时候，其parseStatementNode方法创建了LanguageDriver类，如果没有另外配置默认是XMLLanguageDriver,随后通过XMLLanguageDriver的createSqlSource方法创建SqlSource</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">parseStatementNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ......</span>
+    <span class="token class-name">LanguageDriver</span> langDriver <span class="token operator">=</span> <span class="token function">getLanguageDriver</span><span class="token punctuation">(</span>lang<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> lang <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"lang"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">LanguageDriver</span> langDriver <span class="token operator">=</span> <span class="token function">getLanguageDriver</span><span class="token punctuation">(</span>lang<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">SqlSource</span> sqlSource <span class="token operator">=</span> langDriver<span class="token punctuation">.</span><span class="token function">createSqlSource</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> context<span class="token punctuation">,</span> parameterTypeClass<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// ......</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>随后创建了XMLScriptBuilder对象，并调用了其parseScriptNode方法</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token class-name">SqlSource</span> <span class="token function">createSqlSource</span><span class="token punctuation">(</span><span class="token class-name">Configuration</span> configuration<span class="token punctuation">,</span> <span class="token class-name">XNode</span> script<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> parameterType<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">XMLScriptBuilder</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLScriptBuilder</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> script<span class="token punctuation">,</span> parameterType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> builder<span class="token punctuation">.</span><span class="token function">parseScriptNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>先是调用自身的parseDynamicTags方法解析了整个SQL里的所有动态SQL节点，获得根节点MixedSqlNode，然后再根据isDynamic创建不同的SqlSource对象</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">SqlSource</span> <span class="token function">parseScriptNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">MixedSqlNode</span> rootSqlNode <span class="token operator">=</span> <span class="token function">parseDynamicTags</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">SqlSource</span> sqlSource<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>isDynamic<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    sqlSource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DynamicSqlSource</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> rootSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    sqlSource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RawSqlSource</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> rootSqlNode<span class="token punctuation">,</span> parameterType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> sqlSource<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>MixedSqlNode类是SqlNode的子类，其属性contents包含了整个SQL的所有SqlNode，以及实现了apply方法，作用就是遍历所有的SqlNode然后再次调用它们的apply方法</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">  <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MixedSqlNode</span> <span class="token keyword">implements</span> <span class="token class-name">SqlNode</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> contents<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token class-name">MixedSqlNode</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> contents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>contents <span class="token operator">=</span> contents<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token class-name">DynamicContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    contents<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>node <span class="token operator">-&gt;</span> node<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>parseDynamicTags每次处理一个节点，处理嵌套的节点需要递归调用该方法。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">protected</span> <span class="token class-name">MixedSqlNode</span> <span class="token function">parseDynamicTags</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> contents <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">NodeList</span> children <span class="token operator">=</span> node<span class="token punctuation">.</span><span class="token function">getNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getChildNodes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 遍历该节点下的所有子节点</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> children<span class="token punctuation">.</span><span class="token function">getLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">XNode</span> child <span class="token operator">=</span> node<span class="token punctuation">.</span><span class="token function">newXNode</span><span class="token punctuation">(</span>children<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>child<span class="token punctuation">.</span><span class="token function">getNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getNodeType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token class-name">Node</span><span class="token punctuation">.</span><span class="token constant">CDATA_SECTION_NODE</span> <span class="token operator">||</span> child<span class="token punctuation">.</span><span class="token function">getNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getNodeType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token class-name">Node</span><span class="token punctuation">.</span><span class="token constant">TEXT_NODE</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 如果是CDATA或者是TEXT节点,则创建TextSqlNode节点</span>
+      <span class="token class-name">String</span> data <span class="token operator">=</span> child<span class="token punctuation">.</span><span class="token function">getStringBody</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">TextSqlNode</span> textSqlNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TextSqlNode</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// 如果包含${}或者是包含动态SQL节点的都是动态SQL</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>textSqlNode<span class="token punctuation">.</span><span class="token function">isDynamic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 加到结果集中</span>
+        contents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>textSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        isDynamic <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 如果不是动态节点则创建静态StaticTextSqlNode节点并加到结果集中</span>
+        contents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">StaticTextSqlNode</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>child<span class="token punctuation">.</span><span class="token function">getNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getNodeType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token class-name">Node</span><span class="token punctuation">.</span><span class="token constant">ELEMENT_NODE</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// issue #628</span>
+      <span class="token comment">// 如果是元素节点,根据节点名词判断是否有合适的节点处理器,如果有就调用处理器的handleNode方法,否则抛出异常</span>
+      <span class="token class-name">String</span> nodeName <span class="token operator">=</span> child<span class="token punctuation">.</span><span class="token function">getNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getNodeName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">NodeHandler</span> handler <span class="token operator">=</span> nodeHandlerMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>nodeName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>handler <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">BuilderException</span><span class="token punctuation">(</span><span class="token string">"Unknown element &lt;"</span> <span class="token operator">+</span> nodeName <span class="token operator">+</span> <span class="token string">"&gt; in SQL statement."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      handler<span class="token punctuation">.</span><span class="token function">handleNode</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> contents<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      isDynamic <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MixedSqlNode</span><span class="token punctuation">(</span>contents<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>看看NodeHandler的子类们是怎么处理节点的</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">BindHandler</span> <span class="token keyword">implements</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">BindHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prevent Synthetic Access</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">final</span> <span class="token class-name">String</span> name <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">final</span> <span class="token class-name">String</span> expression <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"value"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">final</span> <span class="token class-name">VarDeclSqlNode</span> node <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VarDeclSqlNode</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> expression<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    targetContents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">TrimHandler</span> <span class="token keyword">implements</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">TrimHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prevent Synthetic Access</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">MixedSqlNode</span> mixedSqlNode <span class="token operator">=</span> <span class="token function">parseDynamicTags</span><span class="token punctuation">(</span>nodeToHandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> prefix <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"prefix"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> prefixOverrides <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"prefixOverrides"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> suffix <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"suffix"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> suffixOverrides <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"suffixOverrides"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">TrimSqlNode</span> trim <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TrimSqlNode</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> mixedSqlNode<span class="token punctuation">,</span> prefix<span class="token punctuation">,</span> prefixOverrides<span class="token punctuation">,</span> suffix<span class="token punctuation">,</span> suffixOverrides<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    targetContents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>trim<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">WhereHandler</span> <span class="token keyword">implements</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">WhereHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prevent Synthetic Access</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">MixedSqlNode</span> mixedSqlNode <span class="token operator">=</span> <span class="token function">parseDynamicTags</span><span class="token punctuation">(</span>nodeToHandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">WhereSqlNode</span> where <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WhereSqlNode</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> mixedSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    targetContents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>where<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">SetHandler</span> <span class="token keyword">implements</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">SetHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prevent Synthetic Access</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">MixedSqlNode</span> mixedSqlNode <span class="token operator">=</span> <span class="token function">parseDynamicTags</span><span class="token punctuation">(</span>nodeToHandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">SetSqlNode</span> set <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SetSqlNode</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> mixedSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    targetContents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>set<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">ForEachHandler</span> <span class="token keyword">implements</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">ForEachHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prevent Synthetic Access</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">MixedSqlNode</span> mixedSqlNode <span class="token operator">=</span> <span class="token function">parseDynamicTags</span><span class="token punctuation">(</span>nodeToHandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> collection <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"collection"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> item <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"item"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> index <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"index"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> <span class="token keyword">open</span> <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"open"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> close <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"close"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> separator <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"separator"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">ForEachSqlNode</span> forEachSqlNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ForEachSqlNode</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> mixedSqlNode<span class="token punctuation">,</span> collection<span class="token punctuation">,</span> index<span class="token punctuation">,</span> item<span class="token punctuation">,</span> <span class="token keyword">open</span><span class="token punctuation">,</span> close<span class="token punctuation">,</span> separator<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    targetContents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>forEachSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">IfHandler</span> <span class="token keyword">implements</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">IfHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prevent Synthetic Access</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">MixedSqlNode</span> mixedSqlNode <span class="token operator">=</span> <span class="token function">parseDynamicTags</span><span class="token punctuation">(</span>nodeToHandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> test <span class="token operator">=</span> nodeToHandle<span class="token punctuation">.</span><span class="token function">getStringAttribute</span><span class="token punctuation">(</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">IfSqlNode</span> ifSqlNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IfSqlNode</span><span class="token punctuation">(</span>mixedSqlNode<span class="token punctuation">,</span> test<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    targetContents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>ifSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">OtherwiseHandler</span> <span class="token keyword">implements</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">OtherwiseHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prevent Synthetic Access</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">MixedSqlNode</span> mixedSqlNode <span class="token operator">=</span> <span class="token function">parseDynamicTags</span><span class="token punctuation">(</span>nodeToHandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    targetContents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>mixedSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">ChooseHandler</span> <span class="token keyword">implements</span> <span class="token class-name">NodeHandler</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token class-name">ChooseHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Prevent Synthetic Access</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handleNode</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> nodeToHandle<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> targetContents<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> whenSqlNodes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> otherwiseSqlNodes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">handleWhenOtherwiseNodes</span><span class="token punctuation">(</span>nodeToHandle<span class="token punctuation">,</span> whenSqlNodes<span class="token punctuation">,</span> otherwiseSqlNodes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">SqlNode</span> defaultSqlNode <span class="token operator">=</span> <span class="token function">getDefaultSqlNode</span><span class="token punctuation">(</span>otherwiseSqlNodes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">ChooseSqlNode</span> chooseSqlNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ChooseSqlNode</span><span class="token punctuation">(</span>whenSqlNodes<span class="token punctuation">,</span> defaultSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    targetContents<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>chooseSqlNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">handleWhenOtherwiseNodes</span><span class="token punctuation">(</span><span class="token class-name">XNode</span> chooseSqlNode<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> ifSqlNodes<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> defaultSqlNodes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">XNode</span><span class="token punctuation">&gt;</span></span> children <span class="token operator">=</span> chooseSqlNode<span class="token punctuation">.</span><span class="token function">getChildren</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">XNode</span> child <span class="token operator">:</span> children<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token class-name">String</span> nodeName <span class="token operator">=</span> child<span class="token punctuation">.</span><span class="token function">getNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getNodeName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token class-name">NodeHandler</span> handler <span class="token operator">=</span> nodeHandlerMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>nodeName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>handler <span class="token keyword">instanceof</span> <span class="token class-name">IfHandler</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        handler<span class="token punctuation">.</span><span class="token function">handleNode</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> ifSqlNodes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>handler <span class="token keyword">instanceof</span> <span class="token class-name">OtherwiseHandler</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        handler<span class="token punctuation">.</span><span class="token function">handleNode</span><span class="token punctuation">(</span>child<span class="token punctuation">,</span> defaultSqlNodes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">private</span> <span class="token class-name">SqlNode</span> <span class="token function">getDefaultSqlNode</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SqlNode</span><span class="token punctuation">&gt;</span></span> defaultSqlNodes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">SqlNode</span> defaultSqlNode <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>defaultSqlNodes<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      defaultSqlNode <span class="token operator">=</span> defaultSqlNodes<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>defaultSqlNodes<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">BuilderException</span><span class="token punctuation">(</span><span class="token string">"Too many default (otherwise) elements in choose statement."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> defaultSqlNode<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>到这里，SqlSource对象就已经构建好存在了MappedStatement对象里面，剩下的就是需要执行SQL语句的时候根据参数再把最终执行的SQL语句生成即可。跟踪查询过程</p>
+<p>执行查询SQL都会经过BaseExecutor的query方法，在这里，取出了MappedStatement对象里的BoundSql对象，然后继续传递到下一个query方法。这里的getBoundSql是关键</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">MappedStatement</span> ms<span class="token punctuation">,</span> <span class="token class-name">Object</span> parameter<span class="token punctuation">,</span> <span class="token class-name">RowBounds</span> rowBounds<span class="token punctuation">,</span> <span class="token class-name">ResultHandler</span> resultHandler<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">SQLException</span> <span class="token punctuation">{</span>
+  <span class="token class-name">BoundSql</span> boundSql <span class="token operator">=</span> ms<span class="token punctuation">.</span><span class="token function">getBoundSql</span><span class="token punctuation">(</span>parameter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">CacheKey</span> key <span class="token operator">=</span> <span class="token function">createCacheKey</span><span class="token punctuation">(</span>ms<span class="token punctuation">,</span> parameter<span class="token punctuation">,</span> rowBounds<span class="token punctuation">,</span> boundSql<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">query</span><span class="token punctuation">(</span>ms<span class="token punctuation">,</span> parameter<span class="token punctuation">,</span> rowBounds<span class="token punctuation">,</span> resultHandler<span class="token punctuation">,</span> key<span class="token punctuation">,</span> boundSql<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>调用了SqlSource的关键方法getBaoundSql生成BoundSql对象</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">BoundSql</span> <span class="token function">getBoundSql</span><span class="token punctuation">(</span><span class="token class-name">Object</span> parameterObject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">BoundSql</span> boundSql <span class="token operator">=</span> sqlSource<span class="token punctuation">.</span><span class="token function">getBoundSql</span><span class="token punctuation">(</span>parameterObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ParameterMapping</span><span class="token punctuation">&gt;</span></span> parameterMappings <span class="token operator">=</span> boundSql<span class="token punctuation">.</span><span class="token function">getParameterMappings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>parameterMappings <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> parameterMappings<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    boundSql <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BoundSql</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> boundSql<span class="token punctuation">.</span><span class="token function">getSql</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> parameterMap<span class="token punctuation">.</span><span class="token function">getParameterMappings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> parameterObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// check for nested result maps in parameter mappings (issue #30)</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">ParameterMapping</span> pm <span class="token operator">:</span> boundSql<span class="token punctuation">.</span><span class="token function">getParameterMappings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> rmId <span class="token operator">=</span> pm<span class="token punctuation">.</span><span class="token function">getResultMapId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>rmId <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token class-name">ResultMap</span> rm <span class="token operator">=</span> configuration<span class="token punctuation">.</span><span class="token function">getResultMap</span><span class="token punctuation">(</span>rmId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>rm <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        hasNestedResultMaps <span class="token operator">|=</span> rm<span class="token punctuation">.</span><span class="token function">hasNestedResultMaps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> boundSql<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>包含${}、动态SQL节点的使用DynamicSqlSource、否则使用RawSqlSource</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DynamicSqlSource</span> <span class="token keyword">implements</span> <span class="token class-name">SqlSource</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Configuration</span> configuration<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">SqlNode</span> rootSqlNode<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token class-name">DynamicSqlSource</span><span class="token punctuation">(</span><span class="token class-name">Configuration</span> configuration<span class="token punctuation">,</span> <span class="token class-name">SqlNode</span> rootSqlNode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>configuration <span class="token operator">=</span> configuration<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>rootSqlNode <span class="token operator">=</span> rootSqlNode<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token class-name">BoundSql</span> <span class="token function">getBoundSql</span><span class="token punctuation">(</span><span class="token class-name">Object</span> parameterObject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建上下文保存处理结果，这里需要传递参数对象，因为${}这种直接拼接的参数是在apply方法里要拼接进去的</span>
+    <span class="token class-name">DynamicContext</span> context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DynamicContext</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> parameterObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 应用动态SQL节点</span>
+    rootSqlNode<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 创建SqlSourceBuilder</span>
+    <span class="token class-name">SqlSourceBuilder</span> sqlSourceParser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SqlSourceBuilder</span><span class="token punctuation">(</span>configuration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 参数Class对象</span>
+    <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> parameterType <span class="token operator">=</span> parameterObject <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token keyword">class</span> <span class="token operator">:</span> parameterObject<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 解析生成StaticSqlSource,去除多余的空格压缩SQL,把占位符#{}换成?</span>
+    <span class="token class-name">SqlSource</span> sqlSource <span class="token operator">=</span> sqlSourceParser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">getSql</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> parameterType<span class="token punctuation">,</span> context<span class="token punctuation">.</span><span class="token function">getBindings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 创建BoundSql对象</span>
+    <span class="token class-name">BoundSql</span> boundSql <span class="token operator">=</span> sqlSource<span class="token punctuation">.</span><span class="token function">getBoundSql</span><span class="token punctuation">(</span>parameterObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    context<span class="token punctuation">.</span><span class="token function">getBindings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>boundSql<span class="token operator">::</span><span class="token function">setAdditionalParameter</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> boundSql<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RawSqlSource</span> <span class="token keyword">implements</span> <span class="token class-name">SqlSource</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">SqlSource</span> sqlSource<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token class-name">RawSqlSource</span><span class="token punctuation">(</span><span class="token class-name">Configuration</span> configuration<span class="token punctuation">,</span> <span class="token class-name">SqlNode</span> rootSqlNode<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> parameterType<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> <span class="token function">getSql</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> rootSqlNode<span class="token punctuation">)</span><span class="token punctuation">,</span> parameterType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token class-name">RawSqlSource</span><span class="token punctuation">(</span><span class="token class-name">Configuration</span> configuration<span class="token punctuation">,</span> <span class="token class-name">String</span> sql<span class="token punctuation">,</span> <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> parameterType<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建SqlSourceBuilder</span>
+    <span class="token class-name">SqlSourceBuilder</span> sqlSourceParser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SqlSourceBuilder</span><span class="token punctuation">(</span>configuration<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 入参类型Class对象</span>
+    <span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">&gt;</span></span> clazz <span class="token operator">=</span> parameterType <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token keyword">class</span> <span class="token operator">:</span> parameterType<span class="token punctuation">;</span>
+    <span class="token comment">// 解析生成StaticSqlSource,去除多余的空格压缩SQL,把占位符#{}换成?</span>
+    sqlSource <span class="token operator">=</span> sqlSourceParser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>sql<span class="token punctuation">,</span> clazz<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">getSql</span><span class="token punctuation">(</span><span class="token class-name">Configuration</span> configuration<span class="token punctuation">,</span> <span class="token class-name">SqlNode</span> rootSqlNode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建上下文保存处理结果，这里不需要传递参数</span>
+    <span class="token class-name">DynamicContext</span> context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DynamicContext</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 应用静态节点处理</span>
+    rootSqlNode<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> context<span class="token punctuation">.</span><span class="token function">getSql</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token class-name">BoundSql</span> <span class="token function">getBoundSql</span><span class="token punctuation">(</span><span class="token class-name">Object</span> parameterObject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建BoundSql对象</span>
+    <span class="token keyword">return</span> sqlSource<span class="token punctuation">.</span><span class="token function">getBoundSql</span><span class="token punctuation">(</span>parameterObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>DynamicSqlSource和RawSqlSource不同之处很小，就三句不同而已</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">   <span class="token class-name">DynamicContext</span> context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DynamicContext</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span> parameterObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">SqlSource</span> sqlSource <span class="token operator">=</span> sqlSourceParser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">getSql</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> parameterType<span class="token punctuation">,</span> context<span class="token punctuation">.</span><span class="token function">getBindings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+context<span class="token punctuation">.</span><span class="token function">getBindings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>boundSql<span class="token operator">::</span><span class="token function">setAdditionalParameter</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>首先他们都会调用节点的apply方法，各个节点的apply实现不同处理，但是最终都会调用StaticTextSqlNode的apply方法把SQL片段拼接起来。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token class-name">DynamicContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  context<span class="token punctuation">.</span><span class="token function">appendSql</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果是动态SQL，那么总会有TextSqlNode这个节点，而这个节点的apply方法比较特殊,它会通过GenericTokenParser的parse方法处理${}这种拼接参数</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">apply</span><span class="token punctuation">(</span><span class="token class-name">DynamicContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">GenericTokenParser</span> parser <span class="token operator">=</span> <span class="token function">createParser</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">BindingTokenParser</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> injectionFilter<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 删除反斜杠并校验${}配对情况</span>
+  context<span class="token punctuation">.</span><span class="token function">appendSql</span><span class="token punctuation">(</span>parser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token class-name">GenericTokenParser</span> <span class="token function">createParser</span><span class="token punctuation">(</span><span class="token class-name">TokenHandler</span> handler<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">GenericTokenParser</span><span class="token punctuation">(</span><span class="token string">"${"</span><span class="token punctuation">,</span> <span class="token string">"}"</span><span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>处理过后就会直接把参数拼接到SQL上</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">  <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">parse</span><span class="token punctuation">(</span><span class="token class-name">String</span> text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>text <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> text<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// search open token</span>
+    <span class="token keyword">int</span> start <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>openToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> text<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> src <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> offset <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">final</span> <span class="token class-name">StringBuilder</span> builder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">StringBuilder</span> expression <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">do</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> src<span class="token punctuation">[</span>start <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'\\'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// this open token is escaped. remove the backslash and continue.</span>
+        builder<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> start <span class="token operator">-</span> offset <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>openToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        offset <span class="token operator">=</span> start <span class="token operator">+</span> openToken<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// found open token. let's search close token.</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>expression <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          expression <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          expression<span class="token punctuation">.</span><span class="token function">setLength</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        builder<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> start <span class="token operator">-</span> offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        offset <span class="token operator">=</span> start <span class="token operator">+</span> openToken<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> end <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>closeToken<span class="token punctuation">,</span> offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>end <span class="token operator">&gt;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">&gt;</span> offset <span class="token operator">&amp;&amp;</span> src<span class="token punctuation">[</span>end <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'\\'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// this close token is escaped. remove the backslash and continue.</span>
+            expression<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> end <span class="token operator">-</span> offset <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>closeToken<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            offset <span class="token operator">=</span> end <span class="token operator">+</span> closeToken<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            end <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>closeToken<span class="token punctuation">,</span> offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            expression<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> end <span class="token operator">-</span> offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// close token was not found.</span>
+          builder<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> start<span class="token punctuation">,</span> src<span class="token punctuation">.</span>length <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          offset <span class="token operator">=</span> src<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		  <span class="token comment">// 直接拼接参数或者?占位符</span>
+          builder<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>handler<span class="token punctuation">.</span><span class="token function">handleToken</span><span class="token punctuation">(</span>expression<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          offset <span class="token operator">=</span> end <span class="token operator">+</span> closeToken<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      start <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>openToken<span class="token punctuation">,</span> offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>start <span class="token operator">&gt;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>offset <span class="token operator">&lt;</span> src<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      builder<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> src<span class="token punctuation">.</span>length <span class="token operator">-</span> offset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> builder<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>之后DynamicSqlSource和RawSqlSource都会调用SqlSourceBuilder的parse方法把#{}变为?占位符</p>
+<p>到了这里，SQL就组装完成了，和普通的SQL没什么区别了，只要交给JDBC的Statement去执行即可。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">maybe</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://onlyonezhongjinhui.github.io/2021/08/21/mybatis/mybatis-07/">https://onlyonezhongjinhui.github.io/2021/08/21/mybatis/mybatis-07/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">maybe</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Mybatis/">
+                                    <span class="chip bg-color">Mybatis</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/08/26/mybatis/mybatis-08/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Mybatis（八）：插件机制">
+                        
+                        <span class="card-title">Mybatis（八）：插件机制</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            插件机制
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Mybatis/" class="post-category">
+                                    Mybatis
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Mybatis/">
+                        <span class="chip bg-color">Mybatis</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/08/19/architecture/architecture-30/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/37.jpg" class="responsive-img" alt="从零学架构（三十）">
+                        
+                        <span class="card-title">从零学架构（三十）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            微服务拆分技巧
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9E%B6%E6%9E%84/" class="post-category">
+                                    架构
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9E%B6%E6%9E%84/">
+                        <span class="chip bg-color">架构</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">maybe</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/onlyonezhongjinhui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:13005454311@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=88058373" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 88058373" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

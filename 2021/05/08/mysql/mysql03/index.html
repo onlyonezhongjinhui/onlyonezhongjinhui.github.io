@@ -1,0 +1,1080 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="如果binlog格式为mixed，语句insert into t values(1,1,now())会记录为row格式还是statement格式？, 向阳而生">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>如果binlog格式为mixed，语句insert into t values(1,1,now())会记录为row格式还是statement格式？ | 向阳而生</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="向阳而生" type="application/atom+xml">
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">向阳而生</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">向阳而生</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">如果binlog格式为mixed，语句insert into t values(1,1,now())会记录为row格式还是statement格式？</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/MySQL/">
+                                <span class="chip bg-color">MySQL</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/MySQL/" class="post-category">
+                                MySQL
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-05-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="如果binlog格式为mixed，语句insert-into-t-values-1-1-now-会记录为row格式还是statement格式？"><a href="#如果binlog格式为mixed，语句insert-into-t-values-1-1-now-会记录为row格式还是statement格式？" class="headerlink" title="如果binlog格式为mixed，语句insert into t values(1,1,now())会记录为row格式还是statement格式？"></a>如果binlog格式为mixed，语句insert into t values(1,1,now())会记录为row格式还是statement格式？</h2><p>MySQL的binlog有三种模式，statement、row、mixed。先做个实验，看看他们的庐山真面目吧。（本次实验是在MySQL8.0版本上进行）。</p>
+<p>MySQL默认binlog日志为mixed。</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">show</span> variables <span class="token operator">like</span> <span class="token string">'%binlog_format%'</span> \G<span class="token punctuation">;</span>
+<span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span> <span class="token number">1.</span> <span class="token keyword">row</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span>
+Variable_name: binlog_format
+        <span class="token keyword">Value</span>: <span class="token keyword">ROW</span>
+<span class="token number">1</span> <span class="token keyword">row</span> <span class="token operator">in</span> <span class="token keyword">set</span><span class="token punctuation">,</span> <span class="token number">1</span> warning <span class="token punctuation">(</span><span class="token number">0.25</span> sec<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建测试表t</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token identifier"><span class="token punctuation">`</span>t<span class="token punctuation">`</span></span>
+<span class="token punctuation">(</span>
+    <span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span>         <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>   <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token identifier"><span class="token punctuation">`</span>a<span class="token punctuation">`</span></span>          <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span>            <span class="token keyword">DEFAULT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+    <span class="token identifier"><span class="token punctuation">`</span>t_modified<span class="token punctuation">`</span></span> <span class="token keyword">timestamp</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CURRENT_TIMESTAMP</span><span class="token punctuation">,</span>
+    <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>id<span class="token punctuation">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">KEY</span> <span class="token identifier"><span class="token punctuation">`</span>a<span class="token punctuation">`</span></span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>a<span class="token punctuation">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">KEY</span> <span class="token identifier"><span class="token punctuation">`</span>t_modified<span class="token punctuation">`</span></span> <span class="token punctuation">(</span><span class="token identifier"><span class="token punctuation">`</span>t_modified<span class="token punctuation">`</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span> <span class="token operator">=</span> <span class="token keyword">InnoDB</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>执行插入语句</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">insert</span> <span class="token keyword">into</span> t <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Query OK<span class="token punctuation">,</span> <span class="token number">1</span> <span class="token keyword">row</span> affected <span class="token punctuation">(</span><span class="token number">0.32</span> sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>查看binlog，笔者实验实例上最新的binlog文件是binlog.000409，通过命令查看</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">show</span> binlog events <span class="token operator">in</span> <span class="token string">'binlog.000409'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>结果如下</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">1108</span> <span class="token operator">|</span> Anonymous_Gtid <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">1183</span> <span class="token operator">|</span> <span class="token keyword">SET</span> @<span class="token variable">@SESSION.GTID_NEXT</span><span class="token operator">=</span> <span class="token string">'ANONYMOUS'</span>                                                                                                                                                                                                     <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">1183</span> <span class="token operator">|</span> Query          <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">1268</span> <span class="token operator">|</span> <span class="token keyword">BEGIN</span>                                                                                                                                                                                                                                    <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">1268</span> <span class="token operator">|</span> Table_map      <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">1318</span> <span class="token operator">|</span> table_id: <span class="token number">71</span> <span class="token punctuation">(</span>test<span class="token punctuation">.</span>t<span class="token punctuation">)</span>                                                                                                                                                                                                                    <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">1318</span> <span class="token operator">|</span> Write_rows     <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">1366</span> <span class="token operator">|</span> table_id: <span class="token number">71</span> flags: STMT_END_F                                                                                                                                                                                                           <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">1366</span> <span class="token operator">|</span> Xid            <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">1397</span> <span class="token operator">|</span> <span class="token keyword">COMMIT</span> <span class="token comment">/* xid=17 */</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使用mysqlbinlog工具查看详细日志</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysqlbinlog --no-defaults <span class="token parameter variable">--database</span><span class="token operator">=</span>test F:<span class="token punctuation">\</span>Mr.Zhong<span class="token punctuation">\</span>software<span class="token punctuation">\</span>mysql-8.0.13-winx64<span class="token punctuation">\</span>data<span class="token punctuation">\</span>binlog.00040<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>结果如下</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">BEGIN</span>
+<span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment"># at 1268</span>
+<span class="token comment">#210510 20:48:40 server id 1  end_log_pos 1318 CRC32 0x9eb42e6e         Table_map: `test`.`t` mapped to number 71</span>
+<span class="token comment"># at 1318</span>
+<span class="token comment">#210510 20:48:40 server id 1  end_log_pos 1366 CRC32 0x9101035b         Write_rows: table id 71 flags: STMT_END_F</span>
+
+BINLOG <span class="token string">'
+qCuZYBMBAAAAMgAAACYFAAAAAEcAAAAAAAEABHRlc3QAAXQAAwMDEQEAAgEBAG4utJ4=
+qCuZYB4BAAAAMAAAAFYFAAAAAEcAAAAAAAEAAgAD/wABAAAAAQAAAGCZK6hbAwGR
+'</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment"># at 1366</span>
+<span class="token comment">#210510 20:48:40 server id 1  end_log_pos 1397 CRC32 0x7b4fa6d4         Xid = 17</span>
+<span class="token keyword">COMMIT</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token keyword">SET</span> @<span class="token variable">@SESSION.GTID_NEXT</span><span class="token operator">=</span> <span class="token string">'AUTOMATIC'</span> <span class="token comment">/* added by mysqlbinlog */</span> <span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token keyword">DELIMITER</span> <span class="token punctuation">;</span>
+<span class="token comment"># End of log file</span>
+<span class="token comment">/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/</span><span class="token punctuation">;</span>
+<span class="token comment">/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>可以看到日志记录的是row格式。实践出真知，在MySQL8.0上，insert into t values(1,1,now());语句记录为row格式。</strong></p>
+<p>接下来解读一下日志里面包含的重要内容：</p>
+<ul>
+<li>第一行SET @@SESSION.GTID_NEXT= ‘ANONYMOUS’，是用来主备切换时确定binlog位点</li>
+<li>第二行的BEGIN和第五行的COMMIT表示中间的是一个事务，xid表示成功提交事务，事务id为17</li>
+<li>第三行是Table_map事件，用来说明接下来操作的是test库的表t</li>
+<li>第四行是Write_rows事件，是插入数据</li>
+</ul>
+<p>从mysqlbinlog工具解析出来还看到更加完整的信息，里面包含了</p>
+<ul>
+<li>server id 1，说明这个事务是在server id 为1的实例上执行的</li>
+<li>每个事件event都有CRC32值，这是因为设置binlog-checksum默认是CRC32</li>
+</ul>
+<p>接下来看看Statement格式的日志会记录成什么样子呢？</p>
+<p>修改binlog格式为Statement</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> <span class="token keyword">SESSION</span> binlog_format <span class="token operator">=</span> <span class="token string">'statement'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">show</span> variables <span class="token operator">like</span> <span class="token string">'%binlog_format%'</span><span class="token punctuation">;</span>
+<span class="token operator">+</span><span class="token comment">---------------+-----------+</span>
+<span class="token operator">|</span> Variable_name <span class="token operator">|</span> <span class="token keyword">Value</span>     <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">---------------+-----------+</span>
+<span class="token operator">|</span> binlog_format <span class="token operator">|</span> STATEMENT <span class="token operator">|</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>执行insert into t values(1,1,now());语句后查看binlog</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">                                                             <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">2026</span> <span class="token operator">|</span> Anonymous_Gtid <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">2101</span> <span class="token operator">|</span> <span class="token keyword">SET</span> @<span class="token variable">@SESSION.GTID_NEXT</span><span class="token operator">=</span> <span class="token string">'ANONYMOUS'</span>                                                                                                                                                                                                     <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">2101</span> <span class="token operator">|</span> Query          <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">2193</span> <span class="token operator">|</span> <span class="token keyword">BEGIN</span>                                                                                                                                                                                                                                    <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">2193</span> <span class="token operator">|</span> Query          <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">2311</span> <span class="token operator">|</span> <span class="token keyword">use</span> <span class="token identifier"><span class="token punctuation">`</span>test<span class="token punctuation">`</span></span><span class="token punctuation">;</span> <span class="token keyword">insert</span> <span class="token keyword">into</span> t <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                                                                                                                                                                                              <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">2311</span> <span class="token operator">|</span> Xid            <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">2342</span> <span class="token operator">|</span> <span class="token keyword">COMMIT</span> <span class="token comment">/* xid=38 */</span>                                                                                                                   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">/*!80001 SET @@session.original_commit_timestamp=1620654173918469*/</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token keyword">SET</span> @<span class="token variable">@SESSION.GTID_NEXT</span><span class="token operator">=</span> <span class="token string">'ANONYMOUS'</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment"># at 2101</span>
+<span class="token comment">#210510 21:42:53 server id 1  end_log_pos 2193 CRC32 0x215227b1         Query   thread_id=10    exec_time=0     error_code=0</span>
+<span class="token keyword">SET</span> <span class="token keyword">TIMESTAMP</span><span class="token operator">=</span><span class="token number">1620654173</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment">/*!80013 SET @@session.sql_require_primary_key=0*/</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token keyword">BEGIN</span>
+<span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment"># at 2193</span>
+<span class="token comment">#210510 21:42:53 server id 1  end_log_pos 2311 CRC32 0xdf2dd0df         Query   thread_id=10    exec_time=0     error_code=0</span>
+<span class="token keyword">SET</span> <span class="token keyword">TIMESTAMP</span><span class="token operator">=</span><span class="token number">1620654173</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment">/*!80013 SET @@session.sql_require_primary_key=0*/</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token keyword">insert</span> <span class="token keyword">into</span> t <span class="token keyword">values</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment"># at 2311</span>
+<span class="token comment">#210510 21:42:53 server id 1  end_log_pos 2342 CRC32 0xbc576b08         Xid = 38</span>
+<span class="token keyword">COMMIT</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到statement格式的binlog是直接记录了原始的SQL语句，值得注意的是，在记录语句之前还记录了一个重要的一行*<em>SET TIMESTAMP=1620654173/</em>!*/;**，这行的作用就是表明，后续的now()函数的返回时间就是这个时间，这样就能保证从库使用该binlog进行同步的时候不会出现主备不一致。</p>
+<p>再来看看这条SQL语句，<strong>delete from t  where a &gt;= 4 and t_modified &lt;= ‘2018-11-10’ limit 1</strong>在statement格式下的表现。</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">3498</span> <span class="token operator">|</span> Anonymous_Gtid <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">3573</span> <span class="token operator">|</span> <span class="token keyword">SET</span> @<span class="token variable">@SESSION.GTID_NEXT</span><span class="token operator">=</span> <span class="token string">'ANONYMOUS'</span>                                                                                                                                                                                                     <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">3573</span> <span class="token operator">|</span> Query          <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">3665</span> <span class="token operator">|</span> <span class="token keyword">BEGIN</span>                                                                                                                                                                                                                                    <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">3665</span> <span class="token operator">|</span> Query          <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">3818</span> <span class="token operator">|</span> <span class="token keyword">use</span> <span class="token identifier"><span class="token punctuation">`</span>test<span class="token punctuation">`</span></span><span class="token punctuation">;</span> <span class="token keyword">delete</span> <span class="token keyword">from</span> t  <span class="token keyword">where</span> a <span class="token operator">&gt;=</span> <span class="token number">4</span> <span class="token operator">and</span> t_modified <span class="token operator">&lt;=</span> <span class="token string">'2018-11-10'</span> <span class="token keyword">limit</span> <span class="token number">1</span>                                                                                                                                                           <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">3818</span> <span class="token operator">|</span> Xid            <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">3849</span> <span class="token operator">|</span> <span class="token keyword">COMMIT</span> <span class="token comment">/* xid=54 */</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SET</span> @<span class="token variable">@SESSION.GTID_NEXT</span><span class="token operator">=</span> <span class="token string">'ANONYMOUS'</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment"># at 3573</span>
+<span class="token comment">#210511 20:09:25 server id 1  end_log_pos 3665 CRC32 0x3275901b         Query   thread_id=12    exec_time=0     error_code=0</span>
+<span class="token keyword">SET</span> <span class="token keyword">TIMESTAMP</span><span class="token operator">=</span><span class="token number">1620734965</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment">/*!80013 SET @@session.sql_require_primary_key=0*/</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token keyword">BEGIN</span>
+<span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment"># at 3665</span>
+<span class="token comment">#210511 20:09:25 server id 1  end_log_pos 3818 CRC32 0x73fa16d2         Query   thread_id=12    exec_time=0     error_code=0</span>
+<span class="token keyword">SET</span> <span class="token keyword">TIMESTAMP</span><span class="token operator">=</span><span class="token number">1620734965</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment">/*!80013 SET @@session.sql_require_primary_key=0*/</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token keyword">delete</span> <span class="token keyword">from</span> t  <span class="token keyword">where</span> a <span class="token operator">&gt;=</span> <span class="token number">4</span> <span class="token operator">and</span> t_modified <span class="token operator">&lt;=</span> <span class="token string">'2018-11-10'</span> <span class="token keyword">limit</span> <span class="token number">1</span>
+<span class="token comment">/*!*/</span><span class="token punctuation">;</span>
+<span class="token comment"># at 3818</span>
+<span class="token comment">#210511 20:09:25 server id 1  end_log_pos 3849 CRC32 0x4ded88af         Xid = 54</span>
+<span class="token keyword">COMMIT</span><span class="token comment">/*!*/</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>貌似没啥问题的样子，但是从语句我可以分析到，如果删除的时候主备走的索引不一致，删除的数据行就是不确定的，这会产生主备不一致。那么就来验证一下是不是如猜测的那样。</p>
+<p>运行命令show warnings</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token operator">+</span><span class="token comment">-------+------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span class="token operator">|</span> <span class="token keyword">Level</span> <span class="token operator">|</span> Code <span class="token operator">|</span> Message                                                                                                                                                                                                                         <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-------+------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span>
+<span class="token operator">|</span> Note  <span class="token operator">|</span> <span class="token number">1592</span> <span class="token operator">|</span> Unsafe statement written <span class="token keyword">to</span> the <span class="token keyword">binary</span> log <span class="token keyword">using</span> statement format since BINLOG_FORMAT <span class="token operator">=</span> STATEMENT<span class="token punctuation">.</span> The statement <span class="token operator">is</span> unsafe because it uses a <span class="token keyword">LIMIT</span> clause<span class="token punctuation">.</span> This <span class="token operator">is</span> unsafe because the <span class="token keyword">set</span> <span class="token keyword">of</span> <span class="token keyword">rows</span> included cannot be predicted<span class="token punctuation">.</span> <span class="token operator">|</span>
+<span class="token operator">+</span><span class="token comment">-------+------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到产生了一个warning，原因是在statement格式下，上述的语句带了limit，无法精确确定删除的记录，是不安全的。</p>
+<p>那我们改为Row格式再尝试后再看看是不是就ok了呢？</p>
+<p>查看warning信息、binlog，发现warning没有了，binlog也正常</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">mysql<span class="token operator">&gt;</span> <span class="token keyword">show</span> <span class="token keyword">warnings</span><span class="token punctuation">;</span>
+Empty <span class="token keyword">set</span> <span class="token punctuation">(</span><span class="token number">0.00</span> sec<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">                                                             <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">7770</span> <span class="token operator">|</span> Anonymous_Gtid <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">7845</span> <span class="token operator">|</span> <span class="token keyword">SET</span> @<span class="token variable">@SESSION.GTID_NEXT</span><span class="token operator">=</span> <span class="token string">'ANONYMOUS'</span>                                                                                                                                                                                                     <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">7845</span> <span class="token operator">|</span> Query          <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">7930</span> <span class="token operator">|</span> <span class="token keyword">BEGIN</span>                                                                                                                                                                                                                                    <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">7930</span> <span class="token operator">|</span> Table_map      <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">7980</span> <span class="token operator">|</span> table_id: <span class="token number">76</span> <span class="token punctuation">(</span>test<span class="token punctuation">.</span>t<span class="token punctuation">)</span>                                                                                                                                                                                                                    <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">7980</span> <span class="token operator">|</span> Delete_rows    <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">8028</span> <span class="token operator">|</span> table_id: <span class="token number">76</span> flags: STMT_END_F                                                                                                                                                                                                           <span class="token operator">|</span>
+<span class="token operator">|</span> binlog<span class="token punctuation">.</span><span class="token number">000409</span> <span class="token operator">|</span> <span class="token number">8028</span> <span class="token operator">|</span> Xid            <span class="token operator">|</span>         <span class="token number">1</span> <span class="token operator">|</span>        <span class="token number">8059</span> <span class="token operator">|</span> <span class="token keyword">COMMIT</span> <span class="token comment">/* xid=76 */</span>                                                                                                                       <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">SET @@<span class="token environment constant">SESSION</span>.GTID_NEXT<span class="token operator">=</span> <span class="token string">'ANONYMOUS'</span>/*<span class="token operator">!</span>*/<span class="token punctuation">;</span>
+<span class="token comment"># at 7845</span>
+<span class="token comment">#210511 20:32:08 server id 1  end_log_pos 7930 CRC32 0xadbda736         Query   thread_id=12    exec_time=0     error_code=0</span>
+SET <span class="token assign-left variable">TIMESTAMP</span><span class="token operator">=</span><span class="token number">1620736328</span>/*<span class="token operator">!</span>*/<span class="token punctuation">;</span>
+/*<span class="token operator">!</span><span class="token number">80013</span> SET @@session.sql_require_primary_key<span class="token operator">=</span><span class="token number">0</span>*//*<span class="token operator">!</span>*/<span class="token punctuation">;</span>
+BEGIN
+/*<span class="token operator">!</span>*/<span class="token punctuation">;</span>
+<span class="token comment"># at 7930</span>
+<span class="token comment">#210511 20:32:08 server id 1  end_log_pos 7980 CRC32 0x9415caa5         Table_map: `test`.`t` mapped to number 76</span>
+<span class="token comment"># at 7980</span>
+<span class="token comment">#210511 20:32:08 server id 1  end_log_pos 8028 CRC32 0xce4cf023         Delete_rows: table id 76 flags: STMT_END_F</span>
+
+BINLOG <span class="token string">'
+SHmaYBMBAAAAMgAAACwfAAAAAEwAAAAAAAEABHRlc3QAAXQAAwMDEQEAAgEBAKXKFZQ=
+SHmaYCABAAAAMAAAAFwfAAAAAEwAAAAAAAEAAgAD/wAEAAAABAAAAFvlrwAj8EzO
+'</span>/*<span class="token operator">!</span>*/<span class="token punctuation">;</span>
+<span class="token comment"># at 8028</span>
+<span class="token comment">#210511 20:32:08 server id 1  end_log_pos 8059 CRC32 0x3efcb90c         Xid = 76</span>
+COMMIT/*<span class="token operator">!</span>*/<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>MySQL8 binlog默认格式是Mixed。</li>
+<li>包含日期这种不一致的因素的语句，MySQL8也做了相应的优化，通过SET TIMESTAMP命令保持主备一致</li>
+<li>对于statement格式下的binlog会有主备不一致的隐患，建议binlog至少设置为Mixed，当然推荐还是设置为row格式</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">maybe</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://onlyonezhongjinhui.github.io/2021/05/08/mysql/mysql03/">https://onlyonezhongjinhui.github.io/2021/05/08/mysql/mysql03/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">maybe</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/MySQL/">
+                                    <span class="chip bg-color">MySQL</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/05/17/mysql/mysql04/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="undo log有什么用？">
+                        
+                        <span class="card-title">undo log有什么用？</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/MySQL/" class="post-category">
+                                    MySQL
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/05/07/mysql/mysql02/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="MySQL有了redo log为何还要binlog">
+                        
+                        <span class="card-title">MySQL有了redo log为何还要binlog</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/MySQL/" class="post-category">
+                                    MySQL
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">maybe</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/onlyonezhongjinhui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:13005454311@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=88058373" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 88058373" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
