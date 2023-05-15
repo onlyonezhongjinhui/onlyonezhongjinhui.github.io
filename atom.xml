@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2023-05-12T09:54:51.662Z</updated>
+  <updated>2023-05-15T03:23:10.535Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-guan-bi-fu-wu/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-guan-bi-fu-wu/</id>
     <published>2023-05-10T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.662Z</updated>
+    <updated>2023-05-15T03:23:10.535Z</updated>
     
     
       
@@ -46,7 +46,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/09/netty/netty-guan-bi-lian-jie/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/09/netty/netty-guan-bi-lian-jie/</id>
     <published>2023-05-09T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.662Z</updated>
+    <updated>2023-05-15T03:23:10.536Z</updated>
     
     
       
@@ -71,7 +71,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/08/netty/netty-fa-song-shu-ju/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/08/netty/netty-fa-song-shu-ju/</id>
     <published>2023-05-08T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.663Z</updated>
+    <updated>2023-05-15T03:23:10.536Z</updated>
     
     
       
@@ -96,7 +96,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/07/netty/netty-ye-wu-chu-li/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/07/netty/netty-ye-wu-chu-li/</id>
     <published>2023-05-07T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.662Z</updated>
+    <updated>2023-05-15T03:23:10.535Z</updated>
     
     
       
@@ -121,7 +121,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/06/netty/netty-jie-shou-shu-ju/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/06/netty/netty-jie-shou-shu-ju/</id>
     <published>2023-05-06T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.663Z</updated>
+    <updated>2023-05-15T03:23:10.537Z</updated>
     
     
       
@@ -146,7 +146,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-jian-li-lian-jie/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-jian-li-lian-jie/</id>
     <published>2023-05-05T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.663Z</updated>
+    <updated>2023-05-15T03:23:10.537Z</updated>
     
     
       
@@ -171,7 +171,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-qi-dong-guo-cheng/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-qi-dong-guo-cheng/</id>
     <published>2023-05-04T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.663Z</updated>
+    <updated>2023-05-15T03:23:10.537Z</updated>
     
     
       
@@ -196,7 +196,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/03/netty/san-chong-io-mo-shi/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/03/netty/san-chong-io-mo-shi/</id>
     <published>2023-05-03T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.664Z</updated>
+    <updated>2023-05-15T03:24:30.416Z</updated>
     
     
       
@@ -221,7 +221,7 @@
     <link href="https://onlyonezhongjinhui.github.io/2023/05/02/netty/tcp-nian-bao-chai-bao/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/02/netty/tcp-nian-bao-chai-bao/</id>
     <published>2023-05-02T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.664Z</updated>
+    <updated>2023-05-15T03:23:10.538Z</updated>
     
     
       
@@ -242,11 +242,36 @@
   </entry>
   
   <entry>
+    <title>从零学Netty：Keepalive与Idle</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/01/netty/keepalive-idle/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/01/netty/keepalive-idle/</id>
+    <published>2023-05-01T14:00:00.000Z</published>
+    <updated>2023-05-15T03:30:44.637Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;keepalive与idle监测&quot;&gt;&lt;a href=&quot;#keepalive与idle监测&quot; class=&quot;headerlink&quot; title=&quot;keepalive与idle监测&quot;&gt;&lt;/a&gt;keepalive与idle监测&lt;/h3&gt;&lt;h4</summary>
+        
+      
+    
+    
+    
+    <category term="Netty" scheme="https://onlyonezhongjinhui.github.io/categories/Netty/"/>
+    
+    
+    <category term="Netty" scheme="https://onlyonezhongjinhui.github.io/tags/Netty/"/>
+    
+  </entry>
+  
+  <entry>
     <title>从零学Netty：Reactor模式</title>
     <link href="https://onlyonezhongjinhui.github.io/2023/05/01/netty/reactor-mo-shi/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/01/netty/reactor-mo-shi/</id>
     <published>2023-05-01T02:00:00.000Z</published>
-    <updated>2023-05-12T09:54:51.664Z</updated>
+    <updated>2023-05-15T03:23:10.538Z</updated>
     
     
       
@@ -479,31 +504,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;插件机制&quot;&gt;&lt;a href=&quot;#插件机制&quot; class=&quot;headerlink&quot; title=&quot;插件机制&quot;&gt;&lt;/a&gt;插件机制&lt;/h2&gt;&lt;h3 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="Mybatis" scheme="https://onlyonezhongjinhui.github.io/categories/Mybatis/"/>
-    
-    
-    <category term="Mybatis" scheme="https://onlyonezhongjinhui.github.io/tags/Mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mybatis（七）：动态SQL</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/08/21/mybatis/mybatis-07/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/08/21/mybatis/mybatis-07/</id>
-    <published>2021-08-21T04:00:00.000Z</published>
-    <updated>2023-05-12T06:59:13.541Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;动态SQL&quot;&gt;&lt;a href=&quot;#动态SQL&quot; class=&quot;headerlink&quot; title=&quot;动态SQL&quot;&gt;&lt;/a&gt;动态SQL&lt;/h2&gt;&lt;h3 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;</summary>
         
       
     
