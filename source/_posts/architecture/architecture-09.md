@@ -1,0 +1,105 @@
+---
+title: 从零学架构（九）
+date: 2021-07-14 10:30:00
+author: maybe
+top: false
+cover: false
+toc: false
+mathjax: false
+summary: 如何设计高可用架构
+tags: 架构
+categories:
+- [架构]
+---
+## 如何设计高可用架构
+
+### 高可用复杂度模型
+
+![](/medias/assets/architecture/20210714081548.png)
+
+### 计算高可用
+
+#### 任务分配
+
+##### 定义
+
+将任务分给不同的服务器执行
+
+##### 复杂度分析
+
+1. 增加“任务分配器”节点，可以是独立的服务器，也可以是 SDK
+2. 任务分配器需要管理所有的服务器，可以通过配置文件，也可以通过配置服务器（例如 ZooKeeper）
+3. 任务分配器需要根据不同的需求采用不同的算法分配
+4. 任务分配器需要监控业务服务器的状态，在故障时进行切换
+
+**高性能任务分配考虑的是正常处理，高可用任务分配考虑的是异常处理**
+
+##### 设计关键点
+
+![](/medias/assets/architecture/20210714082257.png)
+
+##### 案例
+
+![](/medias/assets/architecture/20210714082520.png)
+
+#### 任务分解
+
+##### 定义
+
+将服务器拆分为不同的角色，不同服务器处理不同业务
+
+##### 复杂度分析
+
+1. 增加“任务分解器”节点，可以是独立的服务器，也可以是 SDK
+2. 任务分解器需要管理所有的服务器，可以通过配置文件，也可以通过配置服务器（例如 ZooKeeper）
+3. 任务分解器需要根据不同的需求采用不同的算法分配
+4. 任务分解器需要监控业务服务器的状态，在故障时进行切换
+5. 需要设计拆分任务的方式，任务分解器需要记录“任务”和“服务器”的映射关系
+
+##### 设计关键点
+
+![](/medias/assets/architecture/20210714082746.png)
+
+##### 案例
+
+![](/medias/assets/architecture/20210714082826.png)
+
+### 存储高可用
+
+#### 复杂度模型
+
+![](/medias/assets/architecture/20210714083039.png)
+
+#### 数据复制
+
+##### 数据复制格式
+
+![](/medias/assets/architecture/20210714083545.png)
+
+##### 数据复制方式
+
+![](/medias/assets/architecture/20210714083814.png)
+
+![](/medias/assets/architecture/20210714083900.png)
+
+##### 案例
+
+![](/medias/assets/architecture/20210714084125.png)
+
+#### 状态决策
+
+##### 独裁式
+
+![](/medias/assets/architecture/20210714085358.png)
+
+##### 协商式
+
+![](/medias/assets/architecture/20210714085534.png)
+
+##### 民主式/选举式
+
+![](/medias/assets/architecture/20210714085701.png)
+
+## 小结
+
+![](/medias/assets/architecture/高可用架构设计.png)
