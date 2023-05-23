@@ -1,3 +1,17 @@
+---
+title: 从零学Netty：Netty参数调优
+date: 2023-05-23 10:00:00
+author: maybe
+top: false
+cover: false
+toc: false
+mathjax: false
+summary: Netty虽然可调整的参数很多，但是一般应用场景需要调整的很少
+tags: Netty
+categories:
+- [Netty]
+---
+
 ### Netty参数调优
 
 #### Linux系统参数
