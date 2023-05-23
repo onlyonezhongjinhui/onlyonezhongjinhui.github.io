@@ -43,7 +43,7 @@ categories:
 | IP_TOS       | 设置IP头部的Type-of-service字段，用于描述IP包的优先级和Qos选项。 | 0000 - normal service | 否                               |
 | TCP_NODELAY  | 设置是否启用Nagle算法：将小的碎片数据连接成更大的报文来提高发送速率。如果需要发送一些较小的报文关闭该算法 | 默认关闭              | 根据实际场景判断，一般开启没问题 |
 
-#### Netty非系统参数
+#### Netty核心参数
 
 ##### ChannelOption参数，通过option来设置
 
