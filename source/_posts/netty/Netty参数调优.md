@@ -38,7 +38,7 @@ categories:
 | SO_SNDBUF    | TCP数据发送缓冲区大小                                        | 4KB                   | 否                               |
 | SO_RCVBUF    | TCP数据接受缓冲区大小                                        | 4KB                   | 否                               |
 | SO_KEEPALIVE | TCP层KEEPALIVE                                               | 默认关闭              | 否                               |
-| SO_REUSEADDR | 地址重用，解决"Address already in use"。让关闭连接释放端口更早可使用。常用于多网卡（IP）绑定相同端口场景。并不是让TCP绑定完全相同的IP+端口来重复启动 | 默认不开启            | 否                               |
+| SO_REUSEADDR | 端口重用，解决"Address already in use"。让关闭连接释放的端口更早可使用。常用于多网卡（IP）绑定相同端口场景。并不是让TCP绑定完全相同的IP+端口来重复启动 | 默认不开启            | 否                               |
 | SO_LINGER    | 关闭Socket的延迟时间，默认禁止该功能，Socket.close方法立即返回 | 默认不开启            | 否                               |
 | IP_TOS       | 设置IP头部的Type-of-service字段，用于描述IP包的优先级和Qos选项。 | 0000 - normal service | 否                               |
 | TCP_NODELAY  | 设置是否启用Nagle算法：将小的碎片数据连接成更大的报文来提高发送速率。如果需要发送一些较小的报文关闭该算法 | 默认关闭              | 根据实际场景判断，一般开启没问题 |
