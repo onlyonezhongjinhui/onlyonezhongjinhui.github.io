@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零学Netty：Netty关闭服务, 向阳而生">
+    <meta name="keywords" content="【从零学Netty】Netty主线流程：启动过程, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零学Netty：Netty关闭服务 | 向阳而生</title>
+    <title>【从零学Netty】Netty主线流程：启动过程 | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零学Netty：Netty关闭服务</h1>
+                    <h1 class="description center-align post-title">【从零学Netty】Netty主线流程：启动过程</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-05-10
+                    2023-05-04
                 </div>
                 
 
@@ -326,27 +326,32 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="Netty关闭服务"><a href="#Netty关闭服务" class="headerlink" title="Netty关闭服务"></a>Netty关闭服务</h4><h4 id="主线"><a href="#主线" class="headerlink" title="主线"></a>主线</h4><h5 id="Main-Thread"><a href="#Main-Thread" class="headerlink" title="Main Thread"></a>Main Thread</h5><ol>
-<li>bossGroup.shutdownGracefully()、workerGroup.shutdownGracefully()</li>
-<li>设置NioEventLoop线程的状态为ST_SHUTTING_DOWN</li>
+                <h3 id="Netty启动过程"><a href="#Netty启动过程" class="headerlink" title="Netty启动过程"></a>Netty启动过程</h3><h4 id="主线过程"><a href="#主线过程" class="headerlink" title="主线过程"></a>主线过程</h4><h5 id="Main-Thread"><a href="#Main-Thread" class="headerlink" title="Main Thread"></a>Main Thread</h5><ol>
+<li>创建Selector    </li>
+<li>创建NioServerSocketChannel</li>
+<li>初始化NioServerSocketChannel</li>
+<li>从Boss Group中选择一个NioEventLoop给NioServerSocketChannel使用</li>
 </ol>
-<h5 id="Worker-Thread"><a href="#Worker-Thread" class="headerlink" title="Worker Thread"></a>Worker Thread</h5><ol>
-<li>NioEventLoop线程检测到状态变为ST_SHUTTING_DOWN后开始执行关闭逻辑</li>
-<li>关闭所有channel</li>
-<li>取消定时任务调度，防止加入新的定时任务  </li>
-<li>执行全部的定时任务、关闭钩子</li>
-<li>关闭selector</li>
+<h5 id="Boss-Thread"><a href="#Boss-Thread" class="headerlink" title="Boss Thread"></a>Boss Thread</h5><ol>
+<li>将NioServerSocketChannel注册到选择的NioEventLoop的Selector上</li>
+<li>绑定地址启动</li>
+<li>注册接受连接事件OP_ACCEPT到Selector上</li>
 </ol>
 <h4 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h4><ol>
-<li>sun.nio.ch.SocketChannelImpl.close()关闭所有channel</li>
-<li>关闭所有NioEventLoop线程：退出run方法循环体</li>
-<li>sun.nio.ch.SelectionKeyImpl.close()关闭selector</li>
+<li>Selector selector = sun.nio.ch.SelectorProviderImpl.openSelector() 创建Selector多路复用器</li>
+<li>ServerSocketChannel channel = provider.openServerSocketChannel() 创建NioServerSocketChannel</li>
+<li>SelectionKey selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this) NioServerSocketChannel注册到NioEventLoop的Selector</li>
+<li>javaChannel().bind(localAddress, config.getBacklog()) 绑定地址启动</li>
+<li>selectionKey.interestOps(SelectionKey.OP_ACCEPT) 注册接受连接事件(OP_ACCEPT)</li>
 </ol>
 <h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><ol>
-<li>优雅关闭时间：DEFAULT_SHUTDOWN_QUIET_PERIOD（2秒），在此期间如果没有定时任务或关闭钩子执行过则直接退出NioEventLoop线程</li>
-<li>可控关闭时间：DEFAULT_SHUTDOWN_TIMEOUT（15秒），超过此时间期限则直接退出NioEventLoop线程，所以会有消息丢失</li>
+<li>Selector是在创建NioEventLoopGroup(创建一批NioEventLoop)时创建的</li>
+<li>第一次Register监听的是0而不是OP_ACCEPT,SelectionKey selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this);</li>
+<li>监听OP_ACCEPT是通过bind完成后的fireChannelActive()异步触发</li>
+<li>NioEventLoop是通过Register操作的执行来完成启动的</li>
+<li>ChanneInitializer是一次性的，用完后就会移除。一些handler也可以设计成一次性的，例如授权</li>
 </ol>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty关闭服务的时候尽量做更多的活，但是不能保证所有的活都能干完，否则关闭服务的时间将不可控</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty启动过程最核心的操作就是做好接受连接的准备</p>
 
                 
             </div>
@@ -373,7 +378,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-guan-bi-fu-wu/">https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-guan-bi-fu-wu/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-zhu-xian-liu-cheng-qi-dong-guo-cheng/">https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-zhu-xian-liu-cheng-qi-dong-guo-cheng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -586,24 +591,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/23/netty/netty-can-shu-diao-you/">
+                <a href="/2023/05/05/netty/netty-zhu-xian-liu-cheng-jian-li-lian-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="从零学Netty：Netty参数调优">
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="【从零学Netty】Netty主线流程：创建连接">
                         
-                        <span class="card-title">从零学Netty：Netty参数调优</span>
+                        <span class="card-title">【从零学Netty】Netty主线流程：创建连接</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Netty虽然可调整的参数很多，但是一般应用场景需要调整的很少
+                            Netty创建连接的核心操作就是对OP_ACCEPT、OP_READ事件的处理
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-23
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-05
                         </span>
                         <span class="publish-author">
                             
@@ -635,24 +640,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/05/09/netty/netty-guan-bi-lian-jie/">
+                <a href="/2023/05/03/netty/san-chong-io-mo-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="从零学Netty：Netty关闭连接">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="【从零学Netty】三种IO模式">
                         
-                        <span class="card-title">从零学Netty：Netty关闭连接</span>
+                        <span class="card-title">【从零学Netty】三种IO模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Netty关闭连接是对OP_READ事件的处理
+                            BIO、NIO、AIO
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-03
                             </span>
                         <span class="publish-author">
                             

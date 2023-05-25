@@ -6,7 +6,7 @@
   <link href="https://onlyonezhongjinhui.github.io/atom.xml" rel="self"/>
   
   <link href="https://onlyonezhongjinhui.github.io/"/>
-  <updated>2023-05-25T00:53:20.717Z</updated>
+  <updated>2023-05-25T06:04:42.598Z</updated>
   <id>https://onlyonezhongjinhui.github.io/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>从零学Netty：SO_LINGER参数详解</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/24/netty/so-linger-can-shu-xiang-jie/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/24/netty/so-linger-can-shu-xiang-jie/</id>
+    <title>【从零学Netty】Netty自带注解</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/25/netty/netty-zi-dai-zhu-jie/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/25/netty/netty-zi-dai-zhu-jie/</id>
+    <published>2023-05-25T02:00:00.000Z</published>
+    <updated>2023-05-25T06:04:42.598Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;Netty自带注解&quot;&gt;&lt;a href=&quot;#Netty自带注解&quot; class=&quot;headerlink&quot; title=&quot;Netty自带注解&quot;&gt;&lt;/a&gt;Netty自带注解&lt;/h3&gt;&lt;h4 id=&quot;Sharable&quot;&gt;&lt;a href=&quot;#Sharable&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Netty" scheme="https://onlyonezhongjinhui.github.io/categories/Netty/"/>
+    
+    
+    <category term="Netty" scheme="https://onlyonezhongjinhui.github.io/tags/Netty/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【从零学Netty】Netty调优：SO_LINGER参数详解</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/24/netty/netty-diao-you-so-linger-can-shu-xiang-jie/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/24/netty/netty-diao-you-so-linger-can-shu-xiang-jie/</id>
     <published>2023-05-24T02:00:00.000Z</published>
-    <updated>2023-05-25T00:53:20.717Z</updated>
+    <updated>2023-05-25T06:04:25.001Z</updated>
     
     
       
@@ -42,11 +67,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：SO_REUSEADDR参数详解</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/24/netty/so-reuseaddr-can-shu-xiang-jie/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/24/netty/so-reuseaddr-can-shu-xiang-jie/</id>
+    <title>【从零学Netty】Netty调优：SO_REUSEADDR参数详解</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/24/netty/netty-diao-you-so-reuseaddr-can-shu-xiang-jie/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/24/netty/netty-diao-you-so-reuseaddr-can-shu-xiang-jie/</id>
     <published>2023-05-24T02:00:00.000Z</published>
-    <updated>2023-05-24T01:15:13.765Z</updated>
+    <updated>2023-05-25T06:08:15.450Z</updated>
     
     
       
@@ -67,11 +92,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Netty参数调优</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/23/netty/netty-can-shu-diao-you/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/23/netty/netty-can-shu-diao-you/</id>
+    <title>【从零学Netty】Netty调优：参数调优</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/23/netty/netty-diao-you-can-shu-diao-you/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/23/netty/netty-diao-you-can-shu-diao-you/</id>
     <published>2023-05-23T02:00:00.000Z</published>
-    <updated>2023-05-24T00:11:07.617Z</updated>
+    <updated>2023-05-25T06:07:16.388Z</updated>
     
     
       
@@ -92,11 +117,28 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Netty关闭服务</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-guan-bi-fu-wu/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-guan-bi-fu-wu/</id>
+    <title>【从零学Netty】Netty调优：增强写</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/23/netty/netty-diao-you-zeng-qiang-xie/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/23/netty/netty-diao-you-zeng-qiang-xie/</id>
+    <published>2023-05-23T02:00:00.000Z</published>
+    <updated>2023-05-25T06:07:49.165Z</updated>
+    
+    
+    
+    
+    <category term="Netty" scheme="https://onlyonezhongjinhui.github.io/categories/Netty/"/>
+    
+    
+    <category term="Netty" scheme="https://onlyonezhongjinhui.github.io/tags/Netty/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【从零学Netty】Netty主线流程：关闭服务</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-zhu-xian-liu-cheng-guan-bi-fu-wu/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-zhu-xian-liu-cheng-guan-bi-fu-wu/</id>
     <published>2023-05-10T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.535Z</updated>
+    <updated>2023-05-25T06:06:31.180Z</updated>
     
     
       
@@ -117,11 +159,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Netty关闭连接</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/09/netty/netty-guan-bi-lian-jie/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/09/netty/netty-guan-bi-lian-jie/</id>
+    <title>【从零学Netty】Netty主线流程：关闭连接</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/09/netty/netty-zhu-xian-liu-cheng-guan-bi-lian-jie/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/09/netty/netty-zhu-xian-liu-cheng-guan-bi-lian-jie/</id>
     <published>2023-05-09T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.536Z</updated>
+    <updated>2023-05-25T06:06:09.638Z</updated>
     
     
       
@@ -142,11 +184,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Netty发送数据</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/08/netty/netty-fa-song-shu-ju/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/08/netty/netty-fa-song-shu-ju/</id>
+    <title>【从零学Netty】Netty主线流程：发送数据</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/08/netty/netty-zhu-xian-liu-cheng-fa-song-shu-ju/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/08/netty/netty-zhu-xian-liu-cheng-fa-song-shu-ju/</id>
     <published>2023-05-08T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.536Z</updated>
+    <updated>2023-05-25T06:06:41.809Z</updated>
     
     
       
@@ -167,11 +209,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Netty业务处理</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/07/netty/netty-ye-wu-chu-li/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/07/netty/netty-ye-wu-chu-li/</id>
+    <title>【从零学Netty】Netty主线流程：业务处理</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/07/netty/netty-zhu-xian-liu-cheng-ye-wu-chu-li/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/07/netty/netty-zhu-xian-liu-cheng-ye-wu-chu-li/</id>
     <published>2023-05-07T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.535Z</updated>
+    <updated>2023-05-25T06:05:11.578Z</updated>
     
     
       
@@ -192,11 +234,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Netty接收数据</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/06/netty/netty-jie-shou-shu-ju/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/06/netty/netty-jie-shou-shu-ju/</id>
+    <title>【从零学Netty】Netty主线流程：接收数据</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/06/netty/netty-zhu-xian-liu-cheng-jie-shou-shu-ju/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/06/netty/netty-zhu-xian-liu-cheng-jie-shou-shu-ju/</id>
     <published>2023-05-06T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.537Z</updated>
+    <updated>2023-05-25T06:05:41.174Z</updated>
     
     
       
@@ -217,11 +259,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Netty创建连接</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-jian-li-lian-jie/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-jian-li-lian-jie/</id>
+    <title>【从零学Netty】Netty主线流程：创建连接</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-zhu-xian-liu-cheng-jian-li-lian-jie/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-zhu-xian-liu-cheng-jian-li-lian-jie/</id>
     <published>2023-05-05T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.537Z</updated>
+    <updated>2023-05-25T06:05:53.771Z</updated>
     
     
       
@@ -242,11 +284,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Netty启动过程</title>
-    <link href="https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-qi-dong-guo-cheng/"/>
-    <id>https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-qi-dong-guo-cheng/</id>
+    <title>【从零学Netty】Netty主线流程：启动过程</title>
+    <link href="https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-zhu-xian-liu-cheng-qi-dong-guo-cheng/"/>
+    <id>https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-zhu-xian-liu-cheng-qi-dong-guo-cheng/</id>
     <published>2023-05-04T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.537Z</updated>
+    <updated>2023-05-25T06:05:29.125Z</updated>
     
     
       
@@ -267,11 +309,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：三种IO模式</title>
+    <title>【从零学Netty】三种IO模式</title>
     <link href="https://onlyonezhongjinhui.github.io/2023/05/03/netty/san-chong-io-mo-shi/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/03/netty/san-chong-io-mo-shi/</id>
     <published>2023-05-03T02:00:00.000Z</published>
-    <updated>2023-05-15T03:24:30.416Z</updated>
+    <updated>2023-05-25T03:57:30.575Z</updated>
     
     
       
@@ -292,11 +334,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：TCP粘包&amp;拆包</title>
+    <title>【从零学Netty】TCP粘包&amp;拆包</title>
     <link href="https://onlyonezhongjinhui.github.io/2023/05/02/netty/tcp-nian-bao-chai-bao/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/02/netty/tcp-nian-bao-chai-bao/</id>
     <published>2023-05-02T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.538Z</updated>
+    <updated>2023-05-25T03:58:05.827Z</updated>
     
     
       
@@ -317,11 +359,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Keepalive与Idle</title>
+    <title>【从零学Netty】Keepalive与Idle</title>
     <link href="https://onlyonezhongjinhui.github.io/2023/05/01/netty/keepalive-idle/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/01/netty/keepalive-idle/</id>
     <published>2023-05-01T14:00:00.000Z</published>
-    <updated>2023-05-15T06:24:12.763Z</updated>
+    <updated>2023-05-25T06:03:57.591Z</updated>
     
     
       
@@ -342,11 +384,11 @@
   </entry>
   
   <entry>
-    <title>从零学Netty：Reactor模式</title>
+    <title>【从零学Netty】Reactor模式</title>
     <link href="https://onlyonezhongjinhui.github.io/2023/05/01/netty/reactor-mo-shi/"/>
     <id>https://onlyonezhongjinhui.github.io/2023/05/01/netty/reactor-mo-shi/</id>
     <published>2023-05-01T02:00:00.000Z</published>
-    <updated>2023-05-15T03:23:10.538Z</updated>
+    <updated>2023-05-25T06:04:34.240Z</updated>
     
     
       
@@ -454,56 +496,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;异地多活架构的三种架构模式&quot;&gt;&lt;a href=&quot;#异地多活架构的三种架构模式&quot; class=&quot;headerlink&quot; title=&quot;异地多活架构的三种架构模式&quot;&gt;&lt;/a&gt;异地多活架构的三种架构模式&lt;/h2&gt;&lt;h3 id=&quot;业务定制型异地多活&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
-    
-    
-    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从零学架构（三十四）</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/09/14/architecture/architecture-34/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/09/14/architecture/architecture-34/</id>
-    <published>2021-09-14T14:00:00.000Z</published>
-    <updated>2023-05-12T06:53:04.153Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;业务级灾备架构设计&quot;&gt;&lt;a href=&quot;#业务级灾备架构设计&quot; class=&quot;headerlink&quot; title=&quot;业务级灾备架构设计&quot;&gt;&lt;/a&gt;业务级灾备架构设计&lt;/h2&gt;&lt;h3 id=&quot;同城多中心&quot;&gt;&lt;a href=&quot;#同城多中心&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
-    
-    
-    <category term="架构" scheme="https://onlyonezhongjinhui.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从零学架构（三十三）</title>
-    <link href="https://onlyonezhongjinhui.github.io/2021/09/09/architecture/architecture-33/"/>
-    <id>https://onlyonezhongjinhui.github.io/2021/09/09/architecture/architecture-33/</id>
-    <published>2021-09-09T14:00:00.000Z</published>
-    <updated>2023-05-12T06:53:04.143Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;如何用FMEA方法排除架构隐患&quot;&gt;&lt;a href=&quot;#如何用FMEA方法排除架构隐患&quot; class=&quot;headerlink&quot; title=&quot;如何用FMEA方法排除架构隐患&quot;&gt;&lt;/a&gt;如何用FMEA方法排除架构隐患&lt;/h2&gt;&lt;h3 id=&quot;FMEA&quot;&gt;&lt;a</summary>
         
       
     

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零学Netty：Netty关闭连接, 向阳而生">
+    <meta name="keywords" content="【从零学Netty】Netty主线流程：创建连接, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零学Netty：Netty关闭连接 | 向阳而生</title>
+    <title>【从零学Netty】Netty主线流程：创建连接 | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/29.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零学Netty：Netty关闭连接</h1>
+                    <h1 class="description center-align post-title">【从零学Netty】Netty主线流程：创建连接</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-05-09
+                    2023-05-05
                 </div>
                 
 
@@ -326,18 +326,29 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Netty关闭连接"><a href="#Netty关闭连接" class="headerlink" title="Netty关闭连接"></a>Netty关闭连接</h3><h4 id="主线"><a href="#主线" class="headerlink" title="主线"></a>主线</h4><h5 id="Worker-Thread"><a href="#Worker-Thread" class="headerlink" title="Worker Thread"></a>Worker Thread</h5><ol>
-<li>NioEventLoop处理OP_READ事件，读取的数据字节数小于等于0则执行关闭连接操作</li>
-<li>关闭channel，取消绑定channel上注册的所有事件，不再接收新数据</li>
-<li>清空所有队列中的数据（flushedEntry、unflushed）</li>
-<li>触发pipeline.fireChannelInactive()、pipeline.fireChannelUnregistered()事件</li>
+                <h3 id="Netty创建连接"><a href="#Netty创建连接" class="headerlink" title="Netty创建连接"></a>Netty创建连接</h3><h4 id="主线过程"><a href="#主线过程" class="headerlink" title="主线过程"></a>主线过程</h4><h5 id="Boss-Thread"><a href="#Boss-Thread" class="headerlink" title="Boss Thread"></a>Boss Thread</h5><ol>
+<li>NioEventLoop中的Selector轮询创建连接事件(OP_ACCEPT)</li>
+<li>创建NioSocketChannel</li>
+<li>初始化NioSocketChannel并从Worker Group中选择一个NioEventLoop</li>
 </ol>
-<h4 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h4><p>​    sun.nio.ch.SocketChannelImpl.close()关闭channel，sun.nio.ch.SelectionKeyImpl.cancel()取消所有事件不再接收新数据</p>
+<h5 id="Worker-Thread"><a href="#Worker-Thread" class="headerlink" title="Worker Thread"></a>Worker Thread</h5><ol>
+<li>将NioSocketChannel注册到选中的NioEventLoop的Selector上</li>
+<li>注册读事件(OP_READ)到Selector上</li>
+</ol>
+<h4 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h4><ol>
+<li>Selector.select()/Selector.selectNow()/Selector.select(timeoutMillis) 发现OP_ACCEPT事件</li>
+<li>NioSocketChannel socketChannel = serverSocketChannel.accept() 创建NioSocketChannel</li>
+<li>SelectionKey selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this) 把NioSocketChannel注册到NioEventLoop的Selector上</li>
+<li>selectionKey.interestOps(SelectionKey.OP_READ) 注册监听OP_READ事件</li>
+</ol>
 <h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><ol>
-<li>关闭连接是对接收OP_READ事件的处理,已读取的数据字节数小于等于0作为判断的依据</li>
-<li>数据进行读取时，强行关闭连接会触发IOException，进而执行关闭流程 </li>
+<li>创建连接的初始化和注册是通过pipeline.fireChannelRead在ServerBootstrapAcceptor中完成的</li>
+<li>第一次Register监听的是0而不是OP_READ,SelectionKey selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this) </li>
+<li>监听OP_READ是通过Register完成后的fireChannelActive触发</li>
+<li>Worker’s NioEventLoop是通过Register操作执行过程启动的</li>
+<li>接受连接的读操作，不会尝试读取更多次（16次）</li>
 </ol>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty关闭连接是对OP_READ事件的处理，包含了正常关闭和异常关闭。正常关闭是通过读取的字节数小于等于0来做未判断条件。异常关闭则是通过捕获IOException而触发</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty创建连接的核心操作就是Boss Group处理OP_ACCEPT事件然后从Worker Group中选择一个NioEventLoop处理OP_READ事件</p>
 
                 
             </div>
@@ -364,7 +375,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2023/05/09/netty/netty-guan-bi-lian-jie/">https://onlyonezhongjinhui.github.io/2023/05/09/netty/netty-guan-bi-lian-jie/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-zhu-xian-liu-cheng-jian-li-lian-jie/">https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-zhu-xian-liu-cheng-jian-li-lian-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -577,24 +588,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/10/netty/netty-guan-bi-fu-wu/">
+                <a href="/2023/05/06/netty/netty-zhu-xian-liu-cheng-jie-shou-shu-ju/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="从零学Netty：Netty关闭服务">
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="【从零学Netty】Netty主线流程：接收数据">
                         
-                        <span class="card-title">从零学Netty：Netty关闭服务</span>
+                        <span class="card-title">【从零学Netty】Netty主线流程：接收数据</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            NettyNetty优雅关闭服务
+                            Netty接收数据既贪心又公平
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-10
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-06
                         </span>
                         <span class="publish-author">
                             
@@ -626,24 +637,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/05/08/netty/netty-fa-song-shu-ju/">
+                <a href="/2023/05/04/netty/netty-zhu-xian-liu-cheng-qi-dong-guo-cheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/35.jpg" class="responsive-img" alt="从零学Netty：Netty发送数据">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="【从零学Netty】Netty主线流程：启动过程">
                         
-                        <span class="card-title">从零学Netty：Netty发送数据</span>
+                        <span class="card-title">【从零学Netty】Netty主线流程：启动过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Netty发送数据的过程和接收数据的过程一样，既贪心又公平
+                            Netty启动过程最核心的操作就是做好接受连接的准备
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-04
                             </span>
                         <span class="publish-author">
                             

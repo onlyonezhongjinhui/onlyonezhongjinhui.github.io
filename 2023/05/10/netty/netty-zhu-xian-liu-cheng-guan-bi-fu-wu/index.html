@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零学Netty：SO_LINGER参数详解, 向阳而生">
+    <meta name="keywords" content="【从零学Netty】Netty主线流程：关闭服务, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零学Netty：SO_LINGER参数详解 | 向阳而生</title>
+    <title>【从零学Netty】Netty主线流程：关闭服务 | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/32.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零学Netty：SO_LINGER参数详解</h1>
+                    <h1 class="description center-align post-title">【从零学Netty】Netty主线流程：关闭服务</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-05-24
+                    2023-05-10
                 </div>
                 
 
@@ -326,27 +326,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="SO-LINGER参数详解"><a href="#SO-LINGER参数详解" class="headerlink" title="SO_LINGER参数详解"></a>SO_LINGER参数详解</h3><h4 id=""><a href="#" class="headerlink" title=""></a><img src="/medias/assets/netty/so_linger.png"></h4><p>TCP协议中，当应用层调用close方法关闭连接的时候，会发送FIN包给对方。默认情况下close会立即返回，并由TCP模块负责将发送缓冲区中的残留数据发送出去，应用层是无法知道缓冲区中的数据是否成功发送完成。SO_LINGER参数可以控制调用close后的行为。SO_LINGER选项结构如下</p>
-<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">struct linger {
-
-     int l_onoff;
-
-     int l_linger;
-
-};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>有如下三种设置：</p>
-<ol>
-<li><p>设置 l_onoff为0，l_linger的值被忽略，这是内核默认设置。close调用会立即返回给调用者，TCP模块负责尝试发送残留的缓冲区数据</p>
-</li>
-<li><p>设置 l_onoff为1，l_linger为0。表示立即终止连接，TCP将丢弃残留在发送缓冲区中的数据并发送一个RST分组给对方，而不是正常的的FIN|ACK|FIN|ACK四个分组来关闭连接。这避免了TIME_WAIT状态，直接进入CLOSED状态。</p>
-</li>
-<li><p>设置 l_onoff 为1，l_linger &gt; 0：</p>
-<p>（a）、阻塞IO：close将阻塞等待l_linger秒的时间，如果在l_linger秒时间内，TCP模块成功发送完残留的缓冲区数据，则close返回0，表示成功。如果l_linger时间内，TCP模块没有成功发送完残留的缓冲区数据，则close返回-1，表示失败，并将errno设置为EWOULDBLOCK。 </p>
-<p>（b）、非阻塞IO：close立即返回，此时需要根据close返回值以及errno来判断TCP模块是否成功发送残留的缓冲区数据。</p>
-</li>
+                <h4 id="Netty关闭服务"><a href="#Netty关闭服务" class="headerlink" title="Netty关闭服务"></a>Netty关闭服务</h4><h4 id="主线"><a href="#主线" class="headerlink" title="主线"></a>主线</h4><h5 id="Main-Thread"><a href="#Main-Thread" class="headerlink" title="Main Thread"></a>Main Thread</h5><ol>
+<li>bossGroup.shutdownGracefully()、workerGroup.shutdownGracefully()</li>
+<li>设置NioEventLoop线程的状态为ST_SHUTTING_DOWN</li>
 </ol>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    我们为了更好的性能而选择异步IO，如果开启SO_LINGER参数后close就变成阻塞的了，close就变慢了从而影响性能。那是否意味着我们的可靠性降低了呢？其实不然，大多数情况下我们close掉channel后并不会把程序结束掉，后面的TCP模块依然会继续发送数据，网络正常的情况下一般都能把数据发送完。所以一般我们不需要开启SO_LINGER参数。</p>
+<h5 id="Worker-Thread"><a href="#Worker-Thread" class="headerlink" title="Worker Thread"></a>Worker Thread</h5><ol>
+<li>NioEventLoop线程检测到状态变为ST_SHUTTING_DOWN后开始执行关闭逻辑</li>
+<li>关闭所有channel</li>
+<li>取消定时任务调度，防止加入新的定时任务  </li>
+<li>执行全部的定时任务、关闭钩子</li>
+<li>关闭selector</li>
+</ol>
+<h4 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h4><ol>
+<li>sun.nio.ch.SocketChannelImpl.close()关闭所有channel</li>
+<li>关闭所有NioEventLoop线程：退出run方法循环体</li>
+<li>sun.nio.ch.SelectionKeyImpl.close()关闭selector</li>
+</ol>
+<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><ol>
+<li>优雅关闭时间：DEFAULT_SHUTDOWN_QUIET_PERIOD（2秒），在此期间如果没有定时任务或关闭钩子执行过则直接退出NioEventLoop线程</li>
+<li>可控关闭时间：DEFAULT_SHUTDOWN_TIMEOUT（15秒），超过此时间期限则直接退出NioEventLoop线程，所以会有消息丢失</li>
+</ol>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty关闭服务的时候尽量做更多的活，但是不能保证所有的活都能干完，否则关闭服务的时间将不可控</p>
 
                 
             </div>
@@ -373,7 +373,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2023/05/24/netty/so-linger-can-shu-xiang-jie/">https://onlyonezhongjinhui.github.io/2023/05/24/netty/so-linger-can-shu-xiang-jie/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-zhu-xian-liu-cheng-guan-bi-fu-wu/">https://onlyonezhongjinhui.github.io/2023/05/10/netty/netty-zhu-xian-liu-cheng-guan-bi-fu-wu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -582,30 +582,29 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/24/netty/so-linger-can-shu-xiang-jie/">
+                <a href="/2023/05/23/netty/netty-diao-you-zeng-qiang-xie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/32.jpg" class="responsive-img" alt="从零学Netty：SO_LINGER参数详解">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="【从零学Netty】Netty调优：增强写">
                         
-                        <span class="card-title">从零学Netty：SO_LINGER参数详解</span>
+                        <span class="card-title">【从零学Netty】Netty调优：增强写</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一般我们不需要开启SO_LINGER参数
+                            
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-24
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-23
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -618,7 +617,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -637,24 +635,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/05/24/netty/so-reuseaddr-can-shu-xiang-jie/">
+                <a href="/2023/05/09/netty/netty-zhu-xian-liu-cheng-guan-bi-lian-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="从零学Netty：SO_REUSEADDR参数详解">
+                        <img src="/medias/featureimages/35.jpg" class="responsive-img" alt="【从零学Netty】Netty主线流程：关闭连接">
                         
-                        <span class="card-title">从零学Netty：SO_REUSEADDR参数详解</span>
+                        <span class="card-title">【从零学Netty】Netty主线流程：关闭连接</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            SO_REUSEADDR很有用，网络环境比较好的情况下开启可提升端口使用效益
+                            Netty关闭连接是对OP_READ事件的处理
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-09
                             </span>
                         <span class="publish-author">
                             

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零学Netty：Netty启动过程, 向阳而生">
+    <meta name="keywords" content="【从零学Netty】Netty主线流程：接收数据, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零学Netty：Netty启动过程 | 向阳而生</title>
+    <title>【从零学Netty】Netty主线流程：接收数据 | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/24.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零学Netty：Netty启动过程</h1>
+                    <h1 class="description center-align post-title">【从零学Netty】Netty主线流程：接收数据</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-05-04
+                    2023-05-06
                 </div>
                 
 
@@ -326,32 +326,22 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Netty启动过程"><a href="#Netty启动过程" class="headerlink" title="Netty启动过程"></a>Netty启动过程</h3><h4 id="主线过程"><a href="#主线过程" class="headerlink" title="主线过程"></a>主线过程</h4><h5 id="Main-Thread"><a href="#Main-Thread" class="headerlink" title="Main Thread"></a>Main Thread</h5><ol>
-<li>创建Selector    </li>
-<li>创建NioServerSocketChannel</li>
-<li>初始化NioServerSocketChannel</li>
-<li>从Boss Group中选择一个NioEventLoop给NioServerSocketChannel使用</li>
+                <h3 id="Netty接收数据"><a href="#Netty接收数据" class="headerlink" title="Netty接收数据"></a>Netty接收数据</h3><h4 id="主线"><a href="#主线" class="headerlink" title="主线"></a>主线</h4><h5 id="Worker-Thread"><a href="#Worker-Thread" class="headerlink" title="Worker Thread"></a>Worker Thread</h5><ol>
+<li>NioEventLoop中的Selector多路复用器轮询接收到的OP_READ事件</li>
+<li>RecvByteBufAllocator创建初始容量大小为2048 byte的ByteBuf用来接收数据</li>
+<li>从Channel里接收数据</li>
+<li>记录实际接收数据的大小，调整下次分配ByteBuf容量</li>
+<li>通过fireChannelRead把接收的数据传递出去</li>
+<li>判断接收数据的ByteBuf是否满载而归：如果满载而归则尝试读取直到没有数据或者读取够16次然后结束读取等待下一次OP_READ事件，否则直接结束读取等待下一次的OP_READ事件</li>
 </ol>
-<h5 id="Boss-Thread"><a href="#Boss-Thread" class="headerlink" title="Boss Thread"></a>Boss Thread</h5><ol>
-<li>将NioServerSocketChannel注册到选择的NioEventLoop的Selector上</li>
-<li>绑定地址启动</li>
-<li>注册接受连接事件OP_ACCEPT到Selector上</li>
-</ol>
-<h4 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h4><ol>
-<li>Selector selector = sun.nio.ch.SelectorProviderImpl.openSelector() 创建Selector多路复用器</li>
-<li>ServerSocketChannel channel = provider.openServerSocketChannel() 创建NioServerSocketChannel</li>
-<li>SelectionKey selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this) NioServerSocketChannel注册到NioEventLoop的Selector</li>
-<li>javaChannel().bind(localAddress, config.getBacklog()) 绑定地址启动</li>
-<li>selectionKey.interestOps(SelectionKey.OP_ACCEPT) 注册接受连接事件(OP_ACCEPT)</li>
-</ol>
+<h4 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h4><p>​    sun.nio.ch.SocketChannelImpl.read(ByteBuffer dst) 从Channel里读取数据</p>
 <h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><ol>
-<li>Selector是在创建NioEventLoopGroup(创建一批NioEventLoop)时创建的</li>
-<li>第一次Register监听的是0而不是OP_ACCEPT,SelectionKey selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this);</li>
-<li>监听OP_ACCEPT是通过bind完成后的fireChannelActive()异步触发</li>
-<li>NioEventLoop是通过Register操作的执行来完成启动的</li>
-<li>ChanneInitializer是一次性的，用完后就会移除。一些handler也可以设计成一次性的，例如授权</li>
+<li>NioServerSocketChannel使用AbstractNioMessageChannel.read()创建连接,NioSocketChannel使用AbstractNioByteChannel.read()读取数据</li>
+<li> pipeline.fireChannelRead(byteBuf)表示完成一次读操作,pipeline.fireChannelReadComplete()表示完成一次OP_READ事件处理，一次OP_READ事件可能有多次读操作</li>
+<li>读操作最多尝试16次而不是一直读取，防止某个连接一直霸占NioEventLoop：共同富裕</li>
+<li>AdaptiveRecvByteBufAllocator对分配ByteBuf容量的猜测：放大果断，缩小谨慎（需要连续两次判断）</li>
 </ol>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty启动过程最核心的操作就是做好接受连接的准备</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty接收数据既贪心又公平：贪心就是尽可能读取更多的数据，公平就是不会一直霸占线程读取数据，最多读取16次后就把读的机会让给别人实现共同富裕</p>
 
                 
             </div>
@@ -378,7 +368,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-qi-dong-guo-cheng/">https://onlyonezhongjinhui.github.io/2023/05/04/netty/netty-qi-dong-guo-cheng/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2023/05/06/netty/netty-zhu-xian-liu-cheng-jie-shou-shu-ju/">https://onlyonezhongjinhui.github.io/2023/05/06/netty/netty-zhu-xian-liu-cheng-jie-shou-shu-ju/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -591,24 +581,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/05/netty/netty-jian-li-lian-jie/">
+                <a href="/2023/05/07/netty/netty-zhu-xian-liu-cheng-ye-wu-chu-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/37.jpg" class="responsive-img" alt="从零学Netty：Netty创建连接">
+                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="【从零学Netty】Netty主线流程：业务处理">
                         
-                        <span class="card-title">从零学Netty：Netty创建连接</span>
+                        <span class="card-title">【从零学Netty】Netty主线流程：业务处理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Netty创建连接的核心操作就是对OP_ACCEPT、OP_READ事件的处理
+                            Netty处理业务很方便很灵活，只需要实现业务handler添加的pipeline中即可
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-05
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-07
                         </span>
                         <span class="publish-author">
                             
@@ -640,24 +630,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/05/03/netty/san-chong-io-mo-shi/">
+                <a href="/2023/05/05/netty/netty-zhu-xian-liu-cheng-jian-li-lian-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="从零学Netty：三种IO模式">
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="【从零学Netty】Netty主线流程：创建连接">
                         
-                        <span class="card-title">从零学Netty：三种IO模式</span>
+                        <span class="card-title">【从零学Netty】Netty主线流程：创建连接</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            BIO、NIO、AIO
+                            Netty创建连接的核心操作就是对OP_ACCEPT、OP_READ事件的处理
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-05
                             </span>
                         <span class="publish-author">
                             

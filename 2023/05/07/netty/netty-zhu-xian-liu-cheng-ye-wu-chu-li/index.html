@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="从零学Netty：Netty创建连接, 向阳而生">
+    <meta name="keywords" content="【从零学Netty】Netty主线流程：业务处理, 向阳而生">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>从零学Netty：Netty创建连接 | 向阳而生</title>
+    <title>【从零学Netty】Netty主线流程：业务处理 | 向阳而生</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -250,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/37.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/27.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">从零学Netty：Netty创建连接</h1>
+                    <h1 class="description center-align post-title">【从零学Netty】Netty主线流程：业务处理</h1>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-05-05
+                    2023-05-07
                 </div>
                 
 
@@ -326,29 +326,20 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Netty创建连接"><a href="#Netty创建连接" class="headerlink" title="Netty创建连接"></a>Netty创建连接</h3><h4 id="主线过程"><a href="#主线过程" class="headerlink" title="主线过程"></a>主线过程</h4><h5 id="Boss-Thread"><a href="#Boss-Thread" class="headerlink" title="Boss Thread"></a>Boss Thread</h5><ol>
-<li>NioEventLoop中的Selector轮询创建连接事件(OP_ACCEPT)</li>
-<li>创建NioSocketChannel</li>
-<li>初始化NioSocketChannel并从Worker Group中选择一个NioEventLoop</li>
+                <h4 id="Netty业务处理"><a href="#Netty业务处理" class="headerlink" title="Netty业务处理"></a>Netty业务处理</h4><h4 id="主线"><a href="#主线" class="headerlink" title="主线"></a>主线</h4><h5 id="Worker-Thread"><a href="#Worker-Thread" class="headerlink" title="Worker Thread"></a>Worker Thread</h5><ol>
+<li>NioEventLoop处理OP_READ事件，把读取到的数据传递出去：pipeline.fireChannelRead(byteBuf)</li>
+<li>pipeline触发handler包含业务处理的channelRead方法完成业务的处理</li>
 </ol>
-<h5 id="Worker-Thread"><a href="#Worker-Thread" class="headerlink" title="Worker Thread"></a>Worker Thread</h5><ol>
-<li>将NioSocketChannel注册到选中的NioEventLoop的Selector上</li>
-<li>注册读事件(OP_READ)到Selector上</li>
-</ol>
-<h4 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h4><ol>
-<li>Selector.select()/Selector.selectNow()/Selector.select(timeoutMillis) 发现OP_ACCEPT事件</li>
-<li>NioSocketChannel socketChannel = serverSocketChannel.accept() 创建NioSocketChannel</li>
-<li>SelectionKey selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this) 把NioSocketChannel注册到NioEventLoop的Selector上</li>
-<li>selectionKey.interestOps(SelectionKey.OP_READ) 注册监听OP_READ事件</li>
-</ol>
+<p><img src="/medias/assets/netty/pipeline.png"></p>
+<h4 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h4><p>​    数据在pipeline中所有handler的channelRead方法的执行</p>
 <h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h4><ol>
-<li>创建连接的初始化和注册是通过pipeline.fireChannelRead在ServerBootstrapAcceptor中完成的</li>
-<li>第一次Register监听的是0而不是OP_READ,SelectionKey selectionKey = javaChannel().register(eventLoop().unwrappedSelector(), 0, this) </li>
-<li>监听OP_READ是通过Register完成后的fireChannelActive触发</li>
-<li>Worker’s NioEventLoop是通过Register操作执行过程启动的</li>
-<li>接受连接的读操作，不会尝试读取更多次（16次）</li>
+<li>pipeline上的handler不是都会执行，必须实现ChannelInboundHandler且channelRead方法不能有@Skip注解</li>
+<li>pipeline从Head Handler开始到Tail Handler结束，但是不保证都会执行到Tail Handler，中途是可以退出的</li>
+<li>默认Handler处理的线程是Channel绑定的NioEventLoop线程，也可以设置其它：</li>
 </ol>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty创建连接的核心操作就是Boss Group处理OP_ACCEPT事件然后从Worker Group中选择一个NioEventLoop处理OP_READ事件</p>
+<p>​        p.addLast(new UnorderedThreadPoolEventExecutor(128), xxHandler)</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>​    Netty处理业务很方便很灵活，只需要实现业务handler添加的pipeline中即可</p>
+<p>​        </p>
 
                 
             </div>
@@ -375,7 +366,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-jian-li-lian-jie/">https://onlyonezhongjinhui.github.io/2023/05/05/netty/netty-jian-li-lian-jie/</a>
+                    <a href="https://onlyonezhongjinhui.github.io/2023/05/07/netty/netty-zhu-xian-liu-cheng-ye-wu-chu-li/">https://onlyonezhongjinhui.github.io/2023/05/07/netty/netty-zhu-xian-liu-cheng-ye-wu-chu-li/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -588,24 +579,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/06/netty/netty-jie-shou-shu-ju/">
+                <a href="/2023/05/08/netty/netty-zhu-xian-liu-cheng-fa-song-shu-ju/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/32.jpg" class="responsive-img" alt="从零学Netty：Netty接收数据">
+                        <img src="/medias/featureimages/27.jpg" class="responsive-img" alt="【从零学Netty】Netty主线流程：发送数据">
                         
-                        <span class="card-title">从零学Netty：Netty接收数据</span>
+                        <span class="card-title">【从零学Netty】Netty主线流程：发送数据</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Netty接收数据既贪心又公平
+                            Netty发送数据的过程和接收数据的过程一样，既贪心又公平
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-06
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-05-08
                         </span>
                         <span class="publish-author">
                             
@@ -637,24 +628,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/05/04/netty/netty-qi-dong-guo-cheng/">
+                <a href="/2023/05/06/netty/netty-zhu-xian-liu-cheng-jie-shou-shu-ju/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="从零学Netty：Netty启动过程">
+                        <img src="/medias/featureimages/24.jpg" class="responsive-img" alt="【从零学Netty】Netty主线流程：接收数据">
                         
-                        <span class="card-title">从零学Netty：Netty启动过程</span>
+                        <span class="card-title">【从零学Netty】Netty主线流程：接收数据</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Netty启动过程最核心的操作就是做好接受连接的准备
+                            Netty接收数据既贪心又公平
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-06
                             </span>
                         <span class="publish-author">
                             
