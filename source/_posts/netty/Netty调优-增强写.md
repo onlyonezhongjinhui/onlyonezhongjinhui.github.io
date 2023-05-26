@@ -58,3 +58,4 @@ categories:
 #### 总结
 
 ​	对于复用IO线程处理业务的场景，使用在channelReadComplete中flush的方式是可行的，异步业务处理的场景就必须使用FlushConsolidationHandler了。推荐直接使用FlushConsolidationHandler。
+
