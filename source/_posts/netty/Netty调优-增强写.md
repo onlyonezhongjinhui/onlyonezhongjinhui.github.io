@@ -36,7 +36,7 @@ categories:
 
 ​		虽然这是一种方式，但是它有缺点：
 
-		1. 不适合异步线程处理（业务处理设置独立线程池，不复用NIOEventLoop），因为channelRead中的业务处理的结果write很可能发生在channelReadComplete的后面，这个时候flush就无效了。
+1. 不适合异步线程处理（业务处理设置独立线程池，不复用NIOEventLoop），因为channelRead中的业务处理的结果write很可能发生在channelReadComplete的后面，这个时候flush就无效了。
 
 ​		复用IO线程时(同步)：read->writeAndFlush->readComplete
 
