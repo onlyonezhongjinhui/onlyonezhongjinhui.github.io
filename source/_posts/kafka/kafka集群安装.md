@@ -1,5 +1,5 @@
 ---
-title: Kafka集群安装演示
+title: Kafka集群安装
 date: 2021-04-09 09:00:00
 author: maybe
 top: false
@@ -12,7 +12,8 @@ categories:
 - [MQ]
 ---
 
-搞清楚了Kafka如何安装部署，那么我们就来个具体实操，做个演示环境，方便后续的使用。这里笔者平常使用Windows，为了方便，这里就直接在Windows上搭建演示集群了。
+## Kafka集群安装
+
 1. 官网上下载最新2.7版本的Kafka，解压缩后复制三份。
 2. 这里我选择偷懒，直接使用Kafka自带的Zookeeper。选择其中一个Kafka，修改zookeeper.properties配置文件，当然也可以不修改采用默认配置即可。这里我只修改一下zookeeper的数据路径dataDir=./../../zookeeper
 ```properties
