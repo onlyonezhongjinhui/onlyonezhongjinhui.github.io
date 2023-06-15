@@ -6,7 +6,7 @@ top: false
 cover: false
 toc: false
 mathjax: false
-summary:
+summary: Kafka集群参数包括Broker Configs、Topic Configs 、JVM Configs、操作系统方面
 tags: Kafka
 categories:
 - [MQ]

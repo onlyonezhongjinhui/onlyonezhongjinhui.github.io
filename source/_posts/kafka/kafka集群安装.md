@@ -6,7 +6,7 @@ top: false
 cover: false
 toc: false
 mathjax: false
-summary:
+summary: Kafka集群安装
 tags: Kafka
 categories:
 - [MQ]

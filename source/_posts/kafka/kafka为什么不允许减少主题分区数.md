@@ -6,7 +6,7 @@ top: false
 cover: false
 toc: false
 mathjax: false
-summary:
+summary: kafka主题支持减少分区收益低反而增加了许多要解决的问题
 tags: Kafka
 categories:
 - [MQ]

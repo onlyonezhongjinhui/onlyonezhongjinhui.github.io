@@ -6,7 +6,7 @@ top: false
 cover: false
 toc: false
 mathjax: false
-summary:
+summary: 大公司定制开发，小公司一般采用现成的工具
 tags: Kafka
 categories:
 - [MQ]
@@ -22,7 +22,7 @@ Confluent公司发布的Confluent Kafka。Confluent Kafka 提供了一些 Apache
 #### Cloudera/Hortonworks Kafka
 Cloudera 提供的 CDH 和 Hortonworks 提供的 HDP 是非常著名的大数据平台，里面集成了目前主流的大数据框架，能够帮助用户实现从分布式存储、集群调度、流处理到机器学习、实时数据库等全方位的数据处理。优势在于操作简单，节省运维成本；缺陷在于把控度低，演进速度较慢。
 
-由于社区版本并未提供监控工具，所以监控就是一个比较麻烦的问题，大公司一般自己定制开发，创业公司或者小公司一般采用线程的监控工具，我就罗列几种监控工具，具体使用还得根据自己的实际情况进行选择。
+由于社区版本并未提供监控工具，所以监控就是一个比较麻烦的问题，大公司一般自己定制开发，创业公司或者小公司一般采用现成的监控工具，我就罗列几种监控工具，具体使用还得根据自己的实际情况进行选择。
 ## Kafka监控工具
 * Logi-KafkaManager
 * JMXTrans + InfluxDB + Grafana

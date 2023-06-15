@@ -6,7 +6,7 @@ top: false
 cover: false
 toc: false
 mathjax: false
-summary:
+summary: 操作系统、I/O模型、数据网络传输效率、社区支持度、磁盘类型、磁盘容量都是kafka部署前需要考虑的因素
 tags: Kafka
 categories:
 - [MQ]
@@ -32,7 +32,7 @@ Kafka生产者和消费者消息是通过网络传输，消息又是保存在磁
 
 社区目前对Windows平台上发现的Kafka Bug不做任何承诺，一般是不会去修复的。因此Windows 平台上部署 Kafka 只适合于个人测试或用于功能验证，千万别应用于生产环境。
 
-### 磁盘
+### 磁盘类型
 
 Kafka大量使用磁盘，但是只要Topic分区不要过多，Kafka都能利用顺序读写保证很高的读写速度。所以相比与昂贵的SSD，物美价廉的机械硬盘是比较合适的选择。
 
